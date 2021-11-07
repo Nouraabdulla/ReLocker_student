@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "474207852587",
+    "project_id": "relocker-a1bd0",
+    "storage_bucket": "relocker-a1bd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474207852587:android:0312897d40f150389a726e",
+        "android_client_info": {
+          "package_name": "com.example.relocker_sa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "474207852587-9q38iel0borc9tfa91ut807gucfgh0f0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJC4J4J5LnO2ezRbX_ac6TbaeR7ysqqAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "474207852587-9q38iel0borc9tfa91ut807gucfgh0f0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
