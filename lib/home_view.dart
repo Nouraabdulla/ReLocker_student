@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:relocker_sa/locker_type.dart';
+
+import 'locker_type.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -55,7 +58,11 @@ class _HomeViewState extends State<HomeView> {
                           primary: Colors.white,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => locker_type()));
+                        },
                       ),
                     ),
                   ],

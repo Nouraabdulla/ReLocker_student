@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
