@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/locker_type.dart';
 
+import 'first.dart';
 import 'locker_type.dart';
 
 class HomeView extends StatefulWidget {
@@ -62,6 +64,10 @@ class _HomeViewState extends State<HomeView> {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => locker_type()));
+
+                          // Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(
+                          //         builder: (context) => locker_type()));
                         },
                       ),
                     ),
