@@ -39,7 +39,6 @@ class first extends StatelessWidget {
               ),
             ),
           ),
-          Container(),
           Pinned.fromPins(
             Pin(start: 14.0, end: -0.2),
             Pin(size: 686.3, end: 7), // whole map
@@ -52,7 +51,6 @@ class first extends StatelessWidget {
                   child: Stack(
                     children: <Widget>[
                       // ----------  Green zone ----------
-
                       Pinned.fromPins(
                         Pin(size: 51.0, start: 6.0),
                         Pin(size: 29.0, start: 107.0), //exit green zone
@@ -2345,6 +2343,43 @@ class first extends StatelessWidget {
                         ),
                       ),
                       //----------------------------------------------------
+                      Positioned(
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(215, 315)),
+                        )),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(215, 315)),
+                        )),
+                      ),
                     ],
                   ),
                 ),

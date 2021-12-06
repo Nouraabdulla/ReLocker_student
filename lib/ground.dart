@@ -3,8 +3,8 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class grand extends StatelessWidget {
-  grand({Key? key}) : super(key: key);
+class ground extends StatelessWidget {
+  ground({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -2309,6 +2309,82 @@ class grand extends StatelessWidget {
                         ),
                       ),
                       //----------------------------------------------------
+                      Positioned(
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(215, 315)),
+                        )),
+                      ),
+                      Positioned(
+                        right: 50,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(230, 325)),
+                        )),
+                      ),
+                      Positioned(
+                        right: 50,
+                        bottom: 0,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(225, 315)),
+                        )),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset11_GYS()));
+
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              // side: BorderSide.none
+                              fixedSize: Size(215, 315)),
+                        )),
+                      ),
                     ],
                   ),
                 ),

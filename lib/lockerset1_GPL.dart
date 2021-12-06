@@ -2,11 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'locker_type.dart';
 
-class lockerset1_GPL extends StatelessWidget {
-  lockerset1_GPL({
-    Key? key,
-  }) : super(key: key);
+class lockerset1_gpl extends StatefulWidget {
+  const lockerset1_gpl({Key? key}) : super(key: key);
+
+  @override
+  _lockerset1_gplState createState() => _lockerset1_gplState();
+}
+
+class _lockerset1_gplState extends State<lockerset1_gpl> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: lockerspage(),
+    );
+  }
+}
+
+class lockerspage extends StatefulWidget {
+  const lockerspage({Key? key}) : super(key: key);
+
+  @override
+  _lockerspageState createState() => _lockerspageState();
+}
+
+class _lockerspageState extends State<lockerspage> {
+  // void changedata() {
+  //   setState(() {
+  //     child:
+  //     Text('bbbbbbbbbb',
+  //         style: TextStyle(
+  //           fontFamily: 'Helvetica Neue',
+  //           fontSize: 18,
+  //           color: const Color(0xff1c0000),
+  //           height: 2.4444444444444446,
+  //         )); // Positioned(
+  //   bottom: 10,
+  //   child: TextButton(
+  //     onPressed: null,
+  //     child: Text("hiiiiiiiiiii"),
+  //     style: ElevatedButton.styleFrom(
+  //         // side: BorderSide.none
+  //         fixedSize: Size(215, 315)),
+  //   ),
+  // );
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +61,7 @@ class lockerset1_GPL extends StatelessWidget {
             Pin(size: 125.0, middle: 0.5261),
             Pin(size: 21.0, start: 35.0),
             child: Text(
-              'Choose zone',
+              'choose zone',
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 18,
@@ -84,654 +128,7 @@ class lockerset1_GPL extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, end: 0.0),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_jx3xp,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, end: 0.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_o73xbw,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      Pinned.fromPins(
-                        Pin(size: 78.9, end: 0.0),
-                        Pin(size: 125.7, end: 24.5),
-                        child: SvgPicture.string(
-                          _svg_ct53v6,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 79.0, end: 0.0),
-                        Pin(size: 122.4, end: 100),
-                        child: SvgPicture.string(
-                          _svg_f2vz4y,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.6868),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_ehjdeq,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.6868),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_i06p,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.6868),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_ehjdeq,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.6868),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_i06p,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.6868),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_ehjdeq,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.6868),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_i06p,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.6868),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_ehjdeq,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.6868),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_i06p,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.6868),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_ehjdeq,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.6868),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_i06p,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      Pinned.fromPins(
-                        Pin(size: 78.9, middle: 0.6868),
-                        Pin(size: 125.7, end: 24.5),
-                        child: SvgPicture.string(
-                          _svg_fn5nh9,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 79.0, middle: 0.6868),
-                        Pin(size: 122.4, end: 100),
-                        child: SvgPicture.string(
-                          _svg_nn2c3,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, middle: 0.3696),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_iye8o,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, middle: 0.3695),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_lcdqx,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      Pinned.fromPins(
-                        Pin(size: 78.9, middle: 0.3696),
-                        Pin(size: 125.7, end: 24.5),
-                        child: SvgPicture.string(
-                          _svg_aongdj,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 79.0, middle: 0.3695),
-                        Pin(size: 122.4, end: 100),
-                        child: SvgPicture.string(
-                          _svg_dida0n,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, start: 14.1),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_u8p0r6,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, start: 14.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_plkc3n,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, start: 14.1),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_u8p0r6,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, start: 14.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_plkc3n,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, start: 14.1),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_u8p0r6,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, start: 14.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_plkc3n,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, start: 14.1),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_u8p0r6,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, start: 14.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_plkc3n,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 78.9, start: 14.1),
-                      //   Pin(size: 125.7, end: -49.5),
-                      //   child: SvgPicture.string(
-                      //     _svg_u8p0r6,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Pinned.fromPins(
-                      //   Pin(size: 79.0, start: 14.0),
-                      //   Pin(size: 122.4, end: 26.1),
-                      //   child: SvgPicture.string(
-                      //     _svg_plkc3n,
-                      //     allowDrawingOutsideViewBox: true,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      Pinned.fromPins(
-                        Pin(size: 78.9, start: 14.1),
-                        Pin(size: 125.7, end: 24.5),
-                        child: SvgPicture.string(
-                          _svg_aa0bz,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 79.0, start: 14.0),
-                        Pin(size: 122.4, end: 100),
-                        child: SvgPicture.string(
-                          _svg_gxlwbj,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+
                       Pinned.fromPins(
                         Pin(size: 18.0, start: 37.0),
                         Pin(size: 18.0, end: 265), // available locker
@@ -844,134 +241,7 @@ class lockerset1_GPL extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, start: 39.0),
-                        Pin(size: 14.0, end: 197),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, middle: 0.4164),
-                        Pin(size: 14.0, end: 197),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, middle: 0.6975),
-                        Pin(size: 14.0, end: 197),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, end: 6.0),
-                        Pin(size: 14.0, end: 197),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, start: 39.0),
-                        Pin(size: 14.0, end: 77),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, middle: 0.4164),
-                        Pin(size: 14.0, end: 77),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, middle: 0.6975),
-                        Pin(size: 14.0, end: 77),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 47.0, end: 6.0),
-                        Pin(size: 14.0, end: 77),
-                        child: Text(
-                          '6-G-017',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 12,
-                            color: const Color(0xff0f0000),
-                            height: 3.6666666666666665,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+
                       //------------------- map ---------------
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
@@ -1367,6 +637,29 @@ class lockerset1_GPL extends StatelessWidget {
                           ),
                         ),
                       ),
+
+                      //--------------------- locker set ---------------
+
+                      Container(
+                        child: CarouselSlider(
+                          options: CarouselOptions(
+                            height: 850.0,
+                            viewportFraction: 1,
+                            aspectRatio: 16 / 9,
+                            enableInfiniteScroll: false,
+                            autoPlay: false,
+                          ),
+                          items: _lockers.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  child: i,
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1377,6 +670,439 @@ class lockerset1_GPL extends StatelessWidget {
       ),
     );
   }
+
+  List _lockers = [
+    Stack(children: <Widget>[
+      Pinned.fromPins(
+        Pin(size: 78.9, end: 0.0),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_ct53v6,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, end: 0.0),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_f2vz4y,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.6868),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_fn5nh9,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.6868),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_nn2c3,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.3696),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_aongdj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.3695),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_dida0n,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, start: 14.1),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_aa0bz,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, start: 14.0),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_gxlwbj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-018',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-018',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 21.1, middle: 0.3417),
+        Pin(size: 16.0, start: 142),
+        child: Transform.rotate(
+          angle: 1.5708,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff000000),
+              border: Border.all(width: 0.3, color: const Color(0xff000000)),
+            ),
+          ),
+        ),
+      ),
+    ]),
+    Stack(children: <Widget>[
+      Pinned.fromPins(
+        Pin(size: 78.9, end: 0.0),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_ct53v6,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, end: 0.0),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_f2vz4y,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.6868),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_fn5nh9,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.6868),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_nn2c3,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.3696),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_aongdj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.3695),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_dida0n,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, start: 14.1),
+        Pin(size: 125.7, end: 24.5),
+        child: SvgPicture.string(
+          _svg_aa0bz,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, start: 14.0),
+        Pin(size: 122.4, end: 100),
+        child: SvgPicture.string(
+          _svg_gxlwbj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-018',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-018',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-019',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-019',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-019',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 21.1, middle: 0.3417),
+        Pin(size: 16.0, start: 122.0), // locker
+        child: Transform.rotate(
+          angle: 1.5708,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff000000),
+              border: Border.all(width: 0.3, color: const Color(0xff000000)),
+            ),
+          ),
+        ),
+      ),
+    ]),
+  ];
 }
 
 const String _svg_jx3xp =
