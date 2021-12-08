@@ -1,18 +1,63 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relocker_sa/profile.dart';
 
-class lockerset1_gg extends StatelessWidget {
+class lockerset1_gg extends StatefulWidget {
   lockerset1_gg({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<lockerset1_gg> createState() => _lockerset1_ggState();
+}
+
+class _lockerset1_ggState extends State<lockerset1_gg> {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  List<Map<String, dynamic>> getFromFirebase() {
+    List<Map<String, dynamic>> list = [];
+    firestore.collection("lockers").get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> dbDoc = doc.data() as Map<String, dynamic>;
+        list.add(dbDoc);
+      });
+    });
+    return list;
+  }
+
+  @override
+  void initState() {
+//    getFromFirebase();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
-      body: Stack(
+        backgroundColor: const Color(0xffffffff),
+        body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+          ),
+          shrinkWrap: true,
+          itemCount: getFromFirebase().length,
+          itemBuilder: (context, index) {
+            var item = getFromFirebase()[index];
+            print(getFromFirebase());
+            return mySquar(
+                text: "${item['name']}",
+                context: context,
+                d1: 79.0,
+                d2: 12.0,
+                d3: 71.0,
+                d4: 230);
+          },
+        ));
+    /* Stack(
         children: <Widget>[
           Pinned.fromPins(
             Pin(size: 125.0, middle: 0.5261),
@@ -1122,6 +1167,8 @@ class lockerset1_gg extends StatelessWidget {
 
                       //------------------------------------
 
+                      
+
                       Container(
                         child: CarouselSlider(
                           options: CarouselOptions(
@@ -1131,7 +1178,7 @@ class lockerset1_gg extends StatelessWidget {
                             enableInfiniteScroll: false,
                             autoPlay: false,
                           ),
-                          items: _lockers.map((i) {
+                          items: locks(context).map((i) {
                             return Builder(
                               builder: (BuildContext context) {
                                 return Container(
@@ -1150,7 +1197,52 @@ class lockerset1_gg extends StatelessWidget {
           ),
         ],
       ),
+    );*/
+  }
+
+  Widget mySquar(
+      {required BuildContext context,
+      required double d1,
+      required double d2,
+      required double d3,
+      required double d4,
+      required String text}) {
+    return Pinned.fromPins(
+      Pin(size: d1, end: d2),
+      Pin(size: d3, end: d4), //6-g-004
+      child: GestureDetector(
+          onTap: () {
+            print('any thing');
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => profile()));
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xffd6fff0),
+              border: Border.all(width: 1.0, color: const Color(0xff707070)),
+            ),
+            child: Text("$text"),
+          )),
     );
+  }
+
+  List locks(context) {
+    return [
+      Stack(
+          children: List.generate(
+        getFromFirebase().length,
+        (index) {
+          var item = getFromFirebase()[index];
+          return mySquar(
+              text: "${item['name']}",
+              context: context,
+              d1: 79.0,
+              d2: 12.0,
+              d3: 71.0,
+              d4: 230);
+        },
+      ).toList())
+    ];
   }
 
   List _lockers = [
@@ -1160,12 +1252,14 @@ class lockerset1_gg extends StatelessWidget {
       Pinned.fromPins(
         Pin(size: 79.0, end: 12.0),
         Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
+        child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color(0xffd6fff0),
+                border: Border.all(width: 1.0, color: const Color(0xff707070)),
+              ),
+            )),
       ),
       Pinned.fromPins(
         Pin(size: 79.0, end: 12.0),
