@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,18 +20,20 @@ class AuthCubit extends Cubit<AuthStates> {
   signUp() async {
     emit(AuthSignUpLoadingState());
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email!,
-          password: password!
-      ).then((value) async {
-        CollectionReference<Map<String, dynamic>> collectionRef = FirebaseFirestore.instance.collection('Users');
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email!, password: password!)
+          .then((value) async {
+        CollectionReference<Map<String, dynamic>> collectionRef =
+            FirebaseFirestore.instance.collection('Users');
         UserModel _userModel = UserModel(
-            userId: value.user!.uid,
-            email: value.user!.email,
-            userName: userName,
-            phone: phone!.length==0?'unknown':phone,
+          userId: value.user!.uid,
+          email: value.user!.email,
+          userName: userName,
+          phone: phone!.length == 0 ? 'unknown' : phone,
         );
-        await collectionRef.doc(value.user!.uid.toString()).set(_userModel.toJson());
+        await collectionRef
+            .doc(value.user!.uid.toString())
+            .set(_userModel.toJson());
       });
       emit(AuthSignUpSuccessState());
     } on FirebaseAuthException catch (e) {
@@ -48,10 +49,8 @@ class AuthCubit extends Cubit<AuthStates> {
   logIn() async {
     emit(AuthSignInLoadingState());
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email!,
-          password: password!
-      );
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email!, password: password!);
       emit(AuthSignInSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -69,13 +68,12 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   resetPassword() async {
-    try{
+    try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email!);
       emit(AuthResetPasswordSuccessState());
-    }on FirebaseAuthException catch (e){
+    } on FirebaseAuthException catch (e) {
       error = 'user not found';
       emit(AuthResetPasswordErrorState(error));
     }
   }
-
 }

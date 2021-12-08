@@ -3,6 +3,10 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'lockerset1_fg.dart';
+import 'lockerset1_fp.dart';
+import 'lockerset1_fp.dart';
+
 class first extends StatelessWidget {
   first({Key? key}) : super(key: key);
   @override
@@ -2347,18 +2351,13 @@ class first extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_fg()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(215, 315)),
+                              side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
                       Positioned(
@@ -2366,18 +2365,13 @@ class first extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_fp()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(215, 315)),
+                              side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
                     ],

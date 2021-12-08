@@ -29,28 +29,6 @@ class lockerspage extends StatefulWidget {
 }
 
 class _lockerspageState extends State<lockerspage> {
-  // void changedata() {
-  //   setState(() {
-  //     child:
-  //     Text('bbbbbbbbbb',
-  //         style: TextStyle(
-  //           fontFamily: 'Helvetica Neue',
-  //           fontSize: 18,
-  //           color: const Color(0xff1c0000),
-  //           height: 2.4444444444444446,
-  //         )); // Positioned(
-  //   bottom: 10,
-  //   child: TextButton(
-  //     onPressed: null,
-  //     child: Text("hiiiiiiiiiii"),
-  //     style: ElevatedButton.styleFrom(
-  //         // side: BorderSide.none
-  //         fixedSize: Size(215, 315)),
-  //   ),
-  // );
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +39,7 @@ class _lockerspageState extends State<lockerspage> {
             Pin(size: 125.0, middle: 0.5261),
             Pin(size: 21.0, start: 35.0),
             child: Text(
-              'choose zone',
+              'choose locker',
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 18,
@@ -93,28 +71,12 @@ class _lockerspageState extends State<lockerspage> {
               child: SingleChildScrollView(
                 child: SizedBox(
                   width: 328.0,
-                  height: 870.0,
+                  height: 800.0,
                   child: Stack(
                     children: <Widget>[
                       Pinned.fromPins(
-                        Pin(start: 0.0, end: 4.0),
-                        Pin(size: 21.0, start: 0.0),
-                        child: Text(
-                          'choose the set of lockers that you want',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 1.6666666666666667,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
                         Pin(start: 13.0, end: 7.0),
-                        Pin(size: 23.0, end: 305),
+                        Pin(size: 23.0, end: 335),
                         child: Text(
                           'Choose the locker that suits you',
                           style: TextStyle(
@@ -131,7 +93,7 @@ class _lockerspageState extends State<lockerspage> {
 
                       Pinned.fromPins(
                         Pin(size: 18.0, start: 37.0),
-                        Pin(size: 18.0, end: 265), // available locker
+                        Pin(size: 18.0, end: 295), // Not available locker
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(7.0),
@@ -142,10 +104,10 @@ class _lockerspageState extends State<lockerspage> {
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 106.0, start: 43.0),
-                        Pin(size: 21.0, end: 265), // available locker
+                        Pin(size: 106.0, start: 60.0),
+                        Pin(size: 21.0, end: 295), // available locker
                         child: Text(
-                          'Available',
+                          'Not Available',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 18,
@@ -155,97 +117,13 @@ class _lockerspageState extends State<lockerspage> {
                           textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false),
                           textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 127.0, end: 28.0),
-                        Pin(size: 21.0, end: 265), // not available locker
-                        child: Text(
-                          'Not Available',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 1.6666666666666667,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 18.0, middle: 0.5115),
-                        Pin(size: 18.0, end: 265), //not available locker
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7.0),
-                            color: const Color(0xffff0000),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 18.0, start: 31.0),
-                        Pin(size: 18.0, start: 37.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7.0),
-                            color: const Color(0xffafafaf),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 106.0, start: 49.0),
-                        Pin(size: 21.0, start: 38.0),
-                        child: Text(
-                          'Available',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 2.4444444444444446,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 127.0, end: 27.0),
-                        Pin(size: 21.0, start: 38.0),
-                        child: Text(
-                          'Not Available',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 1.6666666666666667,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 18.0, middle: 0.5226),
-                        Pin(size: 18.0, start: 37.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7.0),
-                            color: const Color(0xffff0000),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
                         ),
                       ),
 
                       //------------------- map ---------------
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 92.3, start: 397), //49
+                        Pin(size: 92.3, start: 317), //49
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -256,7 +134,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 95.1, middle: 0.4598),
-                        Pin(size: 69.4, start: 420), //50
+                        Pin(size: 69.4, start: 340), //50
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -267,7 +145,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 61.7, start: 316), //48
+                        Pin(size: 61.7, start: 236), //48
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -278,7 +156,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 82.5, start: 180), //46
+                        Pin(size: 82.5, start: 100), //46
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -289,7 +167,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 74.0, start: 107.5), // 44
+                        Pin(size: 74.0, start: 27.5), // 44
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -300,7 +178,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 142.0, end: 35.9),
-                        Pin(size: 203.8, start: 193), // 53,52
+                        Pin(size: 203.8, start: 113), // 53,52
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -311,7 +189,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 61.6, middle: 0.5636),
-                        Pin(size: 85.8, start: 108), // above 53,52
+                        Pin(size: 85.8, start: 28), // above 53,52
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -322,7 +200,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 93.3, end: 35.7),
-                        Pin(size: 69.4, start: 420), //51
+                        Pin(size: 69.4, start: 340), //51
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -333,7 +211,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.8045),
-                        Pin(size: 16.0, start: 450),
+                        Pin(size: 16.0, start: 370),
                         child: Text(
                           '6G51',
                           style: TextStyle(
@@ -349,7 +227,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.4823),
-                        Pin(size: 16.0, start: 450),
+                        Pin(size: 16.0, start: 370),
                         child: Text(
                           '6G50',
                           style: TextStyle(
@@ -365,7 +243,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, start: 45.7),
-                        Pin(size: 16.0, start: 450),
+                        Pin(size: 16.0, start: 370),
                         child: Text(
                           '6G49',
                           style: TextStyle(
@@ -381,7 +259,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 42.1),
-                        Pin(size: 16.0, start: 340),
+                        Pin(size: 16.0, start: 260),
                         child: Text(
                           '6G48',
                           style: TextStyle(
@@ -397,7 +275,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 41.1),
-                        Pin(size: 16.0, start: 215),
+                        Pin(size: 16.0, start: 135),
                         child: Text(
                           '6G46',
                           style: TextStyle(
@@ -413,7 +291,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 39.7),
-                        Pin(size: 16.0, start: 135.0),
+                        Pin(size: 16.0, start: 55.0),
                         child: Text(
                           '6G44',
                           style: TextStyle(
@@ -429,7 +307,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.6818),
-                        Pin(size: 16.0, start: 300),
+                        Pin(size: 16.0, start: 220),
                         child: Text(
                           '6G52',
                           style: TextStyle(
@@ -445,7 +323,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, end: 41.6),
-                        Pin(size: 16.0, start: 220),
+                        Pin(size: 16.0, start: 140),
                         child: Text(
                           '6G53',
                           style: TextStyle(
@@ -461,7 +339,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 55.4, start: 262), // 47
+                        Pin(size: 55.4, start: 182), // 47
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -472,7 +350,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 41.1),
-                        Pin(size: 16.0, start: 280),
+                        Pin(size: 16.0, start: 200),
                         child: Text(
                           '6G47',
                           style: TextStyle(
@@ -488,7 +366,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 20.3, start: 377), // Exit
+                        Pin(size: 20.3, start: 297), // Exit
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xff7dd871),
@@ -499,7 +377,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 42.0, middle: 0.1789),
-                        Pin(size: 14.0, start: 380),
+                        Pin(size: 14.0, start: 300),
                         child: Text(
                           'Exit',
                           style: TextStyle(
@@ -515,7 +393,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 71.0, middle: 0.5842),
-                        Pin(size: 60.7, start: 193), // grey area
+                        Pin(size: 60.7, start: 113), // grey area
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -529,7 +407,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.5459),
-                        Pin(size: 19.0, start: 378), //wc
+                        Pin(size: 19.0, start: 298), //wc
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffe4e4e4),
@@ -538,7 +416,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 22.0, middle: 0.5408),
-                        Pin(size: 15.0, start: 381),
+                        Pin(size: 15.0, start: 301),
                         child: Text(
                           'WC',
                           style: TextStyle(
@@ -555,7 +433,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 20.5, end: 35.7),
-                        Pin(size: 47.0, start: 350), // small grey
+                        Pin(size: 47.0, start: 270), // small grey
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -569,7 +447,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.3417),
-                        Pin(size: 16.0, start: 122.0), // locker
+                        Pin(size: 16.0, start: 42.0), // locker
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: Container(
@@ -583,7 +461,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.3417),
-                        Pin(size: 16.0, start: 142),
+                        Pin(size: 16.0, start: 62),
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: Container(
@@ -597,7 +475,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.3417),
-                        Pin(size: 16.0, start: 162),
+                        Pin(size: 16.0, start: 82),
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: Container(
@@ -611,7 +489,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.1667),
-                        Pin(size: 16.0, start: 91.4),
+                        Pin(size: 16.0, start: 11.4),
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -625,7 +503,7 @@ class _lockerspageState extends State<lockerspage> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.2351),
-                        Pin(size: 16.0, start: 91.4),
+                        Pin(size: 16.0, start: 11.4),
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -643,7 +521,7 @@ class _lockerspageState extends State<lockerspage> {
                       Container(
                         child: CarouselSlider(
                           options: CarouselOptions(
-                            height: 850.0,
+                            height: 760.0,
                             viewportFraction: 1,
                             aspectRatio: 16 / 9,
                             enableInfiniteScroll: false,
@@ -672,10 +550,12 @@ class _lockerspageState extends State<lockerspage> {
   }
 
   List _lockers = [
+    //-------------- large lockers -------------------
+    //--------------------- 1 -------------------------
     Stack(children: <Widget>[
       Pinned.fromPins(
         Pin(size: 78.9, end: 0.0),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_ct53v6,
           allowDrawingOutsideViewBox: true,
@@ -684,7 +564,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, end: 0.0),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_f2vz4y,
           allowDrawingOutsideViewBox: true,
@@ -693,7 +573,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, middle: 0.6868),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_fn5nh9,
           allowDrawingOutsideViewBox: true,
@@ -702,7 +582,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, middle: 0.6868),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_nn2c3,
           allowDrawingOutsideViewBox: true,
@@ -711,7 +591,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, middle: 0.3696),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_aongdj,
           allowDrawingOutsideViewBox: true,
@@ -720,7 +600,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, middle: 0.3695),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_dida0n,
           allowDrawingOutsideViewBox: true,
@@ -729,7 +609,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, start: 14.1),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_aa0bz,
           allowDrawingOutsideViewBox: true,
@@ -738,7 +618,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, start: 14.0),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_gxlwbj,
           allowDrawingOutsideViewBox: true,
@@ -749,7 +629,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, start: 39.0),
         Pin(size: 14.0, end: 197),
         child: Text(
-          '6-G-018',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -765,7 +645,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, middle: 0.4164),
         Pin(size: 14.0, end: 197),
         child: Text(
-          '6-G-018',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -871,26 +751,16 @@ class _lockerspageState extends State<lockerspage> {
           textHeightBehavior:
               TextHeightBehavior(applyHeightToFirstAscent: false),
           textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 21.1, middle: 0.3417),
-        Pin(size: 16.0, start: 142),
-        child: Transform.rotate(
-          angle: 1.5708,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xff000000),
-              border: Border.all(width: 0.3, color: const Color(0xff000000)),
-            ),
-          ),
         ),
       ),
     ]),
+
+    //------------------------ 2 --------------------
+
     Stack(children: <Widget>[
       Pinned.fromPins(
         Pin(size: 78.9, end: 0.0),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_ct53v6,
           allowDrawingOutsideViewBox: true,
@@ -899,7 +769,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, end: 0.0),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_f2vz4y,
           allowDrawingOutsideViewBox: true,
@@ -908,7 +778,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, middle: 0.6868),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_fn5nh9,
           allowDrawingOutsideViewBox: true,
@@ -917,7 +787,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, middle: 0.6868),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_nn2c3,
           allowDrawingOutsideViewBox: true,
@@ -926,7 +796,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, middle: 0.3696),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_aongdj,
           allowDrawingOutsideViewBox: true,
@@ -935,7 +805,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, middle: 0.3695),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_dida0n,
           allowDrawingOutsideViewBox: true,
@@ -944,7 +814,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 78.9, start: 14.1),
-        Pin(size: 125.7, end: 24.5),
+        Pin(size: 125.7, end: 29.5),
         child: SvgPicture.string(
           _svg_aa0bz,
           allowDrawingOutsideViewBox: true,
@@ -953,7 +823,7 @@ class _lockerspageState extends State<lockerspage> {
       ),
       Pinned.fromPins(
         Pin(size: 79.0, start: 14.0),
-        Pin(size: 122.4, end: 100),
+        Pin(size: 122.4, end: 105),
         child: SvgPicture.string(
           _svg_gxlwbj,
           allowDrawingOutsideViewBox: true,
@@ -964,7 +834,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, start: 39.0),
         Pin(size: 14.0, end: 197),
         child: Text(
-          '6-G-018',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -980,7 +850,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, middle: 0.4164),
         Pin(size: 14.0, end: 197),
         child: Text(
-          '6-G-018',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -1044,7 +914,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, middle: 0.4164),
         Pin(size: 14.0, end: 77),
         child: Text(
-          '6-G-019',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -1060,7 +930,7 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, middle: 0.6975),
         Pin(size: 14.0, end: 77),
         child: Text(
-          '6-G-019',
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -1076,7 +946,100 @@ class _lockerspageState extends State<lockerspage> {
         Pin(size: 47.0, end: 6.0),
         Pin(size: 14.0, end: 77),
         child: Text(
-          '6-G-019',
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]),
+
+    // ------------------------ 3 ------------------------
+
+    Stack(children: <Widget>[
+      Pinned.fromPins(
+        Pin(size: 78.9, end: 0.0),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_ct53v6,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, end: 0.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_f2vz4y,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.6868),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_fn5nh9,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.6868),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_nn2c3,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.3696),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aongdj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.3695),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_dida0n,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, start: 14.1),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aa0bz,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, start: 14.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_gxlwbj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
           style: TextStyle(
             fontFamily: 'Helvetica Neue',
             fontSize: 12,
@@ -1089,16 +1052,523 @@ class _lockerspageState extends State<lockerspage> {
         ),
       ),
       Pinned.fromPins(
-        Pin(size: 21.1, middle: 0.3417),
-        Pin(size: 16.0, start: 122.0), // locker
-        child: Transform.rotate(
-          angle: 1.5708,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xff000000),
-              border: Border.all(width: 0.3, color: const Color(0xff000000)),
-            ),
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
           ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]),
+
+    // ------------------------- 4 --------------------
+    Stack(children: <Widget>[
+      Pinned.fromPins(
+        Pin(size: 78.9, end: 0.0),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_ct53v6,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, end: 0.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_f2vz4y,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.6868),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_fn5nh9,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.6868),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_nn2c3,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.3696),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aongdj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.3695),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_dida0n,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, start: 14.1),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aa0bz,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, start: 14.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_gxlwbj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]),
+
+    // ------------------ 5 -----------------------
+    Stack(children: <Widget>[
+      Pinned.fromPins(
+        Pin(size: 78.9, end: 0.0),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_ct53v6,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, end: 0.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_f2vz4y,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.6868),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_fn5nh9,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.6868),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_nn2c3,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, middle: 0.3696),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aongdj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, middle: 0.3695),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_dida0n,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 78.9, start: 14.1),
+        Pin(size: 125.7, end: 29.5),
+        child: SvgPicture.string(
+          _svg_aa0bz,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 79.0, start: 14.0),
+        Pin(size: 122.4, end: 105),
+        child: SvgPicture.string(
+          _svg_gxlwbj,
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.fill,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 197),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, start: 39.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.4164),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, middle: 0.6975),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Pinned.fromPins(
+        Pin(size: 47.0, end: 6.0),
+        Pin(size: 14.0, end: 77),
+        child: Text(
+          '6-G-017',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 12,
+            color: const Color(0xff0f0000),
+            height: 3.6666666666666665,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
         ),
       ),
     ]),

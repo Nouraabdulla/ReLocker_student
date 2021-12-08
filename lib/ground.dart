@@ -3,6 +3,11 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'lockerset1_gg.dart';
+import 'lockerset1_go.dart';
+import 'lockerset1_GPL.dart';
+import 'lockerset1_gy.dart';
+
 class ground extends StatelessWidget {
   ground({Key? key}) : super(key: key);
   @override
@@ -2308,23 +2313,19 @@ class ground extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
+
                       //----------------------------------------------------
                       Positioned(
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_gg()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(215, 315)),
+                              side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
                       Positioned(
@@ -2332,57 +2333,44 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_go()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(230, 325)),
+                              side: BorderSide.none, fixedSize: Size(230, 325)),
                         )),
                       ),
+
                       Positioned(
                         right: 50,
                         bottom: 0,
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_gy()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(225, 315)),
+                              side: BorderSide.none, fixedSize: Size(225, 315)),
                         )),
                       ),
+
                       Positioned(
                         bottom: 0,
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset11_GYS()));
-
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => locker_type()));
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => lockerset1_gpl()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
-                              // side: BorderSide.none
-                              fixedSize: Size(215, 315)),
+                              side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
                     ],
