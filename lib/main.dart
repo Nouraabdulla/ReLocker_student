@@ -7,11 +7,15 @@ import 'package:relocker_sa/bloc/cubit/auth_cubit.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/utils/bloc_observer.dart';
+import 'package:relocker_sa/utils/utils-cache_helper.dart';
+
+import 'bloc/cubit/payment_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
+  await CacheHelper.init();
   runApp(MyApp());
 }
 
@@ -24,7 +28,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(create: (context) => AuthCubit()),
+        BlocProvider<AuthCubit>(
+            create: (context) => AuthCubit()..getUserInfo()),
+        BlocProvider<PaymentCubit>(
+            create: (context) => PaymentCubit()..getData())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -3,11 +3,127 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class lockerset1_go extends StatelessWidget {
-  lockerset1_go({
-    Key? key,
-  }) : super(key: key);
+class lockerset1_go extends StatefulWidget {
+  final int numberOfWeek;
+
+  lockerset1_go({Key? key, required this.numberOfWeek}) : super(key: key);
+
+  @override
+  State<lockerset1_go> createState() => _lockerset1_goState();
+}
+
+class _lockerset1_goState extends State<lockerset1_go> {
+  showLocker(context, text) {
+    showModalBottomSheet<void>(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
+        builder: (BuildContext context) {
+          return Container(
+            //color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Choose the locker that suits you",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        ListTile(
+                          title: Text("Not Available"),
+                          leading: Icon(Icons.circle, color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('lockers')
+                          .orderBy("name")
+                          .where("block", isEqualTo: text)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        return Center(
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(16.0),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4, childAspectRatio: 4 / 3),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> data =
+                                  snapshot.data!.docs[index].data()!
+                                      as Map<String, dynamic>;
+                              return GestureDetector(
+                                onTap: data['available']
+                                    ? () {
+                                        var rslp = 125;
+                                        var rllp = 150;
+                                        var fslp = 15;
+                                        var fllp = 25;
+                                        print(data);
+
+                                        var locker_type = data['type'];
+                                        var locker_size = data['size'];
+
+                                        if (locker_type == "r") {
+                                          if (locker_size == "s") {
+                                            print(rslp);
+                                          } else {
+                                            print(rllp);
+                                          }
+                                        } else {
+                                          if (locker_size == "s") {
+                                            print(fslp * widget.numberOfWeek);
+                                          } else {
+                                            print(fllp * widget.numberOfWeek);
+                                          }
+                                        }
+                                      }
+                                    : () {},
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: data['available']
+                                          ? Colors.green.shade300
+                                          : Colors.grey,
+                                      border: Border.all(
+                                          width: 1, color: Colors.grey)),
+                                  child: Text("${data['name']}"),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

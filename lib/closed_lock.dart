@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math';
 
-class closed_lock extends StatelessWidget {
+class closed_lock extends StatefulWidget {
   closed_lock({Key? key}) : super(key: key);
+
+  @override
+  State<closed_lock> createState() => _closed_lockState();
+}
+
+final random = Random();
+int randomNumber = random.nextInt(10) * 1000;
+
+class _closed_lockState extends State<closed_lock> {
+  bool click = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,23 +34,29 @@ class closed_lock extends StatelessWidget {
                     bottomRight: Radius.circular(40.0),
                     bottomLeft: Radius.circular(40.0),
                   ),
-                  color: const Color(0xffbff1e1),
+                  color:
+                      (click == false) ? Color(0xffff7272) : Color(0xff88d8bb),
                 ),
               ),
             ),
           ),
+
+          /* // locker key button
           Pinned.fromPins(
             Pin(size: 138.1, middle: 0.5292),
-            Pin(size: 142.1, middle: 0.5234),
+            Pin(size: 142.1, middle: 0.674),
             child: SvgPicture.string(
               _svg_ki240n,
               allowDrawingOutsideViewBox: true,
               fit: BoxFit.fill,
             ),
           ),
+           */
+
+          // box for the PIN code
           Pinned.fromPins(
             Pin(start: 44.0, end: 28.0),
-            Pin(size: 53.0, middle: 0.7809),
+            Pin(size: 53.0, middle: 0.8919),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
@@ -47,26 +65,25 @@ class closed_lock extends StatelessWidget {
               ),
             ),
           ),
-          Pinned.fromPins(
-            Pin(start: 71.0, end: 64.0),
-            Pin(size: 18.0, end: 153.0),
-            child: Text(
-              'The password will appear for 20 sec',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 12,
-                color: const Color(0xfff20e0e),
-                fontWeight: FontWeight.w700,
-                height: 3.6666666666666665,
+
+          /*Container(
+            child: Center(
+              child: Text(
+                'The password will appear for 20 sec',
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 12,
+                  color: const Color(0xfff20e0e),
+                  fontWeight: FontWeight.w700,
+                  height: 70.0,
+                ),
               ),
-              textHeightBehavior:
-                  TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
             ),
-          ),
+          ),*/
+
           Pinned.fromPins(
             Pin(size: 74.0, start: 59.0),
-            Pin(size: 24.0, middle: 0.7719),
+            Pin(size: 24.0, middle: 0.8819),
             child: Text(
               'PIN Code',
               style: TextStyle(
@@ -80,37 +97,167 @@ class closed_lock extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+
           Pinned.fromPins(
-            Pin(size: 74.0, end: 34.0),
-            Pin(size: 24.0, middle: 0.7719),
-            child: Text(
-              'Show',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 15,
-                color: const Color(0xff000000),
-                decoration: TextDecoration.underline,
-                height: 2.933333333333333,
+            Pin(size: 77.0, end: 30.0),
+            Pin(size: 40.0, middle: 0.8919),
+            child: TextButton(
+              child: Text(
+                'Show',
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 15,
+                  color: const Color(0xff000000),
+                  decoration: TextDecoration.underline,
+                  height: 3.933333333333333,
+                ),
+                textHeightBehavior:
+                    TextHeightBehavior(applyHeightToFirstAscent: false),
+                textAlign: TextAlign.center,
               ),
-              textHeightBehavior:
-                  TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: AlertDialog(
+                          title: Text(
+                            'The password will appear for 20 sec',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+                            ),
+                          ),
+
+                          actions: [
+                            /*SizedBox(
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'Ok',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ),*/
+                            SizedBox(
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'OK',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        Future.delayed(Duration(seconds: 20),
+                                            () {
+                                          Navigator.of(context).pop(true);
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      closed_lock()));
+                                        });
+                                        return Container(
+                                          clipBehavior: Clip.hardEdge,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: AlertDialog(
+                                            title: Text(
+                                              '$randomNumber',
+                                              style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                            actions: [
+                                              SizedBox(
+                                                child: ElevatedButton(
+                                                  child: const Text(
+                                                    'Done',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15,
+                                                    ),
+                                                  ),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    primary: Color(0xFF9AD6BD),
+                                                    shape:
+                                                        const StadiumBorder(),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    Navigator.of(context)
+                                                        .pushReplacement(
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        closed_lock()));
+                                                  },
+                                                ),
+                                              ),
+                                            ], // action
+                                          ),
+                                        );
+                                      });
+                                },
+                              ),
+                            ),
+                          ], // action
+                        ),
+                      );
+                    });
+              }, // onPressed
             ),
           ),
+
           Pinned.fromPins(
-            Pin(size: 54.1, middle: 0.5224),
-            Pin(size: 71.0, middle: 0.5213),
-            child:
-                // Adobe XD layer: 'ic_lock_outline_24px' (shape)
-                SvgPicture.string(
-              _svg_atgq2,
-              allowDrawingOutsideViewBox: true,
-              fit: BoxFit.fill,
+            Pin(size: 135.1, middle: 0.5324),
+            Pin(size: 133.9, middle: 0.671),
+            child: SizedBox(
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    click = !click;
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: const StadiumBorder(),
+                ),
+                child: Icon(
+                  (click == false)
+                      ? Icons.lock_open_rounded
+                      : Icons.lock_outline_rounded,
+                  size: 60,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           Pinned.fromPins(
             Pin(size: 167.0, middle: 0.5347),
-            Pin(size: 47.0, middle: 0.1871),
+            Pin(size: 47.0, middle: 0.2971),
             child: Text(
               '6-G-53',
               style: TextStyle(
@@ -124,22 +271,39 @@ class closed_lock extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+
+          /*Pinned.fromPins(
+            Pin(size: 84.0, start: -15.0),
+            Pin(size: 21.0, middle: 0.0859),
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 23,
+                color: Colors.black,
+              ),
+            ),
+          ),
+
           Pinned.fromPins(
-            Pin(size: 84.0, start: 61.0),
-            Pin(size: 21.0, start: 36.0),
+            Pin(size: 84.0, start: 15.0),
+            Pin(size: 21.0, middle: 0.0999),
             child: Text(
               'Back',
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 18,
                 color: const Color(0xff1c0000),
-                height: 2.4444444444444446,
+                height: 2.44444444444446,
               ),
               textHeightBehavior:
                   TextHeightBehavior(applyHeightToFirstAscent: false),
               textAlign: TextAlign.center,
             ),
-          ),
+          ),*/
+
           Container(),
           Container(),
         ],

@@ -2,17 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relocker_sa/controller_view_screen.dart';
+import 'package:relocker_sa/home_view.dart';
+import 'package:relocker_sa/locker_Gfloor.dart';
+import 'package:relocker_sa/locker_floor.dart';
+import 'package:relocker_sa/profile.dart';
 
 class locker_type extends StatelessWidget {
   locker_type({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(
+          backgroundColor: const Color(0xff88d8bb),
+          title: Text("Choose type"),
+          centerTitle: true,
+          foregroundColor: Colors.black,
+          leading: IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.of(context).pop(),
+          ) /* textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 20,
+                  color: Colors.black,
+                ))*/
+          ),
       body: Stack(
         children: <Widget>[
           Pinned.fromPins(
+            Pin(start: 26.0, end: 20.0),
+            Pin(size: 259.9, middle: 0.1013),
+            child: IconButton(
+              icon: Image.asset('assets/images/regular.jpg'),
+              iconSize: 50,
+              onPressed: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => locker_Gfloor()));
+              },
+            ),
+          ),
+          Pinned.fromPins(
+            Pin(start: 26.0, end: 20.0),
+            Pin(size: 259.0, middle: 0.8194),
+            child: IconButton(
+              icon: Image.asset('assets/images/flexible.jpg'),
+              iconSize: 50,
+              onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => ControllerViewScreen()));
+              },
+            ),
+          ),
+
+          /*Pinned.fromPins(
             Pin(start: 26.0, end: 26.0),
             Pin(size: 262.9, middle: 0.2413),
             child: BlendMask(
@@ -52,6 +97,23 @@ class locker_type extends StatelessWidget {
               ),
             ),
           ),
+          IconButton(
+            icon: Image.asset('assets/images/background3.jpeg'),
+            iconSize: 50,
+            onPressed: () {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => ControllerViewScreen()));
+            },
+          ),
+          Container(
+              child: ConstrainedBox(
+                  constraints: BoxConstraints.expand(),
+                  child: FlatButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) => profile()));
+                      },
+                      child: Image.asset('assets/images/background3.jpeg')))),
           Pinned.fromPins(
             Pin(start: 26.0, end: 26.0),
             Pin(size: 188.4, middle: 0.2175),
@@ -199,7 +261,8 @@ class locker_type extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          ),*/
+
           Container(),
         ],
       ),

@@ -1,93 +1,331 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:adobe_xd/adobe_xd.dart';
+import 'package:adobe_xd/pinned.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:adobe_xd/pinned.dart';
-import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'package:relocker_sa/profile.dart';
 
+import 'home_view.dart';
+
 class lockerset1_gg extends StatefulWidget {
-  lockerset1_gg({
-    Key? key,
-  }) : super(key: key);
+  final int numberOfWeek;
+  lockerset1_gg({Key? key, required this.numberOfWeek}) : super(key: key);
 
   @override
   State<lockerset1_gg> createState() => _lockerset1_ggState();
 }
 
 class _lockerset1_ggState extends State<lockerset1_gg> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  List<Map<String, dynamic>> getFromFirebase() {
-    List<Map<String, dynamic>> list = [];
-    firestore.collection("lockers").get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        Map<String, dynamic> dbDoc = doc.data() as Map<String, dynamic>;
-        list.add(dbDoc);
-      });
-    });
-    return list;
+  String mySvg1(color) {
+    return '<svg viewBox="249.0 618.1 79.0 122.4" ><path transform="translate(-2194.52, 743.73)" d="M 2522.52490234375 -3.299476623535156 C 2521.978515625 -27.48745727539062 2522.08837890625 -3.299476623535156 2522.08837890625 -3.299476623535156 L 2522.08837890625 -125.671630859375 C 2522.08837890625 -125.671630859375 2443.545166015625 -125.671630859375 2443.545166015625 -125.671630859375 L 2443.545166015625 -52.18785095214844 L 2484.196044921875 -52.18785095214844 L 2484.196044921875 -3.299476623535156 L 2522.52490234375 -3.299476623535156 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
   }
 
-  @override
-  void initState() {
-//    getFromFirebase();
-    super.initState();
+  String mySvg2(color){
+   return   '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+}
+
+  showLocker(context, text, size) {
+    showModalBottomSheet<void>(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
+        builder: (BuildContext context) {
+          return Container(
+            //color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Choose the locker that suits you",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        ListTile(
+                          title: Text("Not Available"),
+                          leading: Icon(Icons.circle, color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  ),
+                  // Container(
+                  //   width: 80.0,
+                  //   height: 200,
+                  //   child: Stack(
+                  //     children: [
+                  //       Positioned(
+                  //         top: 0,
+                  //         child: Container(
+                  //           child: SvgPicture.string(
+                  //             _svg_f2vz4y,
+                  //             allowDrawingOutsideViewBox: true,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Positioned(
+                  //         bottom: 0,
+                  //         child: Container(
+                  //             child: SvgPicture.string(
+                  //           _svg_ct53v6,
+                  //           allowDrawingOutsideViewBox: true,
+                  //           fit: BoxFit.fill,
+                  //         )),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('lockers')
+                          .where("block", isEqualTo: text)
+                          .orderBy("name")
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        return Center(
+                          child: size == "s"
+                              ? GridView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.all(16.0),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 3 / 4),
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> data =
+                                        snapshot.data!.docs[index].data()!
+                                            as Map<String, dynamic>;
+                                    return GestureDetector(
+                                        onTap: data['available']
+                                            ? () {
+                                                var rslp = 125;
+                                                var rllp = 150;
+                                                var fslp = 15;
+                                                var fllp = 25;
+                                                print(data);
+
+                                                var locker_type = data['type'];
+                                                var locker_size = data['size'];
+
+                                                if (locker_type == "r") {
+                                                  if (locker_size == "s") {
+                                                    print(rslp);
+                                                  } else {
+                                                    print(rllp);
+                                                  }
+                                                } else {
+                                                  if (locker_size == "s") {
+                                                    print(fslp *
+                                                        widget.numberOfWeek);
+                                                  } else {
+                                                    print(fllp *
+                                                        widget.numberOfWeek);
+                                                  }
+                                                }
+                                              }
+                                            : () {},
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: data['available']
+                                                  ? Colors.green.shade300
+                                                  : Colors.grey,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey)),
+                                          child: Text("${data['name']}"),
+                                        ));
+                                  },
+                                )
+                              : GridView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.all(16.0),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 1 / 2.20),
+                                  itemCount: (snapshot.data!.docs.length ~/ 2).toInt(),
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> data1 = snapshot.data!.docs[index*2].data()!  as Map<String, dynamic>;
+                                    Map<String, dynamic> data2 = snapshot.data!.docs[index*2+1].data()!
+                                            as Map<String, dynamic>;
+                                    return Container(
+                                      width: 80.0,
+                                      height: 200,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            top: 0,
+                                            child:  GestureDetector(
+                                                onTap: data1['available']
+                                                    ? () {
+                                                  var rslp = 125;
+                                                  var rllp = 150;
+                                                  var fslp = 15;
+                                                  var fllp = 25;
+                                                  print(data1);
+
+                                                  var locker_type = data1['type'];
+                                                  var locker_size = data1['size'];
+
+                                                  if (locker_type == "r") {
+                                                    if (locker_size == "s") {
+                                                      print(rslp);
+                                                    } else {
+                                                      print(rllp);
+                                                    }
+                                                  } else {
+                                                    if (locker_size == "s") {
+                                                      print(fslp *
+                                                          widget.numberOfWeek);
+                                                    } else {
+                                                      print(fllp *
+                                                          widget.numberOfWeek);
+                                                    }
+                                                  }
+                                                }
+                                                    : () {},
+                                              child: Container(
+                                                child: Stack(
+                                                  children: [
+                                                    SvgPicture.string(
+                                                      mySvg1(data1["available"]
+                                                          ? "ff0000"
+                                                          : "fafafa"),
+                                                      allowDrawingOutsideViewBox:
+                                                          true,
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                    Text(
+                                                      "${data1['name']}",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color:
+                                                              Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            child:  GestureDetector(
+                                                onTap: data2['available']
+                                                    ? () {
+                                                  var rslp = 125;
+                                                  var rllp = 150;
+                                                  var fslp = 15;
+                                                  var fllp = 25;
+                                                  print(data2);
+
+                                                  var locker_type = data2['type'];
+                                                  var locker_size = data2['size'];
+
+                                                  if (locker_type == "r") {
+                                                    if (locker_size == "s") {
+                                                      print(rslp);
+                                                    } else {
+                                                      print(rllp);
+                                                    }
+                                                  } else {
+                                                    if (locker_size == "s") {
+                                                      print(fslp *
+                                                          widget.numberOfWeek);
+                                                    } else {
+                                                      print(fllp *
+                                                          widget.numberOfWeek);
+                                                    }
+                                                  }
+                                                }
+                                                    : () {},
+                                              child: Container(
+                                                  child:  Stack(
+                                                    children: [
+                                                      SvgPicture.string(
+                                                        mySvg2(data2["available"]
+                                                            ? "ff0000"
+                                                            : "fafafa"),
+                                                        allowDrawingOutsideViewBox:
+                                                        true,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      Positioned(
+                                                       bottom: 0, child: Text(
+                                                          "${data2['name']}",
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              color:
+                                                              Colors.black),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffffffff),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
+      backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xff88d8bb),
+        title: Text(
+          'Choose locker',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 18,
+            color: const Color(0xff1c0000),
+            height: 2.4444444444444446,
           ),
-          shrinkWrap: true,
-          itemCount: getFromFirebase().length,
-          itemBuilder: (context, index) {
-            var item = getFromFirebase()[index];
-            print(getFromFirebase());
-            return mySquar(
-                text: "${item['name']}",
-                context: context,
-                d1: 79.0,
-                d2: 12.0,
-                d3: 71.0,
-                d4: 230);
-          },
-        ));
-    /* Stack(
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => HomeView()));
+              },
+              child: Text("Cancle", style: TextStyle(color: Colors.black)))
+        ],
+      ),
+      body: Stack(
         children: <Widget>[
-          Pinned.fromPins(
-            Pin(size: 125.0, middle: 0.5261),
-            Pin(size: 21.0, start: 35.0),
-            child: Text(
-              'Choose locker',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-                color: const Color(0xff1c0000),
-                height: 2.4444444444444446,
-              ),
-              textHeightBehavior:
-                  TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Pinned.fromPins(
-            Pin(start: 0.0, end: -16.0),
-            Pin(size: 90.0, start: 0.0),
-            child: BlendMask(
-              blendMode: BlendMode.multiply,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xff88d8bb),
-                ),
-              ),
-            ),
-          ),
-          Container(),
           Pinned.fromPins(
             Pin(size: 323.0, middle: 0.5618),
             Pin(start: 109.0, end: 0.0),
@@ -98,52 +336,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                   height: 800.0,
                   child: Stack(
                     children: <Widget>[
-                      Pinned.fromPins(
-                        Pin(start: 13.0, end: 7.0),
-                        Pin(size: 23.0, end: 350),
-                        child: Text(
-                          'Choose the locker that suits you',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 1.6666666666666667,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 18.0, start: 37.0),
-                        Pin(size: 18.0, end: 322), // Not available locker
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7.0),
-                            color: const Color(0xffafafaf),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 106.0, start: 60.0),
-                        Pin(size: 21.0, end: 320), // available locker
-                        child: Text(
-                          'Not Available',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 2.4444444444444446,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-
                       ///---------------- map ----------------
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 40.0),
@@ -567,11 +759,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 310), // locker front to 41
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g41-1", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -581,11 +778,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 290), // locker front to 41
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g41-2", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -595,11 +797,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 270), // locker front to 41
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g41-3", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -609,11 +816,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 240), // locker front to 40
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g40-1", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -623,11 +835,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 220), // locker front to 40
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "gg6", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -637,11 +854,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 390), // locker next to stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-1", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -651,11 +873,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 370), // locker next to stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-2", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -665,11 +892,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 350), // locker next to stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-3", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -679,11 +911,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 330), // locker next to stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-4", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -693,11 +930,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 348), // locker under stairs
                         child: Transform.rotate(
                           angle: 3.1416,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-5", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -707,11 +949,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 348), // locker under stairs
                         child: Transform.rotate(
                           angle: 3.1416,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-6", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -721,11 +968,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 351), // locker under stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-7", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -735,11 +987,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 371), // locker under stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-8", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -749,11 +1006,16 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                         Pin(size: 16.0, start: 392), // locker under stairs
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "6g-s-9", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -1166,29 +1428,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
 
                       //------------------------------------
-
-                      
-
-                      Container(
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            height: 900.0,
-                            viewportFraction: 1,
-                            aspectRatio: 16 / 9,
-                            enableInfiniteScroll: false,
-                            autoPlay: false,
-                          ),
-                          items: locks(context).map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  child: i,
-                                );
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -1197,7 +1436,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
           ),
         ],
       ),
-    );*/
+    );
   }
 
   Widget mySquar(
@@ -1212,9 +1451,9 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
       Pin(size: d3, end: d4), //6-g-004
       child: GestureDetector(
           onTap: () {
-            print('any thing');
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => profile()));
+            //print('hi');
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ReservationDetails()));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -1228,449 +1467,127 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
 
   List locks(context) {
     return [
-      Stack(
-          children: List.generate(
-        getFromFirebase().length,
-        (index) {
-          var item = getFromFirebase()[index];
-          return mySquar(
-              text: "${item['name']}",
-              context: context,
-              d1: 79.0,
-              d2: 12.0,
-              d3: 71.0,
-              d4: 230);
-        },
-      ).toList())
+      // ------------------- small lockers -------------------
+      // -------------------- 1 --------------------
+      Stack(children: [
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 230), //6-g-004
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 162), //6-g-008
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 94), //6-g-012
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 230), //6-g-003
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 162), //6-g-007
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 94), //6-g-011
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 230), //6-g-002
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 162), //6-g-006
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 94), //6-g-010
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 71.0,
+            d4: 230), //6-g-001
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 162), //6-g-005
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 94), //6-g-009
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 26), // 6-G-016
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 26), // 6-G-015
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 26), // 6-G-014
+        mySquar(
+            text: "{item['name']}",
+            context: context,
+            d1: 79.0,
+            d2: 12.0,
+            d3: 69.0,
+            d4: 26), // 6-G-013
+      ])
+      //-------------------------- 2 -------------------
     ];
   }
 
   List _lockers = [
-    // ------------------- small lockers -------------------
-    // -------------------- 1 --------------------
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xffd6fff0),
-                border: Border.all(width: 1.0, color: const Color(0xff707070)),
-              ),
-            )),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    //-------------------------- 2 -------------------
-
     Stack(children: <Widget>[
       Pinned.fromPins(
         Pin(size: 79.0, end: 12.0),

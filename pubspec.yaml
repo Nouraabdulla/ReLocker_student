@@ -29,21 +29,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  adobe_xd: ^2.0.0+1
+  adobe_xd:
+  shared_preferences: ^2.0.9
   
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
-
+  firebase_auth: "^3.1.3"
   bloc:
   flutter_bloc: ^7.2.0
+  flutter_svg:
+  intl: ^0.17.0
+  firebase_core:
+  cloud_firestore:
   flutter_conditional_rendering: ^2.0.0
-  firebase_core: "^1.7.0"
-  firebase_auth: "^3.1.3"
-  cloud_firestore: "^2.5.3"
 
 dev_dependencies:
   flutter_test:

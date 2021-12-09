@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/locker_type.dart';
+import 'package:relocker_sa/payment_view/reservation_details.dart';
 
+import 'calc_pay_page.dart';
+import 'duration.dart';
 import 'ground.dart';
+import 'locker_type.dart';
 import 'lockerset1_gpl.dart';
 
 class HomeView extends StatefulWidget {
@@ -63,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => ground()));
+                                  builder: (context) => CalcPayPage()));
 
                           // Navigator.of(context).pushReplacement(
                           //     MaterialPageRoute(

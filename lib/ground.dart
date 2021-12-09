@@ -2319,9 +2319,10 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => lockerset1_gg()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => lockerset1_gg(
+                                      numberOfWeek: int.parse("10"),
+                                    )));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
@@ -2333,9 +2334,9 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => lockerset1_go()));
+                            // Navigator.of(context).pushReplacement(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => lockerset1_go()));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(

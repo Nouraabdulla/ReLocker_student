@@ -31,3 +31,5 @@ class AuthResetPasswordErrorState extends AuthStates {
 
   AuthResetPasswordErrorState(this.error);
 }
+
+class GetUserInfoState extends AuthStates {}

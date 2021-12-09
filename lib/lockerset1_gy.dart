@@ -4,8 +4,14 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class lockerset1_gy extends StatelessWidget {
+class lockerset1_gy extends StatefulWidget {
   lockerset1_gy({Key? key}) : super(key: key);
+
+  @override
+  State<lockerset1_gy> createState() => _lockerset1_gyState();
+}
+
+class _lockerset1_gyState extends State<lockerset1_gy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

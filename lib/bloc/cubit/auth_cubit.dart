@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/models/user_model.dart';
+import 'package:relocker_sa/utils/constance.dart';
+import 'package:relocker_sa/utils/utils-cache_helper.dart';
 
 class AuthCubit extends Cubit<AuthStates> {
   AuthCubit() : super(AuthInitialState());
@@ -75,5 +77,20 @@ class AuthCubit extends Cubit<AuthStates> {
       error = 'user not found';
       emit(AuthResetPasswordErrorState(error));
     }
+  }
+
+  getUserInfo() async {
+    UserModel? userModel;
+    var userRef = FirebaseFirestore.instance.collection('Users');
+    await userRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      userModel = UserModel.fromJson(value.data()!);
+    });
+    CacheHelper.saveData(key: PHONE, value: userModel!.phone);
+    CacheHelper.saveData(key: USERNAME, value: userModel!.userName);
+    CacheHelper.saveData(key: EMAIL, value: userModel!.email);
+    emit(GetUserInfoState());
   }
 }

@@ -3,33 +3,158 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class lockerset1_fg extends StatelessWidget {
-  lockerset1_fg({
-    Key? key,
-  }) : super(key: key);
+import 'home_view.dart';
+
+class lockerset1_fg extends StatefulWidget {
+  final int numberOfWeek;
+  lockerset1_fg({Key? key, required this.numberOfWeek}) : super(key: key);
+
+  @override
+  State<lockerset1_fg> createState() => _lockerset1_fgState();
+}
+
+class _lockerset1_fgState extends State<lockerset1_fg> {
+  showLocker(context, text) {
+    showModalBottomSheet<void>(
+        context: context,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
+        builder: (BuildContext context) {
+          return Container(
+            //color: Colors.amber,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Choose the locker that suits you",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        ListTile(
+                          title: Text("Not Available"),
+                          leading: Icon(Icons.circle, color: Colors.grey),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('lockers')
+                          .orderBy("name")
+                          .where("block", isEqualTo: text)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        return Center(
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.all(16.0),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4, childAspectRatio: 4 / 3),
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> data =
+                                  snapshot.data!.docs[index].data()!
+                                      as Map<String, dynamic>;
+                              return GestureDetector(
+                                onTap: data['available']
+                                    ? () {
+                                        var rslp = 125;
+                                        var rllp = 150;
+                                        var fslp = 15;
+                                        var fllp = 25;
+                                        print(data);
+
+                                        var locker_type = data['type'];
+                                        var locker_size = data['size'];
+
+                                        if (locker_type == "r") {
+                                          if (locker_size == "s") {
+                                            print(rslp);
+                                          } else {
+                                            print(rllp);
+                                          }
+                                        } else {
+                                          if (locker_size == "s") {
+                                            print(fslp * widget.numberOfWeek);
+                                          } else {
+                                            print(fllp * widget.numberOfWeek);
+                                          }
+                                        }
+                                      }
+                                    : () {},
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: data['available']
+                                          ? Colors.green.shade300
+                                          : Colors.grey,
+                                      border: Border.all(
+                                          width: 1, color: Colors.grey)),
+                                  child: Text("${data['name']}"),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xff88d8bb),
+        title: Text(
+          'Choose locker',
+          style: TextStyle(
+            fontFamily: 'Helvetica Neue',
+            fontSize: 18,
+            color: const Color(0xff1c0000),
+            height: 2.4444444444444446,
+          ),
+          textHeightBehavior:
+              TextHeightBehavior(applyHeightToFirstAscent: false),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => HomeView()));
+              },
+              child: Text("Cancle", style: TextStyle(color: Colors.black)))
+        ],
+      ),
       body: Stack(
         children: <Widget>[
-          Pinned.fromPins(
-            Pin(size: 125.0, middle: 0.5261),
-            Pin(size: 21.0, start: 35.0),
-            child: Text(
-              'Choose locker',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-                color: const Color(0xff1c0000),
-                height: 2.4444444444444446,
-              ),
-              textHeightBehavior:
-                  TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
-            ),
-          ),
           Pinned.fromPins(
             Pin(start: 0.0, end: -16.0),
             Pin(size: 90.0, start: 0.0),
@@ -53,52 +178,6 @@ class lockerset1_fg extends StatelessWidget {
                   height: 800.0,
                   child: Stack(
                     children: <Widget>[
-                      Pinned.fromPins(
-                        Pin(start: 13.0, end: 7.0),
-                        Pin(size: 23.0, end: 340),
-                        child: Text(
-                          'Choose the locker that suits you',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 1.6666666666666667,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 18.0, start: 37.0),
-                        Pin(size: 18.0, end: 312), // available locker
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(7.0),
-                            color: const Color(0xffafafaf),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 106.0, start: 60.0),
-                        Pin(size: 21.0, end: 310), // available locker
-                        child: Text(
-                          'Not Available',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 18,
-                            color: const Color(0xff707070),
-                            height: 2.4444444444444446,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-
                       //-------------------------- map -------------
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 37.0),
@@ -1078,26 +1157,26 @@ class lockerset1_fg extends StatelessWidget {
                       ),
 
                       //--------------------- lockers set ----------
-                      Container(
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            height: 900.0,
-                            viewportFraction: 1,
-                            aspectRatio: 16 / 9,
-                            enableInfiniteScroll: false,
-                            autoPlay: false,
-                          ),
-                          items: _lockers.map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  child: i,
-                                );
-                              },
-                            );
-                          }).toList(),
-                        ),
-                      ),
+                      // Container(
+                      //   child: CarouselSlider(
+                      //     options: CarouselOptions(
+                      //       height: 900.0,
+                      //       viewportFraction: 1,
+                      //       aspectRatio: 16 / 9,
+                      //       enableInfiniteScroll: false,
+                      //       autoPlay: false,
+                      //     ),
+                      //     items: _lockers.map((i) {
+                      //       return Builder(
+                      //         builder: (BuildContext context) {
+                      //           return Container(
+                      //             child: i,
+                      //           );
+                      //         },
+                      //       );
+                      //     }).toList(),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -1108,6 +1187,10 @@ class lockerset1_fg extends StatelessWidget {
       ),
     );
   }
+
+  //larg locker widget
+
+  //list
 
   List _lockers = [
     // ------------------- small lockers -------------------

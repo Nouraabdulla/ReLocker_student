@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/login_screen.dart';
+import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/support_view.dart';
 
@@ -65,7 +66,11 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
                                   title: Text('My account'),
                                   leading: Icon(Icons.person),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => profile()));
+                                },
                               ),
                               const Divider(
                                 color: Colors.grey,
