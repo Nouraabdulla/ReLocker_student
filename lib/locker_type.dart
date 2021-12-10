@@ -7,9 +7,19 @@ import 'package:relocker_sa/home_view.dart';
 import 'package:relocker_sa/locker_Gfloor.dart';
 import 'package:relocker_sa/locker_floor.dart';
 import 'package:relocker_sa/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class locker_type extends StatelessWidget {
+class locker_type extends StatefulWidget {
   locker_type({Key? key}) : super(key: key);
+
+  @override
+  State<locker_type> createState() => _locker_typeState();
+}
+
+class _locker_typeState extends State<locker_type> {
+  DateTime selectedDate = DateTime.now();
+  String RendDate = "6/6/2022";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +48,15 @@ class locker_type extends StatelessWidget {
             child: IconButton(
               icon: Image.asset('assets/images/regular.jpg'),
               iconSize: 50,
-              onPressed: () {
+              onPressed: () async {
+                await FirebaseFirestore.instance.collection("reservation").add({
+                  //store regular reservation info in database
+                  "End Date": "${RendDate}",
+                  "Start Date": "${selectedDate}",
+//                  "userr_id":"${FirebaseAuth.instance.currentUser!.uid}",
+                  // "locker_name":"",
+                  // "Price":""
+                });
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => locker_Gfloor()));
               },
@@ -51,8 +69,8 @@ class locker_type extends StatelessWidget {
               icon: Image.asset('assets/images/flexible.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => locker_floor()));
               },
             ),
           ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
-import 'package:relocker_sa/first.dart';
+import 'package:relocker_sa/ground.dart';
 import 'package:relocker_sa/locker_type.dart';
 
-class locker_floor extends StatelessWidget {
-  locker_floor({Key? key}) : super(key: key);
+class locker_Gfloor extends StatelessWidget {
+  locker_Gfloor({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class locker_floor extends StatelessWidget {
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
         backgroundColor: const Color(0xff88d8bb),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text("Choose floor"),
         centerTitle: true,
         foregroundColor: Colors.black,
@@ -23,23 +23,17 @@ class locker_floor extends StatelessWidget {
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
               Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => first()));
-            }),
+                  .push(MaterialPageRoute(builder: (context) => locker_type()));
+            }
+            /* leading: IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.of(context).pop(),
+          )*/
+            ),
       ),
       body: Stack(
         children: <Widget>[
-          Pinned.fromPins(
-            Pin(start: 26.0, end: 20.0),
-            Pin(size: 259.9, middle: 0.1013),
-            child: IconButton(
-              icon: Image.asset('assets/images/1floor.jpg'),
-              iconSize: 50,
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => locker_type()));
-              },
-            ),
-          ),
           Pinned.fromPins(
             Pin(start: 26.0, end: 20.0),
             Pin(size: 259.0, middle: 0.8194),
@@ -47,8 +41,8 @@ class locker_floor extends StatelessWidget {
               icon: Image.asset('assets/images/Gfloor.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => ground()));
               },
             ),
           ),

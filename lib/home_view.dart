@@ -4,10 +4,10 @@ import 'package:relocker_sa/locker_type.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
 
 import 'calc_pay_page.dart';
-import 'duration.dart';
+
 import 'ground.dart';
 import 'locker_type.dart';
-import 'lockerset1_gpl.dart';
+import 'lockerset1_gp.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                  builder: (context) => CalcPayPage()));
+                                  builder: (context) => locker_type()));
 
                           // Navigator.of(context).pushReplacement(
                           //     MaterialPageRoute(

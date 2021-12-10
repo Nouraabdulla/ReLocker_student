@@ -25,9 +25,12 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
   User? user = FirebaseAuth.instance.currentUser;
   Map<String, dynamic> userData = {};
-  getUserData(){
-    FirebaseFirestore.instance.collection("Users").doc(user!.uid).get().then((value) {
-
+  getUserData() {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
       setState(() {
         userData = value.data()!;
       });
@@ -39,6 +42,7 @@ class _profileState extends State<profile> {
     getUserData();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,33 +51,41 @@ class _profileState extends State<profile> {
         title: Text("Profile"),
         actions: [
           IconButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                        builder: (context) => edit_profile()));
+                    MaterialPageRoute(builder: (context) => edit_profile()));
               },
-              icon: Icon(Icons.edit)
-          )
+              icon: Icon(Icons.edit))
         ],
       ),
-      body:ListView(
-        padding:EdgeInsets.all(32.0),
+      body: ListView(
+        padding: EdgeInsets.all(32.0),
         children: [
           CircleAvatar(
-            child: Icon(Icons.person, size: 100,),
+            child: Icon(
+              Icons.person,
+              size: 100,
+            ),
             radius: 80,
             backgroundColor: Colors.grey.shade200,
           ),
-          SizedBox(height: 32,),
-          Text("Username:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-          Text("${userData['user_name']?? ''}", style: TextStyle(fontSize: 20)),
-          Text("Email:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text("${userData['email']??''}", style: TextStyle(fontSize: 20)),
-          Text("Phone:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text("${userData['phone']??''}", style: TextStyle(fontSize: 20))
+          SizedBox(
+            height: 32,
+          ),
+          Text(
+            "Username:",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          Text("${userData['user_name'] ?? ''}",
+              style: TextStyle(fontSize: 20)),
+          Text("Email:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text("${userData['email'] ?? ''}", style: TextStyle(fontSize: 20)),
+          Text("Phone:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text("${userData['phone'] ?? ''}", style: TextStyle(fontSize: 20))
         ],
       ),
     );
   }
 }
-

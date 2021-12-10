@@ -21,11 +21,12 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
     return '<svg viewBox="249.0 618.1 79.0 122.4" ><path transform="translate(-2194.52, 743.73)" d="M 2522.52490234375 -3.299476623535156 C 2521.978515625 -27.48745727539062 2522.08837890625 -3.299476623535156 2522.08837890625 -3.299476623535156 L 2522.08837890625 -125.671630859375 C 2522.08837890625 -125.671630859375 2443.545166015625 -125.671630859375 2443.545166015625 -125.671630859375 L 2443.545166015625 -52.18785095214844 L 2484.196044921875 -52.18785095214844 L 2484.196044921875 -3.299476623535156 L 2522.52490234375 -3.299476623535156 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
   }
 
-  String mySvg2(color){
-   return   '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
-}
+  String mySvg2(color) {
+    return '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+  }
 
   showLocker(context, text, size) {
+    //display lockers
     showModalBottomSheet<void>(
         context: context,
         shape: RoundedRectangleBorder(
@@ -82,6 +83,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                   // ),
 
                   Expanded(
+                    //display lockers
                     child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection('lockers')
@@ -142,17 +144,25 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                 }
                                               }
                                             : () {},
-                                        child: Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              color: data['available']
-                                                  ? Colors.green.shade300
-                                                  : Colors.grey,
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color: Colors.grey)),
-                                          child: Text("${data['name']}"),
-                                        ));
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              //print('hi');
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ReservationDetails()));
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                  color: data['available']
+                                                      ? Colors.green.shade300
+                                                      : Colors.grey,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.grey)),
+                                              child: Text("${data['name']}"),
+                                            )));
                                   },
                                 )
                               : GridView.builder(
@@ -162,11 +172,15 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 4,
                                           childAspectRatio: 1 / 2.20),
-                                  itemCount: (snapshot.data!.docs.length ~/ 2).toInt(),
+                                  itemCount:
+                                      (snapshot.data!.docs.length ~/ 2).toInt(),
                                   itemBuilder: (context, index) {
-                                    Map<String, dynamic> data1 = snapshot.data!.docs[index*2].data()!  as Map<String, dynamic>;
-                                    Map<String, dynamic> data2 = snapshot.data!.docs[index*2+1].data()!
+                                    Map<String, dynamic> data1 =
+                                        snapshot.data!.docs[index * 2].data()!
                                             as Map<String, dynamic>;
+                                    Map<String, dynamic> data2 = snapshot
+                                        .data!.docs[index * 2 + 1]
+                                        .data()! as Map<String, dynamic>;
                                     return Container(
                                       width: 80.0,
                                       height: 200,
@@ -174,111 +188,142 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                         children: [
                                           Positioned(
                                             top: 0,
-                                            child:  GestureDetector(
-                                                onTap: data1['available']
-                                                    ? () {
-                                                  var rslp = 125;
-                                                  var rllp = 150;
-                                                  var fslp = 15;
-                                                  var fllp = 25;
-                                                  print(data1);
+                                            child: GestureDetector(
+                                              onTap: data1['available']
+                                                  ? () {
+                                                      var rslp = 125;
+                                                      var rllp = 150;
+                                                      var fslp = 15;
+                                                      var fllp = 25;
+                                                      print(data1);
 
-                                                  var locker_type = data1['type'];
-                                                  var locker_size = data1['size'];
+                                                      var locker_type =
+                                                          data1['type'];
+                                                      var locker_size =
+                                                          data1['size'];
 
-                                                  if (locker_type == "r") {
-                                                    if (locker_size == "s") {
-                                                      print(rslp);
-                                                    } else {
-                                                      print(rllp);
+                                                      if (locker_type == "r") {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(rslp);
+                                                        } else {
+                                                          print(rllp);
+                                                        }
+                                                      } else {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(fslp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        } else {
+                                                          print(fllp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        }
+                                                      }
                                                     }
-                                                  } else {
-                                                    if (locker_size == "s") {
-                                                      print(fslp *
-                                                          widget.numberOfWeek);
-                                                    } else {
-                                                      print(fllp *
-                                                          widget.numberOfWeek);
-                                                    }
-                                                  }
-                                                }
-                                                    : () {},
-                                              child: Container(
-                                                child: Stack(
-                                                  children: [
-                                                    SvgPicture.string(
-                                                      mySvg1(data1["available"]
-                                                          ? "ff0000"
-                                                          : "fafafa"),
-                                                      allowDrawingOutsideViewBox:
-                                                          true,
-                                                      fit: BoxFit.fill,
+                                                  : () {},
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    //print('hi');
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ReservationDetails()));
+                                                  },
+                                                  child: Container(
+                                                    child: Stack(
+                                                      children: [
+                                                        SvgPicture.string(
+                                                          mySvg1(
+                                                              data1["available"]
+                                                                  ? "ff0000"
+                                                                  : "fafafa"),
+                                                          allowDrawingOutsideViewBox:
+                                                              true,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        Text(
+                                                          "${data1['name']}",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black),
+                                                        )
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      "${data1['name']}",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color:
-                                                              Colors.black),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                                  )),
                                             ),
                                           ),
                                           Positioned(
                                             bottom: 0,
-                                            child:  GestureDetector(
-                                                onTap: data2['available']
-                                                    ? () {
-                                                  var rslp = 125;
-                                                  var rllp = 150;
-                                                  var fslp = 15;
-                                                  var fllp = 25;
-                                                  print(data2);
+                                            child: GestureDetector(
+                                              onTap: data2['available']
+                                                  ? () {
+                                                      var rslp = 125;
+                                                      var rllp = 150;
+                                                      var fslp = 15;
+                                                      var fllp = 25;
+                                                      print(data2);
 
-                                                  var locker_type = data2['type'];
-                                                  var locker_size = data2['size'];
+                                                      var locker_type =
+                                                          data2['type'];
+                                                      var locker_size =
+                                                          data2['size'];
 
-                                                  if (locker_type == "r") {
-                                                    if (locker_size == "s") {
-                                                      print(rslp);
-                                                    } else {
-                                                      print(rllp);
+                                                      if (locker_type == "r") {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(rslp);
+                                                        } else {
+                                                          print(rllp);
+                                                        }
+                                                      } else {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(fslp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        } else {
+                                                          print(fllp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        }
+                                                      }
                                                     }
-                                                  } else {
-                                                    if (locker_size == "s") {
-                                                      print(fslp *
-                                                          widget.numberOfWeek);
-                                                    } else {
-                                                      print(fllp *
-                                                          widget.numberOfWeek);
-                                                    }
-                                                  }
-                                                }
-                                                    : () {},
-                                              child: Container(
-                                                  child:  Stack(
+                                                  : () {},
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    //print('hi');
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ReservationDetails()));
+                                                  },
+                                                  child: Container(
+                                                      child: Stack(
                                                     children: [
                                                       SvgPicture.string(
-                                                        mySvg2(data2["available"]
-                                                            ? "ff0000"
-                                                            : "fafafa"),
+                                                        mySvg2(
+                                                            data2["available"]
+                                                                ? 'ff0000'
+                                                                : "fafafa"),
                                                         allowDrawingOutsideViewBox:
-                                                        true,
+                                                            true,
                                                         fit: BoxFit.fill,
                                                       ),
                                                       Positioned(
-                                                       bottom: 0, child: Text(
+                                                        bottom: 50,
+                                                        child: Text(
                                                           "${data2['name']}",
                                                           style: TextStyle(
-                                                              fontSize: 20,
+                                                              fontSize: 15,
                                                               color:
-                                                              Colors.black),
+                                                                  Colors.black),
                                                         ),
                                                       )
                                                     ],
-                                                  )),
+                                                  ))),
                                             ),
                                           )
                                         ],
@@ -761,7 +806,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g41-1", "s");
+                              showLocker(context, "gg5", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -780,7 +825,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g41-2", "s");
+                              showLocker(context, "gg4", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -799,7 +844,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g41-3", "s");
+                              showLocker(context, "gg3", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -818,7 +863,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g40-1", "s");
+                              showLocker(context, "gg2", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -837,7 +882,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg6", "l");
+                              showLocker(context, "gg1", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -856,7 +901,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-1", "s");
+                              showLocker(context, "gg9", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -875,7 +920,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-2", "s");
+                              showLocker(context, "gg8", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -894,7 +939,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-3", "s");
+                              showLocker(context, "gg7", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -913,7 +958,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-4", "s");
+                              showLocker(context, "gg6", "l");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -932,7 +977,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 3.1416,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-5", "s");
+                              showLocker(context, "gg10", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -951,7 +996,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 3.1416,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-6", "s");
+                              showLocker(context, "gg11", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -970,7 +1015,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-7", "s");
+                              showLocker(context, "gg12", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -989,7 +1034,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-8", "s");
+                              showLocker(context, "gg13", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -1008,7 +1053,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "6g-s-9", "s");
+                              showLocker(context, "gg14", "s");
                             },
                             child: Container(
                               decoration: BoxDecoration(

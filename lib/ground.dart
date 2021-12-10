@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relocker_sa/lockerset1_gp.dart';
 
 import 'lockerset1_gg.dart';
 import 'lockerset1_go.dart';
-import 'lockerset1_GPL.dart';
 import 'lockerset1_gy.dart';
 
 class ground extends StatelessWidget {
@@ -2334,9 +2334,11 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => lockerset1_go()));
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => lockerset1_go(
+                                          numberOfWeek: 0,
+                                        )));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
@@ -2350,9 +2352,11 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => lockerset1_gy()));
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => lockerset1_gy(
+                                          numberOfWeek: 0,
+                                        )));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
@@ -2365,9 +2369,11 @@ class ground extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => lockerset1_gpl()));
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => lockerset1_gpl(
+                                          numberOfWeek: 0,
+                                        )));
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(

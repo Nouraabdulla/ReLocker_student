@@ -259,7 +259,7 @@ class _closed_lockState extends State<closed_lock> {
             Pin(size: 167.0, middle: 0.5347),
             Pin(size: 47.0, middle: 0.2971),
             child: Text(
-              '6-G-53',
+              '',
               style: TextStyle(
                 fontFamily: 'Helvetica Neue',
                 fontSize: 35,

@@ -4,7 +4,9 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:relocker_sa/payment_view/reservation_details.dart';
 
+import 'calc_pay_page.dart';
 import 'home_view.dart';
 
 class lockerset1_fg extends StatefulWidget {
@@ -16,7 +18,16 @@ class lockerset1_fg extends StatefulWidget {
 }
 
 class _lockerset1_fgState extends State<lockerset1_fg> {
-  showLocker(context, text) {
+  String mySvg1(color) {
+    return '<svg viewBox="249.0 618.1 79.0 122.4" ><path transform="translate(-2194.52, 743.73)" d="M 2522.52490234375 -3.299476623535156 C 2521.978515625 -27.48745727539062 2522.08837890625 -3.299476623535156 2522.08837890625 -3.299476623535156 L 2522.08837890625 -125.671630859375 C 2522.08837890625 -125.671630859375 2443.545166015625 -125.671630859375 2443.545166015625 -125.671630859375 L 2443.545166015625 -52.18785095214844 L 2484.196044921875 -52.18785095214844 L 2484.196044921875 -3.299476623535156 L 2522.52490234375 -3.299476623535156 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+  }
+
+  String mySvg2(color) {
+    return '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+  }
+
+  showLocker(context, text, size) {
+    //display lockers
     showModalBottomSheet<void>(
         context: context,
         shape: RoundedRectangleBorder(
@@ -44,12 +55,41 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                       ],
                     ),
                   ),
+                  // Container(
+                  //   width: 80.0,
+                  //   height: 200,
+                  //   child: Stack(
+                  //     children: [
+                  //       Positioned(
+                  //         top: 0,
+                  //         child: Container(
+                  //           child: SvgPicture.string(
+                  //             _svg_f2vz4y,
+                  //             allowDrawingOutsideViewBox: true,
+                  //             fit: BoxFit.fill,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Positioned(
+                  //         bottom: 0,
+                  //         child: Container(
+                  //             child: SvgPicture.string(
+                  //           _svg_ct53v6,
+                  //           allowDrawingOutsideViewBox: true,
+                  //           fit: BoxFit.fill,
+                  //         )),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+
                   Expanded(
+                    //display lockers
                     child: StreamBuilder<QuerySnapshot>(
                       stream: FirebaseFirestore.instance
                           .collection('lockers')
-                          .orderBy("name")
                           .where("block", isEqualTo: text)
+                          .orderBy("name")
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -63,57 +103,234 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         }
 
                         return Center(
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.all(16.0),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4, childAspectRatio: 4 / 3),
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              Map<String, dynamic> data =
-                                  snapshot.data!.docs[index].data()!
-                                      as Map<String, dynamic>;
-                              return GestureDetector(
-                                onTap: data['available']
-                                    ? () {
-                                        var rslp = 125;
-                                        var rllp = 150;
-                                        var fslp = 15;
-                                        var fllp = 25;
-                                        print(data);
+                          child: size == "s"
+                              ? GridView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.all(16.0),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 3 / 4),
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> data =
+                                        snapshot.data!.docs[index].data()!
+                                            as Map<String, dynamic>;
+                                    return GestureDetector(
+                                        onTap: data['available']
+                                            ? () {
+                                                var rslp = 125;
+                                                var rllp = 150;
+                                                var fslp = 15;
+                                                var fllp = 25;
+                                                print(data);
 
-                                        var locker_type = data['type'];
-                                        var locker_size = data['size'];
+                                                var locker_type = data['type'];
+                                                var locker_size = data['size'];
 
-                                        if (locker_type == "r") {
-                                          if (locker_size == "s") {
-                                            print(rslp);
-                                          } else {
-                                            print(rllp);
-                                          }
-                                        } else {
-                                          if (locker_size == "s") {
-                                            print(fslp * widget.numberOfWeek);
-                                          } else {
-                                            print(fllp * widget.numberOfWeek);
-                                          }
-                                        }
-                                      }
-                                    : () {},
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      color: data['available']
-                                          ? Colors.green.shade300
-                                          : Colors.grey,
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey)),
-                                  child: Text("${data['name']}"),
-                                ),
-                              );
-                            },
-                          ),
+                                                if (locker_type == "r") {
+                                                  if (locker_size == "s") {
+                                                    print(rslp);
+                                                  } else {
+                                                    print(rllp);
+                                                  }
+                                                } else {
+                                                  if (locker_size == "s") {
+                                                    print(fslp *
+                                                        widget.numberOfWeek);
+                                                  } else {
+                                                    print(fllp *
+                                                        widget.numberOfWeek);
+                                                  }
+                                                }
+                                              }
+                                            : () {},
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              //print('hi');
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CalcPayPage()));
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                  color: data['available']
+                                                      ? Colors.green.shade300
+                                                      : Colors.grey,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.grey)),
+                                              child: Text("${data['name']}"),
+                                            )));
+                                  },
+                                )
+                              : GridView.builder(
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.all(16.0),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 1 / 2.20),
+                                  itemCount:
+                                      (snapshot.data!.docs.length ~/ 2).toInt(),
+                                  itemBuilder: (context, index) {
+                                    Map<String, dynamic> data1 =
+                                        snapshot.data!.docs[index * 2].data()!
+                                            as Map<String, dynamic>;
+                                    Map<String, dynamic> data2 = snapshot
+                                        .data!.docs[index * 2 + 1]
+                                        .data()! as Map<String, dynamic>;
+                                    return Container(
+                                      width: 80.0,
+                                      height: 200,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            top: 0,
+                                            child: GestureDetector(
+                                              onTap: data1['available']
+                                                  ? () {
+                                                      var rslp = 125;
+                                                      var rllp = 150;
+                                                      var fslp = 15;
+                                                      var fllp = 25;
+                                                      print(data1);
+
+                                                      var locker_type =
+                                                          data1['type'];
+                                                      var locker_size =
+                                                          data1['size'];
+
+                                                      if (locker_type == "r") {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(rslp);
+                                                        } else {
+                                                          print(rllp);
+                                                        }
+                                                      } else {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(fslp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        } else {
+                                                          print(fllp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        }
+                                                      }
+                                                    }
+                                                  : () {},
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    //print('hi');
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CalcPayPage()));
+                                                  },
+                                                  child: Container(
+                                                    child: Stack(
+                                                      children: [
+                                                        SvgPicture.string(
+                                                          mySvg1(
+                                                              data1["available"]
+                                                                  ? "ff0000"
+                                                                  : "fafafa"),
+                                                          allowDrawingOutsideViewBox:
+                                                              true,
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                        Text(
+                                                          "${data1['name']}",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            child: GestureDetector(
+                                              onTap: data2['available']
+                                                  ? () {
+                                                      var rslp = 125;
+                                                      var rllp = 150;
+                                                      var fslp = 15;
+                                                      var fllp = 25;
+                                                      print(data2);
+
+                                                      var locker_type =
+                                                          data2['type'];
+                                                      var locker_size =
+                                                          data2['size'];
+
+                                                      if (locker_type == "r") {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(rslp);
+                                                        } else {
+                                                          print(rllp);
+                                                        }
+                                                      } else {
+                                                        if (locker_size ==
+                                                            "s") {
+                                                          print(fslp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        } else {
+                                                          print(fllp *
+                                                              widget
+                                                                  .numberOfWeek);
+                                                        }
+                                                      }
+                                                    }
+                                                  : () {},
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    //print('hi');
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CalcPayPage()));
+                                                  },
+                                                  child: Container(
+                                                      child: Stack(
+                                                    children: [
+                                                      SvgPicture.string(
+                                                        mySvg2(
+                                                            data2["available"]
+                                                                ? 'ff0000'
+                                                                : "fafafa"),
+                                                        allowDrawingOutsideViewBox:
+                                                            true,
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                      Positioned(
+                                                        bottom: 50,
+                                                        child: Text(
+                                                          "${data2['name']}",
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ))),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }),
                         );
                       },
                     ),
@@ -155,18 +372,6 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
       ),
       body: Stack(
         children: <Widget>[
-          Pinned.fromPins(
-            Pin(start: 0.0, end: -16.0),
-            Pin(size: 90.0, start: 0.0),
-            child: BlendMask(
-              blendMode: BlendMode.multiply,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xff88d8bb),
-                ),
-              ),
-            ),
-          ),
           Container(),
           Pinned.fromPins(
             Pin(size: 328.0, middle: 0.4762),
@@ -488,11 +693,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 302), // lockrr5
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg5", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -502,11 +712,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 282), // lockrr4
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg4", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -516,11 +731,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 262), // lockrr3
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg3", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -530,11 +750,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 242), // lockrr2
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg2", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -544,11 +769,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 222), // lockrr1
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg1", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -809,11 +1039,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 402), // locker10
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg10", "s");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -823,11 +1058,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 382), // lcoker9
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg9", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -837,11 +1077,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 362), // locker8
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg8", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -851,11 +1096,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 342), // locker7
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg7", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
@@ -865,11 +1115,16 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         Pin(size: 16.0, start: 322), // locker6
                         child: Transform.rotate(
                           angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xff88d8bb),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                          child: GestureDetector(
+                            onTap: () {
+                              showLocker(context, "fg6", "l");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xff88d8bb),
+                                border: Border.all(
+                                    width: 0.3, color: const Color(0xff000000)),
+                              ),
                             ),
                           ),
                         ),
