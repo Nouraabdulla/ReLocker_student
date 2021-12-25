@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   adobe_xd:
-  shared_preferences: ^2.0.9
+  
   
 
 
@@ -47,6 +47,8 @@ dependencies:
   firebase_core:
   cloud_firestore:
   flutter_conditional_rendering: ^2.0.0
+  shared_preferences:
+  email_auth:
 
 dev_dependencies:
   flutter_test:

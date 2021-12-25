@@ -21,12 +21,15 @@ class PaymentCubit extends Cubit<PaymentStates> {
 
   getData() async {
     emit(GetReservationDataLoadingState());
-    await reservation.where('user_id', isEqualTo: FirebaseAuth.instance.currentUser!.uid).get().then((value) async {
+    await reservation
+        .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) async {
       value.docs.forEach((element) {
         list.add(element.data());
       });
       resserv = list[0];
-      await lockers
+      /* await lockers
           .where('name', isEqualTo: resserv['locker_name'])
           .get()
           .then((value) {
@@ -36,7 +39,7 @@ class PaymentCubit extends Cubit<PaymentStates> {
               .doc(element.reference.path.split('/')[1])
               .update({'available': false});
         });
-      });
+      });*/
     });
     emit(GetReservationDataState());
   }

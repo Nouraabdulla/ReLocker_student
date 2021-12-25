@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
@@ -22,8 +24,7 @@ class locker_floor extends StatelessWidget {
             color: Colors.black,
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => first()));
+              Navigator.of(context).pop();
             }),
       ),
       body: Stack(
@@ -35,8 +36,8 @@ class locker_floor extends StatelessWidget {
               icon: Image.asset('assets/images/1floor.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => locker_type()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => first()));
               },
             ),
           ),
@@ -47,8 +48,21 @@ class locker_floor extends StatelessWidget {
               icon: Image.asset('assets/images/Gfloor.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("title"),
+                      content: Container(
+                        child: Text("text here"),
+                      ),
+                    );
+                  },
+                );
+                Future.delayed(
+                    Duration(seconds: 7), () => Navigator.of(context).pop());
+                //Navigator.of(context).push(MaterialPageRoute(  builder: (context) => ControllerViewScreen()));
               },
             ),
           ),

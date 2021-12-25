@@ -3,9 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/first.dart';
-import 'package:relocker_sa/payment_view/reservation_details.dart';
+
+import 'controller_view_screen.dart';
 
 class CalcPayPage extends StatefulWidget {
   const CalcPayPage({Key? key}) : super(key: key);
@@ -48,7 +48,9 @@ class _CalcPayPageState extends State<CalcPayPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xff88d8bb),
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          elevation: 0.0,
           backgroundColor: const Color(0xff88d8bb),
           title: Text("Set duration"),
           centerTitle: true,
@@ -57,23 +59,19 @@ class _CalcPayPageState extends State<CalcPayPage> {
               color: Colors.black,
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => first()));
+                Navigator.of(context).pop();
               }),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ControllerViewScreen()));
+                },
+                child: Text("Cancle", style: TextStyle(color: Colors.black)))
+          ],
         ),
         body: Stack(
           children: <Widget>[
-            Pinned.fromPins(
-              Pin(start: 0.0, end: -10.0),
-              Pin(start: 1.0, end: -50.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xff88d8bb),
-                  border:
-                      Border.all(width: 1.0, color: const Color(0xff707070)),
-                ),
-              ),
-            ),
             Pinned.fromPins(
               Pin(start: 0.0, end: 0.0),
               Pin(start: 150.0, end: 0.0),
@@ -184,17 +182,21 @@ class _CalcPayPageState extends State<CalcPayPage> {
               Pin(size: 50.0, middle: 0.8517),
               child: ElevatedButton(
                 onPressed: () async {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => ReservationDetails()));
                   await FirebaseFirestore.instance
-                      .collection("reservation")
+                      .collection("Reservation")
                       .add({
                     "End Date": "${endDateCont.text}",
                     "Start Date": "${startDateCont.text}",
                     "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-                    "userr_id": "${FirebaseAuth.instance.currentUser!.uid}",
+                    "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
                     "locker_name": "",
                     "Price": ""
+                  }).then((value) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => first(
+                              numberOfWeek: int.parse(weeksNumberCont.text),
+                              resId: "${value.id}",
+                            )));
                   });
                 },
                 child: Text(

@@ -16,8 +16,8 @@ class ForgetPassword extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is AuthResetPasswordSuccessState) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => LoginScreen()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => LoginScreen()));
           showDialog(
               context: context,
               builder: (context) {
@@ -92,9 +92,8 @@ class ForgetPassword extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
                           },
                         ),
                       ),

@@ -6,7 +6,14 @@ import 'package:relocker_sa/bloc/states/payment_states.dart';
 import 'package:relocker_sa/payment_view/add_cart.dart';
 
 class PaymentMethod extends StatelessWidget {
-  PaymentMethod({Key? key}) : super(key: key);
+  final String? resId;
+  final String? lockerName;
+
+  PaymentMethod({
+    Key? key,
+    this.resId,
+    required this.lockerName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +86,10 @@ class PaymentMethod extends StatelessWidget {
                             onTap: () {
                               _cubit.index = 1;
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => AddCard()));
+                                  builder: (context) => AddCard(
+                                        resId: resId!,
+                                        lockerName: lockerName!,
+                                      )));
                             },
                           ),
                           const SizedBox(height: 10),
@@ -99,7 +109,10 @@ class PaymentMethod extends StatelessWidget {
                             onTap: () {
                               _cubit.index = 2;
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => AddCard()));
+                                  builder: (context) => AddCard(
+                                        resId: resId!,
+                                        lockerName: lockerName!,
+                                      )));
                             },
                           ),
                           const SizedBox(height: 50),

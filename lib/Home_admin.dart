@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:relocker_sa/calc_pay_page.dart';
-import 'package:relocker_sa/closed_lock.dart';
+import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/locker_type.dart';
+import 'package:relocker_sa/payment_view/reservation_details.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+import 'calc_pay_page.dart';
+
+import 'closed_lock.dart';
+import 'ground.dart';
+import 'locker_type.dart';
+import 'lockerset1_gp.dart';
+
+class Homeadmin extends StatefulWidget {
+  const Homeadmin({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _HomeAdmin createState() => _HomeAdmin();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeAdmin extends State<Homeadmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +55,7 @@ class _HomeViewState extends State<HomeView> {
                       height: MediaQuery.of(context).size.width / 8,
                       child: ElevatedButton(
                         child: const Text(
-                          'Reserve a locker',
+                          'Manage lockers',
                           style: TextStyle(
                             color: Colors.black87,
                             fontSize: 18,
@@ -58,15 +65,7 @@ class _HomeViewState extends State<HomeView> {
                           primary: Colors.white,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => closed_lock()));
-                              builder: (context) => locker_type()));
-
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
-                        },
+                        onPressed: () {},
                       ),
                     ),
                   ],

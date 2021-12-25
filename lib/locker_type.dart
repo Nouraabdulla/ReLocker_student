@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
-import 'package:adobe_xd/blend_mask.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:relocker_sa/controller_view_screen.dart';
-import 'package:relocker_sa/home_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:relocker_sa/calc_pay_page.dart';
+import 'package:relocker_sa/first.dart';
+import 'package:relocker_sa/ground.dart';
 import 'package:relocker_sa/locker_Gfloor.dart';
 import 'package:relocker_sa/locker_floor.dart';
-import 'package:relocker_sa/profile.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class locker_type extends StatefulWidget {
   locker_type({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class locker_type extends StatefulWidget {
 
 class _locker_typeState extends State<locker_type> {
   DateTime selectedDate = DateTime.now();
-  String RendDate = "6/6/2022";
+  DateTime endDate = DateTime.utc(2022, 06, 06);
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +48,19 @@ class _locker_typeState extends State<locker_type> {
               icon: Image.asset('assets/images/regular.jpg'),
               iconSize: 50,
               onPressed: () async {
-                await FirebaseFirestore.instance.collection("reservation").add({
+                await FirebaseFirestore.instance.collection("Reservation").add({
                   //store regular reservation info in database
-                  "End Date": "${RendDate}",
+                  "End Date": "${endDate}",
                   "Start Date": "${selectedDate}",
-//                  "userr_id":"${FirebaseAuth.instance.currentUser!.uid}",
+                  "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
                   // "locker_name":"",
                   // "Price":""
                 });
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => locker_Gfloor()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ground(
+                          numberOfWeek: null,
+                          resId: '',
+                        )));
               },
             ),
           ),
@@ -69,8 +71,8 @@ class _locker_typeState extends State<locker_type> {
               icon: Image.asset('assets/images/flexible.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => locker_floor()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CalcPayPage()));
               },
             ),
           ),
@@ -119,7 +121,7 @@ class _locker_typeState extends State<locker_type> {
             icon: Image.asset('assets/images/background3.jpeg'),
             iconSize: 50,
             onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
+              Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ControllerViewScreen()));
             },
           ),
@@ -128,7 +130,7 @@ class _locker_typeState extends State<locker_type> {
                   constraints: BoxConstraints.expand(),
                   child: FlatButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(
+                        Navigator.of(context).push(
                             MaterialPageRoute(builder: (context) => profile()));
                       },
                       child: Image.asset('assets/images/background3.jpeg')))),

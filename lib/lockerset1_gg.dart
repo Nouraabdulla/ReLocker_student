@@ -3,14 +3,18 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'package:relocker_sa/profile.dart';
 
+import 'controller_view_screen.dart';
 import 'home_view.dart';
 
 class lockerset1_gg extends StatefulWidget {
   final int numberOfWeek;
-  lockerset1_gg({Key? key, required this.numberOfWeek}) : super(key: key);
+  final String resId;
+  lockerset1_gg({Key? key, required this.numberOfWeek, required this.resId})
+      : super(key: key);
 
   @override
   State<lockerset1_gg> createState() => _lockerset1_ggState();
@@ -23,6 +27,48 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
 
   String mySvg2(color) {
     return '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+  }
+
+  checkAvailableLockers() {
+    var today = DateTime.now();
+    FirebaseFirestore.instance.collection("Reservation").get().then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) async {
+        Map<String, dynamic> data = element.data()!;
+        DateTime endDate =
+            DateFormat("yyyy-MM-dd").parse(data["End Date"].toString());
+
+        var d = (today.difference(endDate).inHours / 24).round();
+
+        if (d > 0) {
+          await FirebaseFirestore.instance
+              .collection("lockers")
+              .where("name", isEqualTo: "${data['locker_name']}")
+              .limit(1)
+              .get()
+              .then((v) {
+            v.docs.forEach((el) {
+              FirebaseFirestore.instance
+                  .collection("lockers")
+                  .doc("${el.id}")
+                  .set({"available": true}, SetOptions(merge: true));
+            });
+          });
+          await FirebaseFirestore.instance
+              .collection("Reservation")
+              .where("locker_name", isEqualTo: "${data['locker_name']}")
+              .get()
+              .then((vl) {
+            vl.docs.forEach((ele) {
+              FirebaseFirestore.instance
+                  .collection("Reservation")
+                  .doc("${ele.id}")
+                  .set({"locker_name": ""}, SetOptions(merge: true));
+            });
+          });
+        }
+      });
+    });
   }
 
   showLocker(context, text, size) {
@@ -126,43 +172,57 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
 
                                                 var locker_type = data['type'];
                                                 var locker_size = data['size'];
-
+                                                int total;
                                                 if (locker_type == "r") {
                                                   if (locker_size == "s") {
                                                     print(rslp);
+                                                    total = rslp;
                                                   } else {
                                                     print(rllp);
+                                                    total = rllp;
                                                   }
                                                 } else {
                                                   if (locker_size == "s") {
                                                     print(fslp *
                                                         widget.numberOfWeek);
+                                                    total = fslp *
+                                                        widget.numberOfWeek;
                                                   } else {
                                                     print(fllp *
                                                         widget.numberOfWeek);
+                                                    total = fllp *
+                                                        widget.numberOfWeek;
                                                   }
                                                 }
+                                                // FirebaseFirestore.instance
+                                                //     .collection("Reservation")
+                                                //     .doc(widget.resId)
+                                                //     .update({
+                                                //   "locker_name": data['name']
+                                                // });
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ReservationDetails(
+                                                                resId: widget
+                                                                    .resId,
+                                                                totalPrice:
+                                                                    total,
+                                                                lockerName: data[
+                                                                    'name'])));
                                               }
                                             : () {},
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              //print('hi');
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ReservationDetails()));
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: data['available']
-                                                      ? Colors.green.shade300
-                                                      : Colors.grey,
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors.grey)),
-                                              child: Text("${data['name']}"),
-                                            )));
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                              color: data['available']
+                                                  ? Colors.green.shade200
+                                                  : Colors.grey,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey)),
+                                          child: Text("${data['name']}"),
+                                        ));
                                   },
                                 )
                               : GridView.builder(
@@ -181,6 +241,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                     Map<String, dynamic> data2 = snapshot
                                         .data!.docs[index * 2 + 1]
                                         .data()! as Map<String, dynamic>;
+
                                     return Container(
                                       width: 80.0,
                                       height: 200,
@@ -202,12 +263,15 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                       var locker_size =
                                                           data1['size'];
 
+                                                      int total;
                                                       if (locker_type == "r") {
                                                         if (locker_size ==
                                                             "s") {
                                                           print(rslp);
+                                                          total = rslp;
                                                         } else {
                                                           print(rllp);
+                                                          total = rllp;
                                                         }
                                                       } else {
                                                         if (locker_size ==
@@ -215,44 +279,59 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                           print(fslp *
                                                               widget
                                                                   .numberOfWeek);
+                                                          total = fslp *
+                                                              widget
+                                                                  .numberOfWeek;
                                                         } else {
                                                           print(fllp *
                                                               widget
                                                                   .numberOfWeek);
+                                                          total = fllp *
+                                                              widget
+                                                                  .numberOfWeek;
                                                         }
                                                       }
+                                                      // FirebaseFirestore.instance
+                                                      //     .collection(
+                                                      //         "Reservation")
+                                                      //     .doc(widget.resId)
+                                                      //     .update({
+                                                      //   "locker_name":
+                                                      //       data1['name']
+                                                      // });
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ReservationDetails(
+                                                                      totalPrice:
+                                                                          total,
+                                                                      resId: widget
+                                                                          .resId,
+                                                                      lockerName:
+                                                                          data1[
+                                                                              'name'])));
                                                     }
                                                   : () {},
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    //print('hi');
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ReservationDetails()));
-                                                  },
-                                                  child: Container(
-                                                    child: Stack(
-                                                      children: [
-                                                        SvgPicture.string(
-                                                          mySvg1(
-                                                              data1["available"]
-                                                                  ? "ff0000"
-                                                                  : "fafafa"),
-                                                          allowDrawingOutsideViewBox:
-                                                              true,
-                                                          fit: BoxFit.fill,
-                                                        ),
-                                                        Text(
-                                                          "${data1['name']}",
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              color:
-                                                                  Colors.black),
-                                                        )
-                                                      ],
+                                              child: Container(
+                                                child: Stack(
+                                                  children: [
+                                                    SvgPicture.string(
+                                                      mySvg1(data1["available"]
+                                                          ? "FFA5D6A7"
+                                                          : "FF9E9E9E"),
+                                                      allowDrawingOutsideViewBox:
+                                                          true,
+                                                      fit: BoxFit.fill,
                                                     ),
-                                                  )),
+                                                    Text(
+                                                      "${data1['name']}",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           Positioned(
@@ -271,12 +350,15 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                       var locker_size =
                                                           data2['size'];
 
+                                                      int total;
                                                       if (locker_type == "r") {
                                                         if (locker_size ==
                                                             "s") {
                                                           print(rslp);
+                                                          total = rslp;
                                                         } else {
                                                           print(rllp);
+                                                          total = rllp;
                                                         }
                                                       } else {
                                                         if (locker_size ==
@@ -284,46 +366,61 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                           print(fslp *
                                                               widget
                                                                   .numberOfWeek);
+                                                          total = fslp *
+                                                              widget
+                                                                  .numberOfWeek;
                                                         } else {
                                                           print(fllp *
                                                               widget
                                                                   .numberOfWeek);
+                                                          total = fllp *
+                                                              widget
+                                                                  .numberOfWeek;
                                                         }
                                                       }
+                                                      // FirebaseFirestore.instance
+                                                      //     .collection(
+                                                      //         "Reservation")
+                                                      //     .doc(widget.resId)
+                                                      //     .update({
+                                                      //   "locker_name":
+                                                      //       data2['name']
+                                                      // });
+                                                      Navigator.of(context).push(
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  ReservationDetails(
+                                                                      totalPrice:
+                                                                          total,
+                                                                      resId: widget
+                                                                          .resId,
+                                                                      lockerName:
+                                                                          data2[
+                                                                              'name'])));
                                                     }
                                                   : () {},
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    //print('hi');
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ReservationDetails()));
-                                                  },
-                                                  child: Container(
-                                                      child: Stack(
-                                                    children: [
-                                                      SvgPicture.string(
-                                                        mySvg2(
-                                                            data2["available"]
-                                                                ? 'ff0000'
-                                                                : "fafafa"),
-                                                        allowDrawingOutsideViewBox:
-                                                            true,
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                      Positioned(
-                                                        bottom: 50,
-                                                        child: Text(
-                                                          "${data2['name']}",
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ))),
+                                              child: Container(
+                                                  child: Stack(
+                                                children: [
+                                                  SvgPicture.string(
+                                                    mySvg2(data2["available"]
+                                                        ? "FFA5D6A7"
+                                                        : "FF9E9E9E"),
+                                                    allowDrawingOutsideViewBox:
+                                                        true,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    child: Text(
+                                                      "${data2['name']}",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: Colors.black),
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
                                             ),
                                           )
                                         ],
@@ -346,28 +443,28 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
+        backgroundColor: const Color(0xff88d8bb),
+        title: Text("Choose set of lockers"),
         centerTitle: true,
-        backgroundColor: Color(0xff88d8bb),
-        title: Text(
-          'Choose locker',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 18,
-            color: const Color(0xff1c0000),
-            height: 2.4444444444444446,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
         ),
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => HomeView()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ControllerViewScreen()));
               },
               child: Text("Cancle", style: TextStyle(color: Colors.black)))
-        ],
+        ], /* textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 20,
+                  color: Colors.black,
+                ))*/
       ),
       body: Stack(
         children: <Widget>[

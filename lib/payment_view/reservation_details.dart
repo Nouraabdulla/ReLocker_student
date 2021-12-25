@@ -9,8 +9,14 @@ import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/relocker_logo_widget.dart';
 
+import '../controller_view_screen.dart';
+
 class ReservationDetails extends StatelessWidget {
-  ReservationDetails({Key? key}) : super(key: key);
+  final int? totalPrice;
+  final String? resId;
+  final String? lockerName;
+  ReservationDetails({Key? key, this.resId, this.totalPrice, this.lockerName})
+      : super(key: key);
 
   String relockerName = '6-G-53';
 
@@ -23,16 +29,29 @@ class ReservationDetails extends StatelessWidget {
         return Scaffold(
           backgroundColor: const Color(0xFF89d8bb),
           appBar: AppBar(
-            title: const Text(
-              'Reservation Details',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-              ),
-            ),
-            centerTitle: true,
+            backgroundColor: const Color(0xff88d8bb),
             elevation: 0.0,
-            backgroundColor: const Color(0xFF89d8bb),
+            title: Text("Reservation Details"),
+            centerTitle: true,
+            foregroundColor: Colors.black,
+            leading: IconButton(
+              color: Colors.black,
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ControllerViewScreen()));
+                  },
+                  child: Text("Cancle", style: TextStyle(color: Colors.black)))
+            ], /* textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 20,
+                  color: Colors.black,
+                ))*/
           ),
           body: Conditional.single(
             context: context,
@@ -72,7 +91,8 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              '${_cubit.resserv['locker_name']}',
+                              //'${_cubit.resserv['locker_name']}',
+                              '$lockerName',
                               style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 30,
@@ -106,16 +126,19 @@ class ReservationDetails extends StatelessWidget {
                             const SizedBox(height: 8),
                             InputField(
                               title: 'Price',
-                              hint: '${_cubit.resserv['Price'].toString()} \$',
+                              hint: '${totalPrice!} \SR',
                               widget: Container(),
                             ),
                             const SizedBox(height: 40),
                             CustomButton(
                               text: 'Confirm',
                               color: const Color(0xFF89d8bb),
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) => PaymentMethod())),
+                              onPressed: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => PaymentMethod(
+                                            resId: resId,
+                                            lockerName: lockerName,
+                                          ))),
                             )
                           ],
                         ),

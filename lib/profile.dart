@@ -48,29 +48,40 @@ class _profileState extends State<profile> {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
+        backgroundColor: const Color(0xff88d8bb),
         title: Text("Profile"),
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ControllerViewScreen()));
+            }),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
+                Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => edit_profile()));
               },
               icon: Icon(Icons.edit))
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(32.0),
+        padding: EdgeInsets.all(70.0),
         children: [
           CircleAvatar(
             child: Icon(
               Icons.person,
+              color: Colors.black,
               size: 100,
             ),
             radius: 80,
             backgroundColor: Colors.grey.shade200,
           ),
           SizedBox(
-            height: 32,
+            height: 70,
           ),
           Text(
             "Username:",
@@ -78,9 +89,15 @@ class _profileState extends State<profile> {
           ),
           Text("${userData['user_name'] ?? ''}",
               style: TextStyle(fontSize: 20)),
+          SizedBox(
+            height: 15,
+          ),
           Text("Email:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           Text("${userData['email'] ?? ''}", style: TextStyle(fontSize: 20)),
+          SizedBox(
+            height: 15,
+          ),
           Text("Phone:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           Text("${userData['phone'] ?? ''}", style: TextStyle(fontSize: 20))

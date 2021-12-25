@@ -41,8 +41,11 @@ class locker_Gfloor extends StatelessWidget {
               icon: Image.asset('assets/images/Gfloor.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => ground()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ground(
+                          numberOfWeek: null,
+                          resId: '',
+                        )));
               },
             ),
           ),

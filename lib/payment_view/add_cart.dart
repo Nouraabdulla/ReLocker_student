@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -8,17 +11,32 @@ import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/mada_widget.dart';
 import 'package:relocker_sa/widgets/mastercard_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddCard extends StatefulWidget {
-  const AddCard({Key? key}) : super(key: key);
+  final String? resId;
+  final String? lockerName;
+
+  const AddCard({Key? key, this.resId, this.lockerName}) : super(key: key);
 
   @override
   State<AddCard> createState() => _AddCardState();
 }
 
+final random = Random();
+int randomNumber = random.nextInt(10) * 1000;
+
 class _AddCardState extends State<AddCard> {
   var _selectedDate = DateTime.now().toString();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  getCode() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    DateTime expDate =
+        DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
+    await sp.setString("code", randomNumber.toString());
+    await sp.setString("date", DateTime.now().toString().split(" ").first);
+  }
 
   void _datepicker() {
     showDatePicker(
@@ -144,7 +162,7 @@ class _AddCardState extends State<AddCard> {
                                               title: const Text(
                                                 'Success!',
                                                 style: TextStyle(
-                                                  color: Colors.red,
+                                                  color: Colors.black,
                                                   fontSize: 18,
                                                 ),
                                               ),
@@ -175,6 +193,34 @@ class _AddCardState extends State<AddCard> {
                                                           const StadiumBorder(),
                                                     ),
                                                     onPressed: () {
+                                                      FirebaseFirestore.instance
+                                                          .collection(
+                                                              "Reservation")
+                                                          .doc(widget.resId)
+                                                          .update({
+                                                        "locker_name":
+                                                            widget.lockerName
+                                                      });
+                                                      FirebaseFirestore.instance
+                                                          .collection("lockers")
+                                                          .where("name",
+                                                              isEqualTo: widget
+                                                                  .lockerName)
+                                                          .limit(1)
+                                                          .get()
+                                                          .then((value) {
+                                                        value.docs
+                                                            .forEach((element) {
+                                                          FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  "lockers")
+                                                              .doc(element.id)
+                                                              .update({
+                                                            "available": false
+                                                          });
+                                                        });
+                                                      });
                                                       Navigator.of(context)
                                                           .pop();
                                                       //Go To Checkout Screen
@@ -183,7 +229,12 @@ class _AddCardState extends State<AddCard> {
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          Checkout()));
+                                                                          Checkout(
+                                                                            resId:
+                                                                                widget.resId,
+                                                                            lockerName:
+                                                                                widget.lockerName,
+                                                                          )));
                                                     },
                                                   ),
                                                 ),

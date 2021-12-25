@@ -3,46 +3,45 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'controller_view_screen.dart';
 import 'lockerset1_fg.dart';
 import 'lockerset1_fp.dart';
 import 'lockerset1_fp.dart';
 
 class first extends StatelessWidget {
-  first({Key? key}) : super(key: key);
+  final int? numberOfWeek;
+  final String? resId;
+  first({Key? key, this.numberOfWeek, this.resId}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff88d8bb),
+        title: Text("Choose zone"),
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ControllerViewScreen()));
+              },
+              child: Text("Cancle", style: TextStyle(color: Colors.black)))
+        ], /* textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Helvetica Neue',
+                  fontSize: 20,
+                  color: Colors.black,
+                ))*/
+      ),
       body: Stack(
         children: <Widget>[
-          Pinned.fromPins(
-            Pin(size: 125.0, middle: 0.5261),
-            Pin(size: 21.0, start: 35.0),
-            child: Text(
-              'Choose zone',
-              style: TextStyle(
-                fontFamily: 'Helvetica Neue',
-                fontSize: 18,
-                color: const Color(0xff1c0000),
-                height: 2.4444444444444446,
-              ),
-              textHeightBehavior:
-                  TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Pinned.fromPins(
-            Pin(start: 0.0, end: -16.0),
-            Pin(size: 80.0, start: 0.0), // up bar
-            child: BlendMask(
-              blendMode: BlendMode.multiply,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xff88d8bb),
-                ),
-              ),
-            ),
-          ),
           Pinned.fromPins(
             Pin(start: 14.0, end: -0.2),
             Pin(size: 686.3, end: 7), // whole map
@@ -2354,7 +2353,8 @@ class first extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_fg(
-                                          numberOfWeek: 0,
+                                          numberOfWeek: numberOfWeek!,
+                                          resId: resId!,
                                         )));
                           },
                           child: Text(""),
@@ -2370,7 +2370,8 @@ class first extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_fp(
-                                          numberOfWeek: 0,
+                                          numberOfWeek: numberOfWeek!,
+                                          resId: resId!,
                                         )));
                           },
                           child: Text(""),

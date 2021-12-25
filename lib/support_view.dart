@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class SupportView extends StatefulWidget {
   const SupportView({Key? key}) : super(key: key);
 
@@ -14,7 +13,7 @@ class _SupportViewState extends State<SupportView> {
     return const Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
       body: Center(
-        child: Text('Support'),
+        child: Text('No chat'),
       ),
     );
   }

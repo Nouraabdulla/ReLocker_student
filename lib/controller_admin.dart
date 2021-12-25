@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:relocker_sa/Home_admin.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
-import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/login_screen.dart';
-import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/support_view.dart';
 
 import 'bloc/cubit/auth_cubit.dart';
 import 'home_view.dart';
 
-class ControllerViewScreen extends StatefulWidget {
-  const ControllerViewScreen({Key? key}) : super(key: key);
+class controlleradmin extends StatefulWidget {
+  const controlleradmin({Key? key}) : super(key: key);
 
   @override
-  State<ControllerViewScreen> createState() => _ControllerViewScreenState();
+  State<controlleradmin> createState() => _Controlleradmin();
 }
 
-class _ControllerViewScreenState extends State<ControllerViewScreen> {
+class _Controlleradmin extends State<controlleradmin> {
   int currentIndex = 2;
-  List _screen = [closed_lock(), HomeView()];
+  List _screen = [SupportView(), Homeadmin()];
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +66,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
                                   title: Text('My account'),
                                   leading: Icon(Icons.person),
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => profile()));
-                                },
+                                onTap: () {},
                               ),
                               const Divider(
                                 color: Colors.grey,
@@ -231,11 +227,9 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
               icon: SizedBox(
                 height: 35,
                 width: 35,
-                child: Image.asset(
-                  'assets/images/key.png',
-                  fit: BoxFit.cover,
+                child: Icon(
+                  Icons.chat,
                   color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
-                  alignment: Alignment.center,
                 ),
               ),
               label: '',
