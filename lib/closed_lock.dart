@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/adobe_xd.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:relocker_sa/lockerset1_fg.dart';
 import 'package:relocker_sa/opened_lock.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,45 +19,91 @@ class closed_lock extends StatefulWidget {
   State<closed_lock> createState() => _closed_lockState();
 }
 
+// getpin() async {
+//   final DocumentSnapshot doc = await FirebaseFirestore.instance
+//       .collection("Reservation")
+//       .doc("${FirebaseAuth.instance.currentUser!.uid}")
+//       .get();
+//   String lname = doc['locker_name'];
+
+//   await FirebaseFirestore.instance.collection("lockers").doc("${lname}").get();
+//   String pin = doc['pin'];
+
+//   return pin;
+// }
+
 final random = Random();
 int randomNumber = random.nextInt(10) * 1000;
+String code = "";
+String showpin = "Show pin";
+
+showpincode() async {
+  final DocumentSnapshot doc = await FirebaseFirestore.instance
+      .collection("Reservation")
+      .doc("${FirebaseAuth.instance.currentUser!.uid}")
+      .get();
+  String lname = doc['locker_name'];
+
+  final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+      .collection("lockers")
+      .doc("${lname}")
+      .get();
+  code = doc2['pin'];
+  // print(code);
+}
+///////////////////////
 
 class _closed_lockState extends State<closed_lock> {
   bool click = true;
-
   TextEditingController emailCont = new TextEditingController();
   TextEditingController otpCont = new TextEditingController();
 
-  getCode() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    var today = DateTime.now();
-    var spCode = sp.getString("code");
-    DateTime expDate =
-        DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
+  // String pin = getpin();
 
-    var d = (today.difference(expDate).inHours / 24).round();
+  // getCode() async {
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   var today = DateTime.now();
+  //   var spCode = sp.getString("code");
+  //   DateTime expDate =
+  //       DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
 
-    if ((spCode == null || spCode == '') || d > 0) {
-      await sp.setString("code", randomNumber.toString());
-      await sp.setString("date", DateTime.now().toString().split(" ").first);
-      Future.delayed(Duration(seconds: 1), () {
-        getCode();
-      });
-    } else {
-      setState(() {
-        code = spCode;
-      });
-    }
-  }
+  //   var d = (today.difference(expDate).inHours / 24).round();
+
+  //   // if ((spCode == null || spCode == '') || d > 0) {
+  //   //   await sp.setString("code", randomNumber.toString());
+  //   //   await sp.setString("date", DateTime.now().toString().split(" ").first);
+  //   //   Future.delayed(Duration(seconds: 1), () {
+  //   //     getCode();
+  //   //   });
+  //   // } else {
+  //   //   setState(() {
+  //   //     code = spCode;
+  //   //   });
+  //   // }
+
+  //   final DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection("Reservation")
+  //       .doc("${FirebaseAuth.instance.currentUser!.uid}")
+  //       .get();
+  //   String lname = doc['locker_name'];
+
+  //   await FirebaseFirestore.instance
+  //       .collection("lockers")
+  //       .doc("${lname}")
+  //       .get();
+  //   code = doc['pin'];
+  //   print(code);
+  //   return code;
+  // }
 
   bool showCode = false;
-  String code = "123456";
+  // String code = "123456";
 
   late EmailAuth emailAuth;
 
   @override
   void initState() {
-    getCode();
+    // getCode();
     emailAuth = new EmailAuth(sessionName: "ReLocker");
     //sendOtp();
     super.initState();
@@ -143,6 +191,7 @@ class _closed_lockState extends State<closed_lock> {
 
   @override
   Widget build(BuildContext context) {
+    showpincode();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -216,6 +265,7 @@ class _closed_lockState extends State<closed_lock> {
                         fontSize: 18,
                       ),
                     ),
+                    // subtitle: Text(code),
                     trailing: TextButton(
                       onPressed: showCode
                           ? null

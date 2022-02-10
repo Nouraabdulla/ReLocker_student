@@ -196,6 +196,8 @@ class _CalcPayPageState extends State<CalcPayPage> {
                         builder: (context) => first(
                               numberOfWeek: int.parse(weeksNumberCont.text),
                               resId: "${value.id}",
+                              startDate: "${startDateCont.text}",
+                              endDate: "${endDateCont.text}",
                             )));
                   });
                 },

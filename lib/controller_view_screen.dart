@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
@@ -20,6 +22,19 @@ class ControllerViewScreen extends StatefulWidget {
 class _ControllerViewScreenState extends State<ControllerViewScreen> {
   int currentIndex = 2;
   List _screen = [closed_lock(), HomeView()];
+
+  haslocker() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc("${FirebaseAuth.instance.currentUser!.uid}")
+        .get();
+    String locker = doc['reservedlocker'];
+    print(locker);
+    if (locker != "") {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {

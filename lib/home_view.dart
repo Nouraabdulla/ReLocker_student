@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/locker_type.dart';
+import 'package:relocker_sa/lockerset1_fg.dart';
+import 'package:relocker_sa/renewpage.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -61,7 +63,7 @@ class _HomeViewState extends State<HomeView> {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               // builder: (context) => closed_lock()));
-                              builder: (context) => locker_type()));
+                              builder: (context) => renew()));
 
                           // Navigator.of(context).push(
                           //     MaterialPageRoute(
