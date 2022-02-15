@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
@@ -49,27 +51,39 @@ class _HomeViewState extends State<HomeView> {
                       width: MediaQuery.of(context).size.width / 2,
                       height: MediaQuery.of(context).size.width / 8,
                       child: ElevatedButton(
-                        child: const Text(
-                          'Reserve a locker',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
+                          child: const Text(
+                            'Reserve a locker',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: const StadiumBorder(),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => closed_lock()));
-                              builder: (context) => renew()));
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: const StadiumBorder(),
+                          ),
+                          onPressed: () {
+                            // dohavelocker() async {
+                            //   final DocumentSnapshot doc = await FirebaseFirestore
+                            //       .instance
+                            //       .collection('Users')
+                            //       .doc(
+                            //           "${FirebaseAuth.instance.currentUser!.uid}")
+                            //       .get();
+                            //   String haslocker = doc['reservedlocker'];
+                            //   print(haslocker + "here");
+                            // }
 
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
-                        },
-                      ),
+                            // if (true) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => renew()));
+                            // } else {
+                            //   print("you alrealdy reserved a locker");
+                            // }
+                            // Navigator.of(context).push(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
+                          }),
                     ),
                   ],
                 ),

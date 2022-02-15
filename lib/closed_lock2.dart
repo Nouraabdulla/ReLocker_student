@@ -2,120 +2,55 @@ import 'dart:async';
 import 'dart:math';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/adobe_xd.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:relocker_sa/lockerset1_fg.dart';
 import 'package:relocker_sa/opened_lock.dart';
-import 'package:relocker_sa/renewpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class closed_lock extends StatefulWidget {
-  closed_lock({
-    Key? key,
-  }) : super(key: key);
-
+class closed_lockc extends StatefulWidget {
   @override
-  State<closed_lock> createState() => _closed_lockState();
+  State<closed_lockc> createState() => _closed_lockcState();
 }
-
-// getpin() async {
-//   final DocumentSnapshot doc = await FirebaseFirestore.instance
-//       .collection("Reservation")
-//       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//       .get();
-//   String lname = doc['locker_name'];
-
-//   await FirebaseFirestore.instance.collection("lockers").doc("${lname}").get();
-//   String pin = doc['pin'];
-
-//   return pin;
-// }
 
 final random = Random();
 int randomNumber = random.nextInt(10) * 1000;
-String code = "";
-String showpin = "Show pin";
 
-// showpincode() async {
-//   final DocumentSnapshot doc = await FirebaseFirestore.instance
-//       .collection("Reservation")
-//       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//       .get();
-//   String lname = doc['locker_name'];
-
-//   final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-//       .collection("lockers")
-//       .doc("${lname}")
-//       .get();
-//   code = doc2['pin'];
-
-//   // print(code);
-// }
-///////////////////////
-
-class _closed_lockState extends State<closed_lock> {
+class _closed_lockcState extends State<closed_lockc> {
   bool click = true;
+
   TextEditingController emailCont = new TextEditingController();
   TextEditingController otpCont = new TextEditingController();
 
-  // String pin = getpin();
+  getCode() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    var today = DateTime.now();
+    var spCode = sp.getString("code");
+    String expDate2 = '2022-02-13';
+    DateTime expDate = DateFormat("yyyy-MM-dd").parse(expDate2);
+    // DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
 
-  // getCode() async {
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   var today = DateTime.now();
-  //   var spCode = sp.getString("code");
-  //   DateTime expDate =
-  //       DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
+    var d = (today.difference(expDate).inHours / 24).round();
 
-  //   var d = (today.difference(expDate).inHours / 24).round();
-
-  //   // if ((spCode == null || spCode == '') || d > 0) {
-  //   //   await sp.setString("code", randomNumber.toString());
-  //   //   await sp.setString("date", DateTime.now().toString().split(" ").first);
-  //   //   Future.delayed(Duration(seconds: 1), () {
-  //   //     getCode();
-  //   //   });
-  //   // } else {
-  //   //   setState(() {
-  //   //     code = spCode;
-  //   //   });
-  //   // }
-
-  //   final DocumentSnapshot doc = await FirebaseFirestore.instance
-  //       .collection("Reservation")
-  //       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-  //       .get();
-  //   String lname = doc['locker_name'];
-
-  //   await FirebaseFirestore.instance
-  //       .collection("lockers")
-  //       .doc("${lname}")
-  //       .get();
-  //   code = doc['pin'];
-  //   print(code);
-  //   return code;
-  // }
-  genCode() async {
-    final DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection("Reservation")
-        .doc("${FirebaseAuth.instance.currentUser!.uid}")
-        .get();
-    String lname = doc['locker_name'];
-
-    final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-        .collection("lockers")
-        .doc("${lname}")
-        .get();
-    code = doc2['pin'];
-    print(code);
-    generatorNumber(code.toString());
+    if ((spCode == null || spCode == '') || d > 0) {
+      await sp.setString("code", randomNumber.toString());
+      await sp.setString("date", DateTime.now().toString().split(" ").first);
+      Future.delayed(Duration(seconds: 1), () {
+        getCode();
+      });
+    } else {
+      setState(() {
+        code = spCode;
+        // code = "2567";
+        genCodeList.clear();
+        print('here');
+        genCode(code);
+      });
+    }
   }
 
-  void generatorNumber(String code) {
-    genCodeList.clear();
+  void genCode(String code) {
     for (int i = 0; i < 4; i++) {
       if (i == 0) {
         genCodeList.add('${code.substring(0, 1)}***');
@@ -191,7 +126,7 @@ class _closed_lockState extends State<closed_lock> {
 
   @override
   void initState() {
-    genCode();
+    getCode();
     emailAuth = new EmailAuth(sessionName: "ReLocker");
     //sendOtp();
     super.initState();
@@ -211,6 +146,7 @@ class _closed_lockState extends State<closed_lock> {
     bool result = await emailAuth.sendOtp(
         recipientMail: "${FirebaseAuth.instance.currentUser!.email}",
         otpLength: 6);
+
     if (result) {
       Navigator.of(context).pop();
       showDialog(
@@ -280,7 +216,6 @@ class _closed_lockState extends State<closed_lock> {
 
   @override
   Widget build(BuildContext context) {
-    // showpincode();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -331,18 +266,6 @@ class _closed_lockState extends State<closed_lock> {
                 left: 0,
                 bottom: MediaQuery.of(context).size.width / -6,
               ),
-              Positioned(
-                child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => renew()));
-                    },
-                    child:
-                        Text("renew", style: TextStyle(color: Colors.black))),
-                right: 300,
-                left: 0,
-                top: 60,
-              )
             ],
           ),
           SizedBox(
@@ -366,7 +289,6 @@ class _closed_lockState extends State<closed_lock> {
                         fontSize: 18,
                       ),
                     ),
-                    // subtitle: Text(code),
                     trailing: TextButton(
                       onPressed: showCode
                           ? null
@@ -387,7 +309,7 @@ class _closed_lockState extends State<closed_lock> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "code will showen withing 8 seconds",
+                    "code will showen withing 20 seconds",
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
