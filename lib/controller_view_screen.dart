@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/closed_lock.dart';
+import 'package:relocker_sa/closed_lock2.dart';
 import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/start_screen.dart';
@@ -19,28 +20,29 @@ class ControllerViewScreen extends StatefulWidget {
   State<ControllerViewScreen> createState() => _ControllerViewScreenState();
 }
 
+String haslocker = "";
+
 class _ControllerViewScreenState extends State<ControllerViewScreen> {
   int currentIndex = 2;
   List _screen = [closed_lock(), HomeView()];
 
-  haslocker() async {
+  dohavelocker() async {
     final DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('Users')
         .doc("${FirebaseAuth.instance.currentUser!.uid}")
         .get();
-    String locker = doc['reservedlocker'];
-    print(locker);
-    if (locker != "") {
-      return true;
-    }
-    return false;
+    haslocker = doc['reservedlocker'];
+    // print("hiiii" + haslocker);
   }
 
   @override
   Widget build(BuildContext context) {
+    dohavelocker();
     return Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
-      body: currentIndex > 0 ? _screen[currentIndex - 1] : _screen[0],
+      body: currentIndex > 0 && haslocker != ""
+          ? _screen[currentIndex - 1]
+          : _screen[1],
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
@@ -249,7 +251,9 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
                 child: Image.asset(
                   'assets/images/key.png',
                   fit: BoxFit.cover,
-                  color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+                  color: currentIndex == 1 && haslocker != ""
+                      ? Colors.blue
+                      : Colors.grey[800],
                   alignment: Alignment.center,
                 ),
               ),

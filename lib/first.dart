@@ -2377,6 +2377,8 @@ class first extends StatelessWidget {
                                     builder: (context) => lockerset1_fp(
                                           numberOfWeek: numberOfWeek!,
                                           resId: resId!,
+                                          endDate: endDate!,
+                                          startDate: startDate!,
                                         )));
                           },
                           child: Text(""),

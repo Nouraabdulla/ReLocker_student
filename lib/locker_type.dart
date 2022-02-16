@@ -7,6 +7,8 @@ import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/ground.dart';
 import 'package:relocker_sa/locker_Gfloor.dart';
 import 'package:relocker_sa/locker_floor.dart';
+import 'package:relocker_sa/profile.dart';
+import 'package:relocker_sa/widgets/how_to_reserve.dart';
 
 class locker_type extends StatefulWidget {
   locker_type({Key? key}) : super(key: key);
@@ -32,7 +34,18 @@ class _locker_typeState extends State<locker_type> {
             color: Colors.black,
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.of(context).pop(),
-          ) /* textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.help_outline_outlined,
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => profile()));
+              },
+            )
+          ] /* textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 20,
@@ -60,6 +73,8 @@ class _locker_typeState extends State<locker_type> {
                     builder: (context) => ground(
                           numberOfWeek: null,
                           resId: '',
+                          startDate: "${selectedDate}",
+                          endDate: "${endDate}",
                         )));
               },
             ),

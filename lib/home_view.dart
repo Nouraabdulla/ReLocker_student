@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
@@ -5,11 +7,22 @@ import 'package:relocker_sa/locker_type.dart';
 import 'package:relocker_sa/lockerset1_fg.dart';
 import 'package:relocker_sa/renewpage.dart';
 
+String haslocker = "";
+
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   _HomeViewState createState() => _HomeViewState();
+}
+
+dohavelocker() async {
+  final DocumentSnapshot doc = await FirebaseFirestore.instance
+      .collection('Users')
+      .doc("${FirebaseAuth.instance.currentUser!.uid}")
+      .get();
+  haslocker = doc['reservedlocker'];
+  // print("hiiii" + haslocker);
 }
 
 class _HomeViewState extends State<HomeView> {
@@ -49,27 +62,29 @@ class _HomeViewState extends State<HomeView> {
                       width: MediaQuery.of(context).size.width / 2,
                       height: MediaQuery.of(context).size.width / 8,
                       child: ElevatedButton(
-                        child: const Text(
-                          'Reserve a locker',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
+                          child: const Text(
+                            'Reserve a locker',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: const StadiumBorder(),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => closed_lock()));
-                              builder: (context) => renew()));
-
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
-                        },
-                      ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: const StadiumBorder(),
+                          ),
+                          onPressed: haslocker == ""
+                              ? () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => locker_type()));
+                                  // } else {
+                                  //   print("you alrealdy reserved a locker");
+                                  // }
+                                  // Navigator.of(context).push(
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => locker_type()));
+                                }
+                              : () {}),
                     ),
                   ],
                 ),
