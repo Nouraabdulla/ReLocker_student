@@ -43,6 +43,9 @@ class _locker_typeState extends State<locker_type> {
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => howtoreserve()));
+
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => profile()));
               },
             )
           ] /* textAlign: TextAlign.center,

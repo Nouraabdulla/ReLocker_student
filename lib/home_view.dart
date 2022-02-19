@@ -109,6 +109,26 @@ class _HomeViewState extends State<HomeView> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => locker_type()));
                             }
+                            // dohavelocker() async {
+                            //   final DocumentSnapshot doc = await FirebaseFirestore
+                            //       .instance
+                            //       .collection('Users')
+                            //       .doc(
+                            //           "${FirebaseAuth.instance.currentUser!.uid}")
+                            //       .get();
+                            //   String haslocker = doc['reservedlocker'];
+                            //   print(haslocker + "here");
+                            // }
+
+                            // if (true) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => renew()));
+                            // } else {
+                            //   print("you alrealdy reserved a locker");
+                            // }
+                            // Navigator.of(context).push(
+                            //     MaterialPageRoute(
+                            //         builder: (context) => locker_type()));
                           }),
                     ),
                   ],
