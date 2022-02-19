@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/Home_admin.dart';
+import 'package:relocker_sa/Request.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/login_screen.dart';
+import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/support_view.dart';
 
@@ -18,7 +20,7 @@ class controlleradmin extends StatefulWidget {
 
 class _Controlleradmin extends State<controlleradmin> {
   int currentIndex = 2;
-  List _screen = [SupportView(), Homeadmin()];
+  List _screen = [Requests(), Homeadmin()];
 
   @override
   Widget build(BuildContext context) {
@@ -63,22 +65,14 @@ class _Controlleradmin extends State<controlleradmin> {
                               ),
                               GestureDetector(
                                 child: const ListTile(
-                                  title: Text('My account'),
+                                  title: Text('Contatc occupier'),
                                   leading: Icon(Icons.person),
                                 ),
-                                onTap: () {},
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('Technical support'),
-                                  leading: Icon(Icons.headset_outlined),
-                                ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          search_lockername()));
+                                },
                               ),
                               const Divider(
                                 color: Colors.grey,

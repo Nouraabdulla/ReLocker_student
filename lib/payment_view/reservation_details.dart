@@ -5,6 +5,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:relocker_sa/bloc/cubit/payment_cubit.dart';
 import 'package:relocker_sa/bloc/states/payment_states.dart';
 import 'package:relocker_sa/payment_view/payment_method.dart';
+import 'package:relocker_sa/payment_view/paypal.dart';
 import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/relocker_logo_widget.dart';
@@ -131,15 +132,14 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             const SizedBox(height: 40),
                             CustomButton(
-                              text: 'Confirm',
-                              color: const Color(0xFF89d8bb),
-                              onPressed: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PaymentMethod(
-                                            resId: resId,
-                                            lockerName: lockerName,
-                                          ))),
-                            )
+                                text: 'Confirm',
+                                color: const Color(0xFF89d8bb),
+                                onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              PayPal(title: 'paypal'))),
+                                    ))
                           ],
                         ),
                       ),

@@ -30,6 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   adobe_xd:
+  smooth_page_indicator: ^1.0.0+2
+  
   
   
 
@@ -49,6 +51,7 @@ dependencies:
   flutter_conditional_rendering: ^2.0.0
   shared_preferences:
   email_auth:
+  flutter_braintree: 
 
 dev_dependencies:
   flutter_test:

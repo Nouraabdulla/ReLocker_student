@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -8,11 +9,18 @@ import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'controller_view_screen.dart';
 import 'login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   TextEditingController _password = TextEditingController();
+  bool ischeked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +87,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                padding: const EdgeInsets.only(top: 0, left: 20, right: 20),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -88,7 +96,7 @@ class RegisterScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                            height: MediaQuery.of(context).size.width / 3.3),
+                            height: MediaQuery.of(context).size.width / 9.9),
                         const Text(
                           'Create\nAccount',
                           style: TextStyle(
@@ -241,7 +249,6 @@ class RegisterScreen extends StatelessWidget {
                           keyboardType: TextInputType.phone,
                           onSaved: (val) {
                             _cubit.phone = val;
-                            _cubit.reservedlocker = "";
                           },
                         ),
                         const SizedBox(height: 10),
@@ -279,6 +286,76 @@ class RegisterScreen extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: 25),
+
+                        // checkbox for privacy policy
+
+                        CheckboxListTile(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(children: [
+                                TextSpan(
+                                  text:
+                                      "I agree to the Terms of Services and Privacy Policy ",
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.black),
+                                ),
+                                TextSpan(
+                                    text: "Read",
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      color: Colors.blue,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return SingleChildScrollView(
+                                                  child: AlertDialog(
+                                                      title: Text("1. All lockers are the property of KSU\n" +
+                                                          "  2. Lockers shall not be used to store items which are prohibited by KSU (Flammable materials, dangerous chemicals explosives or weapons of any kind are strictly).\n" +
+                                                          "3. Use of a locker by a person other than to whom it is assigned is forbidden. Misuse of a locker may lead to termination of locker privileges.\n" +
+                                                          "4. Lockers must be kept locked when not in use.\n" +
+                                                          "5. KSU not be liable in any circumstance for any loss or damage of property stored in any locker.\n" +
+                                                          "6.KSU in no circumstances be responsible for the safe keeping of any items found in the lockers and any loss or damage in connection therewith.\n" +
+                                                          "7. It is the responsibility of the student to maintain the locker PIN."),
+                                                      actions: [
+                                                    ElevatedButton(
+                                                      child: Text(
+                                                        "Ok",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            Color(0xFF9AD6BD),
+                                                        shape:
+                                                            const StadiumBorder(),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    )
+                                                  ]));
+                                            });
+                                      }),
+                              ])),
+                          onChanged: (bool? value) {
+                            setState(() {
+                              ischeked = value!;
+                            });
+                          },
+                          value: ischeked,
+                        ),
+
+                        const SizedBox(height: 25),
+
                         Column(
                           children: [
                             Conditional.single(
@@ -303,7 +380,39 @@ class RegisterScreen extends StatelessWidget {
                                   onPressed: () async {
                                     _formKey.currentState!.save();
                                     if (_formKey.currentState!.validate()) {
-                                      await _cubit.signUp();
+                                      if (ischeked) {
+                                        await _cubit.signUp();
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                  title: Text(
+                                                      "You must agree on the terms and privacy policy"),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                      child: Text(
+                                                        "Ok",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        primary:
+                                                            Color(0xFF9AD6BD),
+                                                        shape:
+                                                            const StadiumBorder(),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    )
+                                                  ]);
+                                            });
+                                      }
                                     }
                                   },
                                 ),
@@ -380,8 +489,7 @@ class RegisterScreen extends StatelessWidget {
   }
 
   String? validatePassword(String? value) {
-    var pattern =
-        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    var pattern = r'^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[!@#\$&*~]).{8,}$';
     RegExp regex = new RegExp(pattern);
     print(value);
     if (value!.length < 7) {

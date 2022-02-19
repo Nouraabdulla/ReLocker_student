@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
@@ -13,6 +15,48 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  String haslocker = "";
+  User? user = FirebaseAuth.instance.currentUser;
+
+  Map<String, dynamic> datares = {};
+
+  getData() {
+    FirebaseFirestore.instance
+        .collection("Users")
+        .where("user_id", isEqualTo: user!.uid)
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+
+      list.forEach((element) async {
+        setState(() {
+          datares = element.data()!;
+        });
+      });
+    });
+  }
+  // dohavelocker() async {
+  //   final DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc(user!.uid)
+  //       .get();
+  //   print("hiiii" + haslocker);
+  //   haslocker = doc['reservedlocker'];
+
+  //   setState(() {
+  //     haslocker = doc['reservedlocker'];
+  //   });
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement setState
+    setState(() {
+      getData();
+      super.initState();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,27 +93,23 @@ class _HomeViewState extends State<HomeView> {
                       width: MediaQuery.of(context).size.width / 2,
                       height: MediaQuery.of(context).size.width / 8,
                       child: ElevatedButton(
-                        child: const Text(
-                          'Reserve a locker',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
+                          child: const Text(
+                            'Reserve a locker',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: const StadiumBorder(),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => closed_lock()));
-                              builder: (context) => renew()));
-
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
-                        },
-                      ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: const StadiumBorder(),
+                          ),
+                          onPressed: () {
+                            if (datares["reservedlocker"] == "") {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => locker_type()));
+                            }
+                          }),
                     ),
                   ],
                 ),
