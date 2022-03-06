@@ -105,10 +105,10 @@ class _HomeViewState extends State<HomeView> {
                             shape: const StadiumBorder(),
                           ),
                           onPressed: () {
-                            if (datares["reservedlocker"] == "") {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => locker_type()));
-                            }
+                            // if (datares["reservedlocker"] == "") {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => locker_type()));
+                            // }
                             // dohavelocker() async {
                             //   final DocumentSnapshot doc = await FirebaseFirestore
                             //       .instance
@@ -121,8 +121,7 @@ class _HomeViewState extends State<HomeView> {
                             // }
 
                             // if (true) {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => renew()));
+
                             // } else {
                             //   print("you alrealdy reserved a locker");
                             // }
