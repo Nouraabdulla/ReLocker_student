@@ -5,6 +5,7 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:relocker_sa/bloc/cubit/payment_cubit.dart';
 import 'package:relocker_sa/bloc/states/payment_states.dart';
 import 'package:relocker_sa/payment_view/payment_method.dart';
+import 'package:relocker_sa/paypal/payment/paypal/v/PaypalGenericPage.dart';
 import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/relocker_logo_widget.dart';
@@ -16,12 +17,21 @@ class ReservationDetails extends StatelessWidget {
   final String? resId;
   final String? lockerName;
   ReservationDetails({Key? key, this.resId, this.totalPrice, this.lockerName})
-      : super(key: key);
+      : super(key: key) {
+    // print("nda - totalPrice: " + totalPrice.toString()
+    //     + " /resId: " + resId.toString() + " /lockerName: " + lockerName.toString() );
+  }
 
   String relockerName = '6-G-53';
 
+  late BuildContext context;
+
   @override
   Widget build(BuildContext context) {
+    print("nda - ReservationDetails - build() ");
+
+    this.context = context;
+
     return BlocConsumer<PaymentCubit, PaymentStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -131,15 +141,18 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             const SizedBox(height: 40),
                             CustomButton(
-                              text: 'Confirm',
-                              color: const Color(0xFF89d8bb),
-                              onPressed: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PaymentMethod(
-                                            resId: resId,
-                                            lockerName: lockerName,
-                                          ))),
-                            )
+                                text: 'Confirm',
+                                color: const Color(0xFF89d8bb),
+                                onPressed: () async {
+                                  openPagePaymentWithListener();
+
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => PaymentMethod(
+                                  //       resId: resId,
+                                  //       lockerName: lockerName,
+                                  //     ))),
+                                  //
+                                })
                           ],
                         ),
                       ),
@@ -165,5 +178,31 @@ class ReservationDetails extends StatelessWidget {
         );
       },
     );
+  }
+
+  //------------------------------------------------------------------------ payment
+
+  Future openPagePaymentWithListener() async {
+    var price_double = totalPrice!.toDouble();
+
+    var widget = PaypalGenericPage(price_double,
+        payPalCallBack: (status, msg, transactionId) {
+      //log listener to payment
+      print("nda - PaypalGenericPage - callback - status: " +
+          status.toString() +
+          " /msg: " +
+          msg +
+          " /transactionId: " +
+          transactionId);
+
+      if (status) {
+        print("User success payment ");
+        //#TODO : Create Reserervation Data
+
+      }
+    });
+
+    var materialPageRoute = MaterialPageRoute(builder: (context) => widget);
+    Navigator.push(context, materialPageRoute);
   }
 }

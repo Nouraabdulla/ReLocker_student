@@ -10,10 +10,15 @@ import 'lockerset1_go.dart';
 import 'lockerset1_gy.dart';
 import 'lockerset1_gp.dart';
 
-class ground extends StatelessWidget {
+class ground extends StatelessWidget { 
   final int? numberOfWeek;
   final String? resId;
-  ground({Key? key, this.numberOfWeek, this.resId}) : super(key: key);
+  final String? startDate;
+  final String? endDate;
+// final String floor;
+  ground(
+      {Key? key,   this.numberOfWeek, this.resId,  this.startDate, this.endDate,})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -2329,8 +2334,10 @@ class ground extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gg(
-                                          numberOfWeek: (numberOfWeek ?? 0),
-                                          resId: (resId ?? ""),
+                                          numberOfWeek: numberOfWeek!,
+                                          resId: resId!,
+                                          endDate: endDate!,
+                                          startDate: startDate!,
                                         )));
                           },
                           child: Text(""),
@@ -2356,6 +2363,8 @@ class ground extends StatelessWidget {
                                     builder: (context) => lockerset1_go(
                                           numberOfWeek: (numberOfWeek!),
                                           resId: (resId!),
+                                          endDate: (endDate!),
+                                          startDate: (startDate!),
                                         )));
                           },
                           child: Text(""),
@@ -2383,6 +2392,8 @@ class ground extends StatelessWidget {
                                     builder: (context) => lockerset1_gy(
                                           numberOfWeek: (numberOfWeek!),
                                           resId: (resId!),
+                                          endDate: (endDate!),
+                                          startDate: (startDate!),
                                         )));
                           },
                           child: Text(""),
@@ -2409,6 +2420,8 @@ class ground extends StatelessWidget {
                                     builder: (context) => lockerset1_gpl(
                                           numberOfWeek: (numberOfWeek!),
                                           resId: (resId!),
+                                          endDate: (endDate!),
+                                          startDate: (startDate!),
                                         )));
                           },
                           child: Text(""),

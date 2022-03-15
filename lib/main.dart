@@ -10,12 +10,21 @@ import 'package:relocker_sa/utils/bloc_observer.dart';
 import 'package:relocker_sa/utils/utils-cache_helper.dart';
 
 import 'bloc/cubit/payment_cubit.dart';
+import 'login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
   await CacheHelper.init();
+
+  //check status login
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  if (_auth == null) {
+    runApp(LoginScreen());
+    return;
+  }
+
   runApp(MyApp());
 }
 
