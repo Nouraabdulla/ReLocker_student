@@ -17,7 +17,7 @@ int Rendifference = 0;
 int Resdifference = 0;
 
 class lockerset1_gpl extends StatefulWidget {
-  final int numberOfWeek;
+  final int? numberOfWeek;
   final String resId;
   final String startDate;
   final String endDate;
@@ -197,14 +197,14 @@ class _lockerset1_gplState extends State<lockerset1_gpl> {
                                                 } else {
                                                   if (locker_size == "s") {
                                                     print(fslp *
-                                                        widget.numberOfWeek);
+                                                        widget.numberOfWeek!);
                                                     total = fslp *
-                                                        widget.numberOfWeek;
+                                                        widget.numberOfWeek!;
                                                   } else {
                                                     print(fllp *
-                                                        widget.numberOfWeek);
+                                                        widget.numberOfWeek!);
                                                     total = fllp *
-                                                        widget.numberOfWeek;
+                                                        widget.numberOfWeek!;
                                                   }
                                                 }
 
@@ -489,17 +489,17 @@ class _lockerset1_gplState extends State<lockerset1_gpl> {
                                                             "s") {
                                                           print(fslp *
                                                               widget
-                                                                  .numberOfWeek);
+                                                                  .numberOfWeek!);
                                                           total = fslp *
                                                               widget
-                                                                  .numberOfWeek;
+                                                                  .numberOfWeek!;
                                                         } else {
                                                           print(fllp *
                                                               widget
-                                                                  .numberOfWeek);
+                                                                  .numberOfWeek!);
                                                           total = fllp *
                                                               widget
-                                                                  .numberOfWeek;
+                                                                  .numberOfWeek!;
                                                         }
                                                       }
 
@@ -801,17 +801,17 @@ class _lockerset1_gplState extends State<lockerset1_gpl> {
                                                             "s") {
                                                           print(fslp *
                                                               widget
-                                                                  .numberOfWeek);
+                                                                  .numberOfWeek!);
                                                           total = fslp *
                                                               widget
-                                                                  .numberOfWeek;
+                                                                  .numberOfWeek!;
                                                         } else {
                                                           print(fllp *
                                                               widget
-                                                                  .numberOfWeek);
+                                                                  .numberOfWeek!);
                                                           total = fllp *
                                                               widget
-                                                                  .numberOfWeek;
+                                                                  .numberOfWeek!;
                                                         }
                                                       }
 

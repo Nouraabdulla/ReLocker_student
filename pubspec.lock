@@ -490,7 +490,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.3"
-<<<<<<< HEAD
   toast:
     dependency: "direct main"
     description:
@@ -498,8 +497,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.5"
-=======
->>>>>>> 9c8168a4eaa5754b689e6116cbf6fbdddd402d17
   typed_data:
     dependency: transitive
     description:

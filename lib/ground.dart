@@ -2334,7 +2334,7 @@ class ground extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gg(
-                                          numberOfWeek: numberOfWeek!,
+                                          numberOfWeek: numberOfWeek,
                                           resId: resId!,
                                           endDate: endDate!,
                                           startDate: startDate!,
@@ -2361,7 +2361,7 @@ class ground extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_go(
-                                          numberOfWeek: (numberOfWeek!),
+                                          numberOfWeek: (numberOfWeek),
                                           resId: (resId!),
                                           endDate: (endDate!),
                                           startDate: (startDate!),
@@ -2390,7 +2390,7 @@ class ground extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gy(
-                                          numberOfWeek: (numberOfWeek!),
+                                          numberOfWeek: (numberOfWeek),
                                           resId: (resId!),
                                           endDate: (endDate!),
                                           startDate: (startDate!),
@@ -2418,7 +2418,7 @@ class ground extends StatelessWidget {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gpl(
-                                          numberOfWeek: (numberOfWeek!),
+                                          numberOfWeek: (numberOfWeek),
                                           resId: (resId!),
                                           endDate: (endDate!),
                                           startDate: (startDate!),
