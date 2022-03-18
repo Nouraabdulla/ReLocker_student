@@ -122,7 +122,7 @@ int selection=0;
     //   }).toList(),
     // ),
     //                           )   ),
-       SizedBox(
+                   SizedBox(
                     child: RadioListTile<int>(
                       value: 0, groupValue: selection, 
                       title:Text('Near to exit'),
@@ -139,7 +139,7 @@ int selection=0;
                           //   height: 20,
                           // ),
                          
- SizedBox(
+                    SizedBox(
                     child: RadioListTile<int>(
                       value: 1, groupValue: selection, 
                       title:Text('Near to my class'),
