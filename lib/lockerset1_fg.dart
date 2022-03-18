@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
@@ -10,11 +13,23 @@ import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'calc_pay_page.dart';
 import 'controller_view_screen.dart';
 import 'home_view.dart';
+import 'main.dart';
+
+int Rendifference = 0;
+int Resdifference = 0;
 
 class lockerset1_fg extends StatefulWidget {
   final int numberOfWeek;
   final String resId;
-  lockerset1_fg({Key? key, required this.numberOfWeek, required this.resId})
+  final String startDate;
+  final String endDate;
+
+  lockerset1_fg(
+      {Key? key,
+      required this.numberOfWeek,
+      required this.resId,
+      required this.startDate,
+      required this.endDate})
       : super(key: key);
 
   @override
@@ -164,7 +179,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                             as Map<String, dynamic>;
                                     return GestureDetector(
                                         onTap: data['available']
-                                            ? () {
+                                            ? () async {
                                                 var rslp = 125;
                                                 var rllp = 150;
                                                 var fslp = 15;
@@ -195,16 +210,32 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                         widget.numberOfWeek;
                                                   }
                                                 }
-                                                // FirebaseFirestore.instance
-                                                //     .collection("Reservation")
-                                                //     .doc(widget.resId)
-                                                //     .update({
-                                                //   "locker_name": data['name']
-                                                // });
+                                                var rng = new Random();
+                                                var code =
+                                                    rng.nextInt(9000) + 1000;
+
+                                                String lockername =
+                                                    data['name'];
+
+                                                String startDate =
+                                                    widget.startDate;
+                                                String endDate = widget.endDate;
+
                                                 Navigator.of(context).push(
+                                                    //push to reservaion details page
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             ReservationDetails(
+                                                                priceOneWeek:
+                                                                    fslp,
+                                                                typelocker:
+                                                                    locker_type,
+                                                                lockerSize:
+                                                                    locker_size,
+                                                                startDate: widget
+                                                                    .startDate,
+                                                                endDate: widget
+                                                                    .endDate,
                                                                 resId: widget
                                                                     .resId,
                                                                 totalPrice:
@@ -252,7 +283,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                             top: 0,
                                             child: GestureDetector(
                                               onTap: data1['available']
-                                                  ? () {
+                                                  ? () async {
                                                       var rslp = 125;
                                                       var rllp = 150;
                                                       var fslp = 15;
@@ -292,25 +323,39 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                                   .numberOfWeek;
                                                         }
                                                       }
-                                                      // FirebaseFirestore.instance
-                                                      //     .collection(
-                                                      //         "Reservation")
-                                                      //     .doc(widget.resId)
-                                                      //     .update({
-                                                      //   "locker_name":
-                                                      //       data1['name']
-                                                      // });
-                                                      Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  ReservationDetails(
-                                                                      totalPrice:
-                                                                          total,
-                                                                      resId: widget
-                                                                          .resId,
-                                                                      lockerName:
-                                                                          data1[
-                                                                              'name'])));
+
+                                                      var rng = new Random();
+                                                      var code =
+                                                          rng.nextInt(9000) +
+                                                              1000;
+
+                                                      String lockername =
+                                                          data1['name'];
+
+                                                      String startDate =
+                                                          widget.startDate;
+                                                      String endDate =
+                                                          widget.endDate;
+
+                                                      Navigator.of(context).push(MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ReservationDetails(
+                                                                  priceOneWeek:
+                                                                      fllp,
+                                                                  typelocker:
+                                                                      locker_type,
+                                                                  lockerSize:
+                                                                      locker_size,
+                                                                  startDate: widget
+                                                                      .startDate,
+                                                                  endDate: widget
+                                                                      .endDate,
+                                                                  resId: widget
+                                                                      .resId,
+                                                                  totalPrice:
+                                                                      total,
+                                                                  lockerName:
+                                                                      lockername)));
                                                     }
                                                   : () {},
                                               child: Container(
@@ -339,7 +384,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                             bottom: 0,
                                             child: GestureDetector(
                                               onTap: data2['available']
-                                                  ? () {
+                                                  ? () async {
                                                       var rslp = 125;
                                                       var rllp = 150;
                                                       var fslp = 15;
@@ -379,25 +424,39 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                                   .numberOfWeek;
                                                         }
                                                       }
-                                                      // FirebaseFirestore.instance
-                                                      //     .collection(
-                                                      //         "Reservation")
-                                                      //     .doc(widget.resId)
-                                                      //     .update({
-                                                      //   "locker_name":
-                                                      //       data2['name']
-                                                      // });
-                                                      Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  ReservationDetails(
-                                                                      totalPrice:
-                                                                          total,
-                                                                      resId: widget
-                                                                          .resId,
-                                                                      lockerName:
-                                                                          data2[
-                                                                              'name'])));
+
+                                                      var rng = new Random();
+                                                      var code =
+                                                          rng.nextInt(9000) +
+                                                              1000;
+
+                                                      String lockername =
+                                                          data2['name'];
+
+                                                      String startDate =
+                                                          widget.startDate;
+                                                      String endDate =
+                                                          widget.endDate;
+
+                                                      Navigator.of(context).push(MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ReservationDetails(
+                                                                  priceOneWeek:
+                                                                      fllp,
+                                                                  typelocker:
+                                                                      locker_type,
+                                                                  lockerSize:
+                                                                      locker_size,
+                                                                  startDate: widget
+                                                                      .startDate,
+                                                                  endDate: widget
+                                                                      .endDate,
+                                                                  resId: widget
+                                                                      .resId,
+                                                                  totalPrice:
+                                                                      total,
+                                                                  lockerName:
+                                                                      lockername)));
                                                     }
                                                   : () {},
                                               child: Container(

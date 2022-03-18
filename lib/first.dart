@@ -11,7 +11,10 @@ import 'lockerset1_fp.dart';
 class first extends StatelessWidget {
   final int? numberOfWeek;
   final String? resId;
-  first({Key? key, this.numberOfWeek, this.resId}) : super(key: key);
+  final String? startDate;
+  final String? endDate;
+  first({Key? key, this.numberOfWeek, this.resId, this.startDate, this.endDate})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -2355,6 +2358,8 @@ class first extends StatelessWidget {
                                     builder: (context) => lockerset1_fg(
                                           numberOfWeek: numberOfWeek!,
                                           resId: resId!,
+                                          endDate: endDate!,
+                                          startDate: startDate!,
                                         )));
                           },
                           child: Text(""),
@@ -2372,6 +2377,8 @@ class first extends StatelessWidget {
                                     builder: (context) => lockerset1_fp(
                                           numberOfWeek: numberOfWeek!,
                                           resId: resId!,
+                                          endDate: endDate!,
+                                          startDate: startDate!,
                                         )));
                           },
                           child: Text(""),

@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/Home_admin.dart';
+import 'package:relocker_sa/Request.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/login_screen.dart';
+import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/support_view.dart';
 
@@ -18,13 +22,55 @@ class controlleradmin extends StatefulWidget {
 
 class _Controlleradmin extends State<controlleradmin> {
   int currentIndex = 2;
-  List _screen = [SupportView(), Homeadmin()];
+  List _screen = [Requests(), Homeadmin()];
+
+  User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> userData = {};
+  getUserData() {
+    FirebaseFirestore.instance
+        .collection("support")
+        .where("state", isEqualTo: 'inprogress')
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) {
+        setState(() {
+          userData = element.data()!;
+        });
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    // getUser();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
       body: currentIndex > 0 ? _screen[currentIndex - 1] : _screen[0],
+      //   Column(children: [
+      //   StreamBuilder(
+      //     stream: FirebaseFirestore.instance.collection("Companies").doc().snapshots(),
+      //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //       if (snapshot.connectionState == ConnectionState.waiting) {
+      //         return Center(
+      //           child: CircularProgressIndicator(),
+      //         );
+      //       }
+      //       return Image.network(
+      //         snapshot.data.data()["url"],
+      //         width: 100,
+      //         height: 100,
+      //       );
+      //     },
+      //   ),
+      //  ]
+      //   ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
@@ -63,22 +109,14 @@ class _Controlleradmin extends State<controlleradmin> {
                               ),
                               GestureDetector(
                                 child: const ListTile(
-                                  title: Text('My account'),
+                                  title: Text('Contatc occupier'),
                                   leading: Icon(Icons.person),
                                 ),
-                                onTap: () {},
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('Technical support'),
-                                  leading: Icon(Icons.headset_outlined),
-                                ),
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          search_lockername()));
+                                },
                               ),
                               const Divider(
                                 color: Colors.grey,
@@ -223,17 +261,33 @@ class _Controlleradmin extends State<controlleradmin> {
               ),
               label: '',
             ),
-            BottomNavigationBarItem(
-              icon: SizedBox(
-                height: 35,
-                width: 35,
-                child: Icon(
-                  Icons.chat,
-                  color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+            if (userData['state'] == 'inprogress') ...[
+              BottomNavigationBarItem(
+                icon: SizedBox(
+                  height: 29,
+                  width: 29,
+                  child: Image.asset(
+                    'assets/images/chatRed.png',
+                    fit: BoxFit.cover,
+                    // color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+                  ),
                 ),
+                label: '',
               ),
-              label: '',
-            ),
+            ] else ...[
+              BottomNavigationBarItem(
+                icon: SizedBox(
+                  height: 29,
+                  width: 29,
+                  child: Image.asset(
+                    'assets/images/chat.png',
+                    fit: BoxFit.cover,
+                    // color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+                  ),
+                ),
+                label: '',
+              ),
+            ],
             const BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,

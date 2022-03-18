@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,23 +9,53 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:relocker_sa/bloc/cubit/payment_cubit.dart';
 import 'package:relocker_sa/bloc/states/payment_states.dart';
 import 'package:relocker_sa/payment_view/payment_method.dart';
+import 'package:relocker_sa/paypal/payment/paypal/v/PaypalGenericPage.dart';
 import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/relocker_logo_widget.dart';
 
 import '../controller_view_screen.dart';
 
+int Rendifference = 0;
+int Resdifference = 0;
+
 class ReservationDetails extends StatelessWidget {
   final int? totalPrice;
   final String? resId;
   final String? lockerName;
-  ReservationDetails({Key? key, this.resId, this.totalPrice, this.lockerName})
-      : super(key: key);
+  final int? priceOneWeek;
+  final String? typelocker;
+  final String startDate;
+  final String endDate;
+  final String? lockerSize;
+  final String? from;
 
-  String relockerName = '6-G-53';
+  ReservationDetails(
+      {Key? key,
+      this.resId,
+      this.totalPrice,
+      this.lockerName,
+      this.priceOneWeek,
+      this.typelocker,
+      this.startDate = "",
+      this.endDate = "",
+      this.lockerSize,
+      this.from = '1'})
+      : super(key: key) {
+    // print("nda - totalPrice: " + totalPrice.toString()
+    //     + " /resId: " + resId.toString() + " /lockerName: " + lockerName.toString() );
+  }
+
+  // String relockerName = '6-G-53';
+
+  late BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    print("nda - ReservationDetails - build() ");
+
+    this.context = context;
+
     return BlocConsumer<PaymentCubit, PaymentStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -131,15 +165,61 @@ class ReservationDetails extends StatelessWidget {
                             ),
                             const SizedBox(height: 40),
                             CustomButton(
-                              text: 'Confirm',
-                              color: const Color(0xFF89d8bb),
-                              onPressed: () =>
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PaymentMethod(
-                                            resId: resId,
-                                            lockerName: lockerName,
-                                          ))),
-                            )
+                                text: 'Confirm',
+                                color: const Color(0xFF89d8bb),
+                                onPressed: () async {
+                                  if (from == '2') {
+                                    final DocumentSnapshot doc =
+                                        await FirebaseFirestore.instance
+                                            .collection('semester')
+                                            .doc("semester1")
+                                            .get();
+                                    String startdate1 = doc['start'];
+                                    String endDate1 = doc['end'];
+                                    final DocumentSnapshot doc2 =
+                                        await FirebaseFirestore.instance
+                                            .collection('semester')
+                                            .doc("semester2")
+                                            .get();
+                                    String startdate2 = doc['start'];
+                                    String endDate2 = doc['end'];
+//to know which semester dates to send
+                                    if (DateTime.parse(startDate).isAfter(
+                                            DateTime.parse(startdate1)) &&
+                                        DateTime.parse(endDate).isBefore(
+                                            DateTime.parse(endDate1))) {
+                                      openPagePaymentWithListener();
+                                    } else if (DateTime.parse(startDate)
+                                            .isAfter(
+                                                DateTime.parse(startdate2)) &&
+                                        DateTime.parse(endDate).isBefore(
+                                            DateTime.parse(endDate2))) {
+                                      final DocumentSnapshot doc2 =
+                                          await FirebaseFirestore.instance
+                                              .collection('Reservation')
+                                              .doc(
+                                                  "${FirebaseAuth.instance.currentUser!.uid}")
+                                              .get();
+                                      String type = doc2['typeLocker'];
+                                      if (type == "f") {
+                                        openPagePaymentWithListener();
+                                      } else {
+                                        print(
+                                            "make a new reservation in the next semester");
+                                      }
+                                    } else {
+                                      print(
+                                          "you can't reserve in holidays days");
+                                    }
+                                  }
+// openPagePaymentWithListener();
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //     builder: (context) => PaymentMethod(
+                                  //       resId: resId,
+                                  //       lockerName: lockerName,
+                                  //     ))),
+                                  //
+                                })
                           ],
                         ),
                       ),
@@ -165,5 +245,201 @@ class ReservationDetails extends StatelessWidget {
         );
       },
     );
+  }
+
+  //------------------------------------------------------------------------ payment
+
+  Future openPagePaymentWithListener() async {
+    var price_double = totalPrice!.toDouble();
+
+    var widget = PaypalGenericPage(price_double,
+        payPalCallBack: (status, msg, transactionId) async {
+      //log listener to payment
+      print("nda - PaypalGenericPage - callback - status: " +
+          status.toString() +
+          " /msg: " +
+          msg +
+          " /transactionId: " +
+          transactionId);
+
+      if (status) {
+        print("User success payment ");
+        //#TODO : Create Reserervation Data
+        User? user = FirebaseAuth.instance.currentUser;
+        var rng = new Random();
+        var code = rng.nextInt(9000) + 1000;
+        int semester = 0;
+        // to get semester
+        final DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('semester')
+            .doc("semester1")
+            .get();
+        String startdate1 = doc['start'];
+        String endDate1 = doc['end'];
+        final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+            .collection('semester')
+            .doc("semester2")
+            .get();
+        String startdate2 = doc['start'];
+        String endDate2 = doc['end'];
+//to know which semester dates to send
+        if (DateTime.now().isAfter(DateTime.parse(startdate1)) &&
+            DateTime.now().isBefore(DateTime.parse(endDate1))) {
+          semester = 1;
+        } else if (DateTime.now().isAfter(DateTime.parse(startdate2)) &&
+            DateTime.now().isBefore(DateTime.parse(endDate2))) {
+          semester = 2;
+        }
+
+        await FirebaseFirestore.instance
+            .collection("Reservation")
+            .doc("${FirebaseAuth.instance.currentUser!.uid}")
+            .set({
+          //store reservation info in database
+          "Owner": "${user!.email}",
+          "End Date": endDate,
+          "Start Date": startDate,
+          "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+          "locker_name": lockerName,
+          "Price": totalPrice,
+          "typeLocker": typelocker,
+          // "priceOneWeek": priceOneWeek, //another way
+          "priceOneWeek": (typelocker == 'f' && lockerSize == 's')
+              ? 15
+              : (typelocker == 'f' && lockerSize == 'l')
+                  ? 25
+                  : '',
+          "semester": semester
+        });
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .where("user_id",
+                isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+            .limit(1)
+            .get()
+            .then((v) {
+          v.docs.forEach((el) {
+            FirebaseFirestore.instance
+                .collection("Users")
+                .doc("${el.id}")
+                .update({"reservedlocker": "${lockerName}"});
+          });
+        });
+        await FirebaseFirestore.instance
+            .collection("lockers")
+            .where("name", isEqualTo: "${lockerName}")
+            .limit(1)
+            .get()
+            .then((v) {
+          v.docs.forEach((el) {
+            FirebaseFirestore.instance
+                .collection("lockers")
+                .doc("${el.id}")
+                .update({"pin": "${code}"});
+          });
+        });
+      }
+      // change availablity
+
+      Resdifference = DateTime.parse(endDate)
+          .difference(DateTime.parse(startDate))
+          .inSeconds;
+
+      Rendifference = DateTime.parse(endDate)
+              .difference(DateTime.parse(startDate))
+              .inSeconds +
+          1;
+
+      Future.delayed(Duration(seconds: Resdifference), () async {
+        final DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc("${FirebaseAuth.instance.currentUser!.uid}")
+            .get();
+        String locker = doc['reservedlocker'];
+
+        print(locker);
+        if (locker != "") {
+          final DocumentSnapshot doc = await FirebaseFirestore.instance
+              .collection('Users')
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .get();
+          String locker = doc['reservedlocker'];
+          print(locker);
+
+          final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+              .collection('Reservation')
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .get();
+          // DateTime date = doc2['End Date'].toDate();
+          DateTime date = DateTime.parse(doc2['End Date']);
+          // print(date);
+
+//
+          if (true) {
+            var rng = new Random();
+            var code = rng.nextInt(9000) + 1000;
+            final DocumentSnapshot doc = await FirebaseFirestore.instance
+                .collection("Reservation")
+                .doc("${FirebaseAuth.instance.currentUser!.uid}")
+                .get();
+            String lname = doc['locker_name'];
+            print(lname);
+
+            await FirebaseFirestore.instance
+                .collection("lockers")
+                .where("name", isEqualTo: "${lname}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("lockers")
+                    .doc("${lname}")
+                    .update({
+                  "available": true,
+                });
+              });
+            });
+
+            await FirebaseFirestore.instance
+                .collection("Users")
+                .where("user_id",
+                    isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("Users")
+                    .doc("${lname}")
+                    .update({
+                  "reservedlocker": "",
+                });
+              });
+            });
+            await FirebaseFirestore.instance
+                .collection("lockers")
+                .where("name", isEqualTo: "${lockerName}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("lockers")
+                    .doc("${el.id}")
+                    .update({"pin": "${code}"});
+              });
+            });
+          }
+
+//Now use If/Else statement to know, if the current time is same as/or after the
+//time set for trigger, then trigger the event,
+
+        }
+      });
+    });
+
+    var materialPageRoute = MaterialPageRoute(builder: (context) => widget);
+    Navigator.push(context, materialPageRoute);
   }
 }
