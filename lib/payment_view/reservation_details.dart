@@ -142,7 +142,7 @@ class ReservationDetails extends StatelessWidget {
                                   child: InputField(
                                       title: 'Start Date',
                                       hint:
-                                          '${_cubit.resserv['Start Date'].toString()}',
+                                          '${startDate}',
                                       widget: Container()),
                                 ),
                                 SizedBox(
@@ -151,7 +151,7 @@ class ReservationDetails extends StatelessWidget {
                                   child: InputField(
                                     title: 'End Date',
                                     hint:
-                                        '${_cubit.resserv['End Date'].toString()}',
+                                        '${endDate}',
                                     widget: Container(),
                                   ),
                                 ),

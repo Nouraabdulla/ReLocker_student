@@ -3,20 +3,55 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:relocker_sa/first.dart';
+import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'package:relocker_sa/recommendations.dart';
 
 import 'controller_view_screen.dart';
 
 class CalcPayPage extends StatefulWidget {
-  const CalcPayPage({Key? key}) : super(key: key);
+  CalcPayPage(
+      {this.showLockers = true,
+      this.priceOneWeek = 0,
+      this.resId = '',
+      this.typelocker = '',
+      this.lockerName = ''});
+  late bool showLockers;
 
+  late int priceOneWeek;
+
+  late String resId;
+  late String typelocker;
+  late String lockerName;
   @override
   _CalcPayPageState createState() => _CalcPayPageState();
 }
-
+String startdate1='';
+String endDate1='';
+String startdate2='';
+String endDate2='';
 class _CalcPayPageState extends State<CalcPayPage> {
   String floor = 'F';
+
+  DateTime todayDate = DateFormat("yyyy-MM-dd")
+.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+getdata() async{
+final DocumentSnapshot doc = await FirebaseFirestore.instance
+                    .collection('semester')
+                    .doc("semester1")
+                    .get();
+                 startdate1 = doc['start'];
+                 endDate1 = doc['end'];
+                final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+                    .collection('semester')
+                    .doc("semester2")
+                    .get();
+                 startdate2 = doc['start'];
+                 endDate2 = doc['end'];
+}
+
   TextEditingController weeksNumberCont = new TextEditingController();
   TextEditingController startDateCont = new TextEditingController();
   TextEditingController endDateCont = new TextEditingController();
@@ -43,6 +78,7 @@ class _CalcPayPageState extends State<CalcPayPage> {
   @override
   void initState() {
     startDateCont.text = "$selectedDate".split(" ").first;
+    getdata();
     super.initState();
   }
 
@@ -184,115 +220,154 @@ class _CalcPayPageState extends State<CalcPayPage> {
               Pin(size: 50.0, middle: 0.8517),
               child: ElevatedButton(
                 onPressed: () async {
-                  //get which semester the reservation in
-                  final DocumentSnapshot doc = await FirebaseFirestore.instance
-                      .collection('semester')
-                      .doc("semester1")
-                      .get();
-                  String startdate1 = doc['start'];
-                  String endDate1 = doc['end'];
-                  final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-                      .collection('semester')
-                      .doc("semester2")
-                      .get();
-                  String startdate2 = doc['start'];
-                  String endDate2 = doc['end'];
+                  if (widget.showLockers) {
+                    //get which semester the reservation in
+                  
 //to know which semester dates to send
-                  if (DateTime.parse(startDateCont.text)
-                          .isAfter(DateTime.parse(startdate1)) &&
-                      DateTime.parse(endDateCont.text)
-                          .isBefore(DateTime.parse(endDate1))) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => first(
-                              numberOfWeek: int.parse(weeksNumberCont.text),
-                              resId: "",
-                              startDate: "${startDateCont.text}",
-                              endDate: "${endDateCont.text}",
-                            )));
-                  } else if (DateTime.parse(startDateCont.text)
-                          .isAfter(DateTime.parse(startdate2)) &&
-                      DateTime.parse(endDateCont.text)
-                          .isBefore(DateTime.parse(endDate2))) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => first(
-                              numberOfWeek: int.parse(weeksNumberCont.text),
-                              resId: "",
-                              startDate: "${startDateCont.text}",
-                              endDate: "${endDateCont.text}",
-                            )));
-                  } else {
-                    print("your selected days out of studing date");
-                  }
-                  //recommendation
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30)),
-                          child: AlertDialog(
-                            title: Text(
-                              //  "Do you want to get recommendation ?",
-                              " would you like to get recommendations to find the suitbale lockers?",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
+                    if (DateTime.parse(startDateCont.text)
+                            .isAfter(DateTime.parse(startdate1)) &&
+                        DateTime.parse(endDateCont.text)
+                            .isBefore(DateTime.parse(endDate1))) 
+                            
+                            {
+                              print(startDateCont.text);
+//                       await FirebaseFirestore.instance
+// .collection("ReservationDetails")
+// .add({
+// "End Date": "${endDateCont.text}",
+// "Start Date": "${startDateCont.text}",
+// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+// "locker_name": "",
+// "Price": ""
+// }).then((value) {
+Navigator.of(context).push(MaterialPageRoute(
+builder: (context) => first(
+numberOfWeek: int.parse(weeksNumberCont.text),
+resId: "",
+startDate: "${startDateCont.text}",
+endDate: "${endDateCont.text}",
+)));
+// });
+                    } else if (DateTime.parse(startDateCont.text)
+                            .isAfter(DateTime.parse(startdate2)) &&
+                        DateTime.parse(endDateCont.text)
+                            .isBefore(DateTime.parse(endDate2))) {
+//                      await FirebaseFirestore.instance
+// .collection("ReservationDetails")
+// .add({
+// "End Date": "${endDateCont.text}",
+// "Start Date": "${startDateCont.text}",
+// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+// "locker_name": "",
+// "Price": ""
+// }).then((value) {
+Navigator.of(context).push(MaterialPageRoute(
+builder: (context) => first(
+numberOfWeek: int.parse(weeksNumberCont.text),
+resId: "",
+startDate: "${startDateCont.text}",
+endDate: "${endDateCont.text}",
+)));
+// });
+                    } else {
+                      // print("your selected days out of studing date");
+                      const snackBar = SnackBar(
+                        content:
+                            Text('you can reserve during working days only'),
+                      );
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                    //recommendation
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30)),
+                            child: AlertDialog(
+                              title: Text(
+                                //  "Do you want to get recommendation ?",
+                                " would you like to get recommendations to find the suitbale lockers?",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
                               ),
+                              actions: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 5,
+                                  height: MediaQuery.of(context).size.width / 9,
+                                  child: ElevatedButton(
+                                    child: const Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFF9AD6BD),
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  recommendations(
+                                                    numberOfWeek: int.parse(
+                                                        weeksNumberCont.text),
+                                                    resId: "",
+                                                    floor: floor,
+                                                  )));
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width / 5,
+                                  height: MediaQuery.of(context).size.width / 9,
+                                  child: ElevatedButton(
+                                    child: const Text(
+                                      'No',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFF9AD6BD),
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            actions: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 5,
-                                height: MediaQuery.of(context).size.width / 9,
-                                child: ElevatedButton(
-                                  child: const Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF9AD6BD),
-                                    shape: const StadiumBorder(),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                recommendations(
-                                                  numberOfWeek: int.parse(
-                                                      weeksNumberCont.text),
-                                                  resId: "",
-                                                  floor: floor,
-                                                )));
-                                  },
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 5,
-                                height: MediaQuery.of(context).size.width / 9,
-                                child: ElevatedButton(
-                                  child: const Text(
-                                    'No',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFF9AD6BD),
-                                    shape: const StadiumBorder(),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      });
+                          );
+                        });
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReservationDetails(
+                              startDate: startDateCont.text,
+                              endDate: endDateCont.text,
+                              from: '2',
+                              priceOneWeek: widget.priceOneWeek,
+                              resId: '',
+                              typelocker: widget.typelocker,
+                              lockerName: widget.lockerName,
+                              totalPrice: (widget.priceOneWeek *
+                                  int.parse(weeksNumberCont.text))),
+                        ));
+                  }
                 },
                 child: Text(
                   "Confirm",

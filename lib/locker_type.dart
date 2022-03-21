@@ -2,6 +2,7 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/ground.dart';
@@ -17,9 +18,37 @@ class locker_type extends StatefulWidget {
   @override
   State<locker_type> createState() => _locker_typeState();
 }
-
+String startdate1='';
+String endDate1='';
+String startdate2='';
+String endDate2='';
 class _locker_typeState extends State<locker_type> {
-  String floor = 'G';
+ String floor = 'G';
+DateTime todayDate = DateFormat("yyyy-MM-dd")
+.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+getdata() async{
+final DocumentSnapshot doc = await FirebaseFirestore.instance
+                    .collection('semester')
+                    .doc("semester1")
+                    .get();
+                 startdate1 = doc['start'];
+                 endDate1 = doc['end'];
+                final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+                    .collection('semester')
+                    .doc("semester2")
+                    .get();
+                 startdate2 = doc['start'];
+                 endDate2 = doc['end'];
+}
+@override
+  void initState() {
+    getdata();
+    // getUser();
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,152 +92,241 @@ class _locker_typeState extends State<locker_type> {
               icon: Image.asset('assets/images/regular.jpg'),
               iconSize: 50,
               onPressed: () async {
-                final DocumentSnapshot doc = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester1")
-                    .get();
-                String startdate1 = doc['start'];
-                String endDate1 = doc['end'];
-                final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester2")
-                    .get();
-                String startdate2 = doc['start'];
-                String endDate2 = doc['end'];
+                print('before');
+                // final DocumentSnapshot doc = await FirebaseFirestore.instance
+                //     .collection('semester')
+                //     .doc("semester1")
+                //     .get();
+                // String startdate1 = doc['start'];
+                // String endDate1 = doc['end'];
+                // final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+                //     .collection('semester')
+                //     .doc("semester2")
+                //     .get();
+                // String startdate2 = doc['start'];
+                // String endDate2 = doc['end'];
+                print('after');
+ 
+
 //to know which semester dates to send
-                if (DateTime.now().isAfter(DateTime.parse(startdate1)) &&
-                    DateTime.now().isBefore(DateTime.parse(endDate1))) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ground(
-                            numberOfWeek: null,
-                            resId: '',
-                            startDate: startdate1,
-                            endDate: endDate1,
-                          )));
-                } else if (DateTime.now().isAfter(DateTime.parse(startdate2)) &&
-                    DateTime.now().isBefore(DateTime.parse(endDate2))) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ground(
-                            numberOfWeek: null,
-                            resId: '',
-                            startDate: startdate2,
-                            endDate: endDate2,
-                          )));
+                if (
+                  todayDate.isAfter(DateTime.parse(startdate1)) &&
+                   todayDate.isBefore(DateTime.parse(endDate1))
+                   ) {
+                  
+                    print(todayDate);
+                 print('here......'+startdate1);
+                 print(endDate1);
+
+//   FirebaseFirestore.instance.collection("ReservationDetails").add({
+// //store regular reservation info in database
+// "End Date": "${endDate1.toString()}",
+// "Start Date": "${startdate1.toString()}",
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+// "Owner":"${FirebaseAuth.instance.currentUser!.email}",
+// "locker_name":"",
+// "Price":'',
+// });
+Navigator.of(context).push(MaterialPageRoute(
+builder: (context) => ground(
+numberOfWeek: 0,
+resId: '',
+startDate: startdate1,
+endDate: endDate1,
+)));
+                }else  if (todayDate.isAfter(DateTime.parse(startdate2)) &&
+                    todayDate.isBefore(DateTime.parse(endDate2))) {
+//                  await FirebaseFirestore.instance
+
+// .collection("ReservationDetails")
+
+// .add({
+
+// "End Date":  endDate2,
+
+// "Start Date": startdate2,
+
+// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+
+// "locker_name": "",
+
+// "Price": ""
+
+// }).then((value) {
+
+Navigator.of(context).push(MaterialPageRoute(
+
+builder: (context) => ground(
+  numberOfWeek:0,
+resId: "",
+startDate: startdate2,
+endDate: endDate2,
+)));
+
+//});
+print('print2');
                 } else {
                   print("you can't reserve in the holiday days");
                 }
 
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: AlertDialog(
-                          title: Text(
-                            //  "Do you want to get recommendation ?",
-                            " would you like to get recommendations to find the suitbale lockers?",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                          actions: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: () async {
-                                  // Navigator.of(context).push(MaterialPageRoute(
-                                  //     builder: (context) => recommendations(
-                                  //           numberOfWeek: null,
-                                  //           resId: '',
-                                  //           startDate: "${selectedDate}",
-                                  //           endDate: "${endDate}",
-                                  //           floor: floor,
-                                  //         )));
-                                  final DocumentSnapshot doc =
-                                      await FirebaseFirestore.instance
-                                          .collection('semester')
-                                          .doc("semester1")
-                                          .get();
-                                  String startdate1 = doc['start'];
-                                  String endDate1 = doc['end'];
-                                  final DocumentSnapshot doc2 =
-                                      await FirebaseFirestore.instance
-                                          .collection('semester')
-                                          .doc("semester2")
-                                          .get();
-                                  String startdate2 = doc['start'];
-                                  String endDate2 = doc['end'];
-//to know which semester dates to send
-                                  if (DateTime.now().isAfter(
-                                          DateTime.parse(startdate1)) &&
-                                      DateTime.now()
-                                          .isBefore(DateTime.parse(endDate1))) {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => ground(
-                                                  numberOfWeek: null,
-                                                  resId: '',
-                                                  startDate: startdate1,
-                                                  endDate: endDate1,
-                                                )));
-                                  } else if (DateTime.now().isAfter(
-                                          DateTime.parse(startdate2)) &&
-                                      DateTime.now()
-                                          .isBefore(DateTime.parse(endDate2))) {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => ground(
-                                                  numberOfWeek: null,
-                                                  resId: '',
-                                                  startDate: startdate2,
-                                                  endDate: endDate2,
-                                                )));
-                                  } else {
-                                    print(
-                                        "you can't reserve in the holiday days");
-                                  }
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    });
+//                 showDialog(
+//                     context: context,
+//                     builder: (context) {
+//                       return Container(
+//                         clipBehavior: Clip.hardEdge,
+//                         decoration: BoxDecoration(
+//                             borderRadius: BorderRadius.circular(30)),
+//                         child: AlertDialog(
+//                           title: Text(
+//                             //  "Do you want to get recommendation ?",
+//                             " would you like to get recommendations to find the suitbale lockers?",
+//                             style: TextStyle(
+//                               color: Colors.black,
+//                               fontSize: 18,
+//                             ),
+//                           ),
+//                           actions: [
+//                             SizedBox(
+//                               width: MediaQuery.of(context).size.width / 5,
+//                               height: MediaQuery.of(context).size.width / 9,
+//                               child: ElevatedButton(
+//                                 child: const Text(
+//                                   'Yes',
+//                                   style: TextStyle(
+//                                     color: Colors.black,
+//                                     fontSize: 18,
+//                                   ),
+//                                 ),
+//                                 style: ElevatedButton.styleFrom(
+//                                   primary: Color(0xFF9AD6BD),
+//                                   shape: const StadiumBorder(),
+//                                 ),
+//                                 onPressed: () async {
+//                                   // Navigator.of(context).push(MaterialPageRoute(
+//                                   //     builder: (context) => recommendations(
+//                                   //           numberOfWeek: null,
+//                                   //           resId: '',
+//                                   //           startDate: "${selectedDate}",
+//                                   //           endDate: "${endDate}",
+//                                   //           floor: floor,
+//                                   //         )));
+                                  
+//                                   final DocumentSnapshot doc =
+//                                       await FirebaseFirestore.instance
+//                                           .collection('semester')
+//                                           .doc("semester1")
+//                                           .get();
+//                                   String startdate1 = doc['start'];
+//                                   String endDate1 = doc['end'];
+//                                   final DocumentSnapshot doc2 =
+//                                       await FirebaseFirestore.instance
+//                                           .collection('semester')
+//                                           .doc("semester2")
+//                                           .get();
+//                                   String startdate2 = doc['start'];
+//                                   String endDate2 = doc['end'];
+// //to know which semester dates to send
+//                                   if (DateTime.now().isAfter(
+//                                           DateTime.parse(startdate1)) &&
+//                                       DateTime.now()
+//                                           .isBefore(DateTime.parse(endDate1))) {
+//                                    await FirebaseFirestore.instance
+
+// .collection("ReservationDetails")
+
+// .add({
+
+// "End Date":  endDate1,
+
+// "Start Date": startdate1,
+
+// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+
+// "locker_name": "",
+
+// "Price": ""
+
+// }).then((value) {
+
+// Navigator.of(context).push(MaterialPageRoute(
+
+// builder: (context) => ground(
+//   numberOfWeek:0,
+// resId: "${value.id}",
+// startDate: startdate1,
+// endDate: endDate1,
+// )));
+
+// });
+//                                   } else if (DateTime.now().isAfter(
+//                                           DateTime.parse(startdate2)) &&
+//                                       DateTime.now()
+//                                           .isBefore(DateTime.parse(endDate2))) {
+//                                     await FirebaseFirestore.instance
+
+// .collection("ReservationDetails")
+
+// .add({
+
+// "End Date":  endDate2,
+
+// "Start Date": startdate2,
+
+// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+
+// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+
+// "locker_name": "",
+
+// "Price": ""
+
+// }).then((value) {
+
+// Navigator.of(context).push(MaterialPageRoute(
+
+// builder: (context) => ground(
+//   numberOfWeek:0,
+// resId: "${value.id}",
+// startDate: startdate2,
+// endDate: endDate2,
+// )));
+
+// });
+//                                   } else {
+//                                     print(
+//                                         "you can't reserve in the holiday days");
+//                                   }
+//                                 },
+//                               ),
+//                             ),
+//                             SizedBox(
+//                               width: MediaQuery.of(context).size.width / 5,
+//                               height: MediaQuery.of(context).size.width / 9,
+//                               child: ElevatedButton(
+//                                 child: const Text(
+//                                   'No',
+//                                   style: TextStyle(
+//                                     color: Colors.black,
+//                                     fontSize: 18,
+//                                   ),
+//                                 ),
+//                                 style: ElevatedButton.styleFrom(
+//                                   primary: Color(0xFF9AD6BD),
+//                                   shape: const StadiumBorder(),
+//                                 ),
+//                                 onPressed: () {
+//                                   Navigator.of(context).pop();
+//                                 },
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       );
+//                     });
               },
             ),
           ),
