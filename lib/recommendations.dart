@@ -15,11 +15,11 @@ import 'lockerset1_fg.dart';
 
 class recommendations extends StatefulWidget {
   final int? numberOfWeek;
-  final String? resId;
-  final String? floor;
-final String? startDate;
-  final String? endDate;
-    recommendations({Key? key,  this.numberOfWeek,   this.resId,   this.floor, this.startDate, this.endDate}) : super(key: key);
+  final String resId;
+  final String floor;
+  final String startDate;
+  final String endDate;
+    recommendations({Key? key,    this.numberOfWeek,     this.resId='',   this.floor='',  this.startDate='',  this.endDate=''}) : super(key: key);
 
   @override
   State<recommendations> createState() => _recommendations();
@@ -41,7 +41,7 @@ class _recommendations extends State<recommendations> {
   bool Atdoor =false;
   bool classname =false;
 int selectedValue=0;
-
+int selection=0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +88,7 @@ int selectedValue=0;
                           //  Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // children: <Widget>[
-                           SizedBox(
+                           
                             // width: MediaQuery.of(context).size.width * 0.7,
                           //   //  width: 280,
                           //   padding: const EdgeInsets.symmetric(
@@ -122,17 +122,16 @@ int selectedValue=0;
     //   }).toList(),
     // ),
     //                           )   ),
-       child: CheckboxListTile(
-         controlAffinity: ListTileControlAffinity.leading,
-      title: const Text('Near to exit'),
-      value: Atdoor,
-      onChanged: (bool? value) {
-        setState(() {
-          Atdoor = value!;
-        });
-      },
+                   SizedBox(
+                    child: RadioListTile<int>(
+                      value: 0, groupValue: selection, 
+                      title:Text('Near to exit'),
+                      onChanged: (value) => setState(()=>
+                      selection=0)
+                      ) 
+                        ),
       // secondary: const Icon(Icons.door_sliding_outlined),
-                            ) ),
+                         
                             // ]
                             // ),
                            
@@ -140,20 +139,15 @@ int selectedValue=0;
                           //   height: 20,
                           // ),
                          
-                          SizedBox(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // children: <Widget>[
-         child: CheckboxListTile( 
-         controlAffinity: ListTileControlAffinity.leading,
-      title: const Text('Near to my class'),
-      value: classname, 
-      onChanged: (bool? value) { 
-        setState(() {
-          classname = value!;
-        });
-      },
-      // secondary: const Icon(Icons.door_sliding_outlined),
-                            ) 
+                    SizedBox(
+                    child: RadioListTile<int>(
+                      value: 1, groupValue: selection, 
+                      title:Text('Near to my class'),
+                      onChanged: (value) => setState(()=>
+                      selection=1,
+                      )
+                      ) 
+                        ),                            
                               // SizedBox(
                               //   child: TextField(
                               //     key: _resetFormKey,
@@ -170,8 +164,8 @@ int selectedValue=0;
                               //   width: MediaQuery.of(context).size.width * 0.7,
                               // ),
                             // ],
-                          ),
-                          if(classname==true)...[
+                          
+                          if(selection==1)...[
                            SizedBox(
                              child:Text('choose one of the set that contain your classnumber'),
                            ),
@@ -228,25 +222,35 @@ int selectedValue=0;
                               ),
                               onPressed: () {
                                 // green zone 
-                                if(selectedValue==2 && classname==true && Atdoor==false){
+                                if(selectedValue==2 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_fg(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
                                         )));
                                 }
                                 // purpole zone 
-                                if (selectedValue==3 && classname==true && Atdoor==true){
+                                if (selectedValue==3 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_fp(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
+                                        )));
+                                }
+                                 if (selection==0){
+                                   Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => lockerset1_fp(
+                                          numberOfWeek: widget.numberOfWeek!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
                                         )));
                                 }
                                 //  Navigator.of(context).push(MaterialPageRoute(
@@ -265,34 +269,27 @@ int selectedValue=0;
                             fontSize: 20,
                           ),),
                           ),
-                           SizedBox(
-       child: CheckboxListTile(
-         controlAffinity: ListTileControlAffinity.leading,
-      title: const Text('Near to exit'),
-      value: Atdoor,
-      onChanged: (bool? value) {
-        setState(() {
-          Atdoor = value!;
-        });
-      },
-                            ) ),
+                          SizedBox(
+                    child: RadioListTile<int>(
+                      value: 0, groupValue: selection, 
+                      title:Text('Near to exit'),
+                      onChanged: (value) => setState(()=>
+                      selection=0)
+                      ) 
+                        ),
                             
                          
-                          SizedBox(
-                           
-         child: CheckboxListTile( 
-         controlAffinity: ListTileControlAffinity.leading,
-      title: const Text('Near to meeee^_^'),
-      value: classname, 
-      onChanged: (bool? value) { 
-        setState(() {
-          classname = value!;
-        });
-      },
-                            ) 
-                             
-                          ),
-                          if(classname==true)...[
+                         SizedBox(
+                    child: RadioListTile<int>(
+                      value: 1, groupValue: selection, 
+                      title:Text('Near to my classsss'),
+                      onChanged: (value) => setState(()=>
+                      selection=1,
+                      )
+                      ) 
+                        ), 
+
+                          if(selection==1)...[
                            SizedBox(
                              child:Text('choose one of the set that contain your classnumber'),
                            ),
@@ -349,47 +346,58 @@ int selectedValue=0;
                               ),
                               onPressed: () { 
                                // green zone
-                                if(selectedValue==2 && classname==true && Atdoor==false){
+                                if(selectedValue==2 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gg(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
                                         )));
                                 }
                                // purpele zone
-                                if (selectedValue==3 && classname==true && Atdoor==true){
+                                if (selectedValue==3 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gpl(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
                                         )));
                                 }
                                 // orange zone
-                               if (selectedValue==1 && classname==true){
+                               if (selectedValue==1 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_go(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate,
                                         )));
                                 }
                                 // yellow zone
-                                if (selectedValue==0 && classname==true){
+                                if (selectedValue==0 && selection==1){
                                    Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gy(
                                           numberOfWeek: widget.numberOfWeek!,
-                                          resId: widget.resId!,
-                                          startDate:  widget.startDate!,
-                                          endDate:widget.endDate!, 
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate, 
+                                        )));
+                                }
+                               // near to exit which zone yellow or pureple
+                                if (selection==0){
+                                   Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => lockerset1_gpl(
+                                          numberOfWeek: widget.numberOfWeek!,
+                                          resId: widget.resId,
+                                          startDate:  widget.startDate,
+                                          endDate:widget.endDate, 
                                         )));
                                 }
 

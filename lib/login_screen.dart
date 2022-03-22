@@ -8,6 +8,7 @@ import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/forget_password.dart';
+import 'package:relocker_sa/forget_password_2.dart';
 import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/register_screen.dart';
 
@@ -186,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ForgetPassword()));
+                                    builder: (context) => forget_passsword_2()));
                               },
                             ),
                           ],

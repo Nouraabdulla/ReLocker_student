@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -138,6 +139,9 @@ class _renewState extends State<renew> {
                         } else {
                           // تحويل لشاشة الحجز فليكسبل
                           print('here');
+                         
+
+                         
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -146,6 +150,8 @@ class _renewState extends State<renew> {
                                       lockerName: lockerName,
                                       priceOneWeek: int.parse(priceOneWeek),
                                       typelocker: typeLocker)));
+                             
+
                         }
                       } else {
                         print('Not run');

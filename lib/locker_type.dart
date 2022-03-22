@@ -72,8 +72,6 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => howtoreserve()));
 
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => profile()));
               },
             )
           ] /* textAlign: TextAlign.center,
@@ -105,11 +103,14 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
                 //     .get();
                 // String startdate2 = doc['start'];
                 // String endDate2 = doc['end'];
-                print('after');
- 
+                print(startdate1);
+                print(endDate1);
+
 
 //to know which semester dates to send
                 if (
+                  //  todayDate.isAtSameMomentAs(DateTime.parse(startdate1)) &&
+                  //  todayDate.isAtSameMomentAs(DateTime.parse(endDate1))
                   todayDate.isAfter(DateTime.parse(startdate1)) &&
                    todayDate.isBefore(DateTime.parse(endDate1))
                    ) {
@@ -118,15 +119,6 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
                  print('here......'+startdate1);
                  print(endDate1);
 
-//   FirebaseFirestore.instance.collection("ReservationDetails").add({
-// //store regular reservation info in database
-// "End Date": "${endDate1.toString()}",
-// "Start Date": "${startdate1.toString()}",
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-// "Owner":"${FirebaseAuth.instance.currentUser!.email}",
-// "locker_name":"",
-// "Price":'',
-// });
 Navigator.of(context).push(MaterialPageRoute(
 builder: (context) => ground(
 numberOfWeek: 0,
@@ -134,27 +126,81 @@ resId: '',
 startDate: startdate1,
 endDate: endDate1,
 )));
-                }else  if (todayDate.isAfter(DateTime.parse(startdate2)) &&
-                    todayDate.isBefore(DateTime.parse(endDate2))) {
-//                  await FirebaseFirestore.instance
+showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: AlertDialog(
+                          title: Text(
+                            //  "Do you want to get recommendation ?",
+                            " would you like to get recommendations to find the suitbale lockers?",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                          actions: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              height: MediaQuery.of(context).size.width / 9,
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'Yes',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: ()  {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => recommendations(
+                                            numberOfWeek:0,
+                                           resId: "",
+                                          startDate: startdate1,
+                                          endDate: endDate1,
+                                            floor: floor,
+                                          )));
+                                }),),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              height: MediaQuery.of(context).size.width / 9,
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'No',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                                
+                               )
+                          ]
+                            )
+                        );
+                      
+                    });
+                }else  if (
+                  // todayDate.isAtSameMomentAs(DateTime.parse(startdate1)) &&
+                  //  todayDate.isAtSameMomentAs(DateTime.parse(endDate1))
+                  todayDate.isAfter(DateTime.parse(startdate2)) &&
+                   todayDate.isBefore(DateTime.parse(endDate2))
+                   ) {
 
-// .collection("ReservationDetails")
-
-// .add({
-
-// "End Date":  endDate2,
-
-// "Start Date": startdate2,
-
-// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-
-// "locker_name": "",
-
-// "Price": ""
-
-// }).then((value) {
 
 Navigator.of(context).push(MaterialPageRoute(
 
@@ -164,169 +210,156 @@ resId: "",
 startDate: startdate2,
 endDate: endDate2,
 )));
+showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: AlertDialog(
+                          title: Text(
+                            //  "Do you want to get recommendation ?",
+                            " would you like to get recommendations to find the suitbale lockers?",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                            ),
+                          ),
+                          actions: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              height: MediaQuery.of(context).size.width / 9,
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'Yes',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: ()  {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => recommendations(
+                                            numberOfWeek:0,
+                                           resId: "",
+                                          startDate: startdate1,
+                                          endDate: endDate1,
+                                            floor: floor,
+                                          )));
+                                }),),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              height: MediaQuery.of(context).size.width / 9,
+                              child: ElevatedButton(
+                                child: const Text(
+                                  'No',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Color(0xFF9AD6BD),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                                
+                               )
+                          ]
+                            )
+                        );
+                      
+                    });
 
-//});
-print('print2');
                 } else {
-                  print("you can't reserve in the holiday days");
+const snackBar = SnackBar(
+
+content: Text(
+'you can reserve during semester days only'),
+);
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+ScaffoldMessenger.of(context)
+.showSnackBar(snackBar);
+                  // print("you can't reserve in the holiday days");
                 }
 
-//                 showDialog(
-//                     context: context,
-//                     builder: (context) {
-//                       return Container(
-//                         clipBehavior: Clip.hardEdge,
-//                         decoration: BoxDecoration(
-//                             borderRadius: BorderRadius.circular(30)),
-//                         child: AlertDialog(
-//                           title: Text(
-//                             //  "Do you want to get recommendation ?",
-//                             " would you like to get recommendations to find the suitbale lockers?",
-//                             style: TextStyle(
-//                               color: Colors.black,
-//                               fontSize: 18,
-//                             ),
-//                           ),
-//                           actions: [
-//                             SizedBox(
-//                               width: MediaQuery.of(context).size.width / 5,
-//                               height: MediaQuery.of(context).size.width / 9,
-//                               child: ElevatedButton(
-//                                 child: const Text(
-//                                   'Yes',
-//                                   style: TextStyle(
-//                                     color: Colors.black,
-//                                     fontSize: 18,
-//                                   ),
-//                                 ),
-//                                 style: ElevatedButton.styleFrom(
-//                                   primary: Color(0xFF9AD6BD),
-//                                   shape: const StadiumBorder(),
-//                                 ),
-//                                 onPressed: () async {
-//                                   // Navigator.of(context).push(MaterialPageRoute(
-//                                   //     builder: (context) => recommendations(
-//                                   //           numberOfWeek: null,
-//                                   //           resId: '',
-//                                   //           startDate: "${selectedDate}",
-//                                   //           endDate: "${endDate}",
-//                                   //           floor: floor,
-//                                   //         )));
-                                  
-//                                   final DocumentSnapshot doc =
-//                                       await FirebaseFirestore.instance
-//                                           .collection('semester')
-//                                           .doc("semester1")
-//                                           .get();
-//                                   String startdate1 = doc['start'];
-//                                   String endDate1 = doc['end'];
-//                                   final DocumentSnapshot doc2 =
-//                                       await FirebaseFirestore.instance
-//                                           .collection('semester')
-//                                           .doc("semester2")
-//                                           .get();
-//                                   String startdate2 = doc['start'];
-//                                   String endDate2 = doc['end'];
-// //to know which semester dates to send
-//                                   if (DateTime.now().isAfter(
-//                                           DateTime.parse(startdate1)) &&
-//                                       DateTime.now()
-//                                           .isBefore(DateTime.parse(endDate1))) {
-//                                    await FirebaseFirestore.instance
-
-// .collection("ReservationDetails")
-
-// .add({
-
-// "End Date":  endDate1,
-
-// "Start Date": startdate1,
-
-// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-
-// "locker_name": "",
-
-// "Price": ""
-
-// }).then((value) {
-
-// Navigator.of(context).push(MaterialPageRoute(
-
-// builder: (context) => ground(
-//   numberOfWeek:0,
-// resId: "${value.id}",
-// startDate: startdate1,
-// endDate: endDate1,
-// )));
-
-// });
-//                                   } else if (DateTime.now().isAfter(
-//                                           DateTime.parse(startdate2)) &&
-//                                       DateTime.now()
-//                                           .isBefore(DateTime.parse(endDate2))) {
-//                                     await FirebaseFirestore.instance
-
-// .collection("ReservationDetails")
-
-// .add({
-
-// "End Date":  endDate2,
-
-// "Start Date": startdate2,
-
-// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-
-// "locker_name": "",
-
-// "Price": ""
-
-// }).then((value) {
-
-// Navigator.of(context).push(MaterialPageRoute(
-
-// builder: (context) => ground(
-//   numberOfWeek:0,
-// resId: "${value.id}",
-// startDate: startdate2,
-// endDate: endDate2,
-// )));
-
-// });
-//                                   } else {
-//                                     print(
-//                                         "you can't reserve in the holiday days");
-//                                   }
-//                                 },
-//                               ),
-//                             ),
-//                             SizedBox(
-//                               width: MediaQuery.of(context).size.width / 5,
-//                               height: MediaQuery.of(context).size.width / 9,
-//                               child: ElevatedButton(
-//                                 child: const Text(
-//                                   'No',
-//                                   style: TextStyle(
-//                                     color: Colors.black,
-//                                     fontSize: 18,
-//                                   ),
-//                                 ),
-//                                 style: ElevatedButton.styleFrom(
-//                                   primary: Color(0xFF9AD6BD),
-//                                   shape: const StadiumBorder(),
-//                                 ),
-//                                 onPressed: () {
-//                                   Navigator.of(context).pop();
-//                                 },
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       );
-//                     });
+                // showDialog(
+                //     context: context,
+                //     builder: (context) {
+                //       return Container(
+                //         clipBehavior: Clip.hardEdge,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(30)),
+                //         child: AlertDialog(
+                //           title: Text(
+                //             //  "Do you want to get recommendation ?",
+                //             " would you like to get recommendations to find the suitbale lockers?",
+                //             style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 18,
+                //             ),
+                //           ),
+                //           actions: [
+                //             SizedBox(
+                //               width: MediaQuery.of(context).size.width / 5,
+                //               height: MediaQuery.of(context).size.width / 9,
+                //               child: ElevatedButton(
+                //                 child: const Text(
+                //                   'Yes',
+                //                   style: TextStyle(
+                //                     color: Colors.black,
+                //                     fontSize: 18,
+                //                   ),
+                //                 ),
+                //                 style: ElevatedButton.styleFrom(
+                //                   primary: Color(0xFF9AD6BD),
+                //                   shape: const StadiumBorder(),
+                //                 ),
+                //                 onPressed: ()  {
+                //                   Navigator.of(context).push(MaterialPageRoute(
+                //                       builder: (context) => recommendations(
+                //                             numberOfWeek:0,
+                //                            resId: "",
+                //                           startDate: startdate1,
+                //                           endDate: endDate1,
+                //                             floor: floor,
+                //                           )));
+                //                 }),),
+                //             SizedBox(
+                //               width: MediaQuery.of(context).size.width / 5,
+                //               height: MediaQuery.of(context).size.width / 9,
+                //               child: ElevatedButton(
+                //                 child: const Text(
+                //                   'No',
+                //                   style: TextStyle(
+                //                     color: Colors.black,
+                //                     fontSize: 18,
+                //                   ),
+                //                 ),
+                //                 style: ElevatedButton.styleFrom(
+                //                   primary: Color(0xFF9AD6BD),
+                //                   shape: const StadiumBorder(),
+                //                 ),
+                //                 onPressed: () {
+                //                   Navigator.of(context).pop();
+                //                 },
+                //               ),
+                                
+                //                )
+                //           ]
+                //             )
+                //         );
+                      
+                //     });
               },
             ),
           ),

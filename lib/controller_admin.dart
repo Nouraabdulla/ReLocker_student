@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/Home_admin.dart';
 import 'package:relocker_sa/Request.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
+import 'package:relocker_sa/firstsemester.dart';
 import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
@@ -116,6 +117,22 @@ class _Controlleradmin extends State<controlleradmin> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           search_lockername()));
+                                },
+                              ),
+                              const Divider(
+                                color: Colors.grey,
+                                height: 2,
+                                thickness: 2,
+                              ),
+                              GestureDetector(
+                                child: const ListTile(
+                                  title: Text('Semester Dates'),
+                                  leading: Icon(Icons.date_range),
+                                ),
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          fsemesterdates()));
                                 },
                               ),
                               const Divider(

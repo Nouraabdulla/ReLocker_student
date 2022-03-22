@@ -220,7 +220,186 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                 String startDate =
                                                     widget.startDate;
                                                 String endDate = widget.endDate;
+          //////////////////////////////////////
+          User? user = FirebaseAuth.instance.currentUser;
+        int semester = 0;
+    //  DateTime enddate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
+   
+        // to get semester
+        final DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('semester')
+            .doc("semester1")
+            .get();
+        String startdate1 = doc['start'];
+        String endDate1 = doc['end'];
+        final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+            .collection('semester')
+            .doc("semester2")
+            .get();
+        String startdate2 = doc['start'];
+        String endDate2 = doc['end'];
+//to know which semester dates to send
+        if (DateTime.now().isAfter(DateTime.parse(startdate1)) &&
+            DateTime.now().isBefore(DateTime.parse(endDate1))) {
+          semester = 1;
+        } else if (DateTime.now().isAfter(DateTime.parse(startdate2)) &&
+            DateTime.now().isBefore(DateTime.parse(endDate2))) {
+          semester = 2;
+        }
 
+        await FirebaseFirestore.instance
+            .collection("Reservation")
+            .doc("${FirebaseAuth.instance.currentUser!.uid}")
+            .set({
+          //store reservation info in database
+          "Owner": "${user!.email}",
+          "End Date": endDate,
+          "Start Date": startDate,
+          "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+          "locker_name": lockername,
+          "Price": total,
+          "typeLocker": locker_type,
+          // "priceOneWeek": priceOneWeek, //another way
+          "priceOneWeek": (locker_type == 'f' && locker_size == 's')
+              ? 15
+              : (locker_type == 'f' && locker_size== 'l')
+                  ? 25
+                  : '',
+          "semester": semester,
+        });
+        
+       
+                          
+        await FirebaseFirestore.instance
+            .collection("Users")
+            .where("user_id",
+                isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+            .limit(1)
+            .get()
+            .then((v) {
+          v.docs.forEach((el) {
+            FirebaseFirestore.instance
+                .collection("Users")
+                .doc("${el.id}")
+                .update({"reservedlocker": "${lockername}"});
+          });
+        });
+        await FirebaseFirestore.instance
+            .collection("lockers")
+            .where("name", isEqualTo: "${lockername}")
+            .limit(1)
+            .get()
+            .then((v) {
+          v.docs.forEach((el) {
+            FirebaseFirestore.instance
+                .collection("lockers")
+                .doc("${el.id}")
+                .update({"pin": "${code}"});
+          });
+        });
+      
+      // change availablity
+
+      Resdifference = DateTime.parse(endDate)
+          .difference(DateTime.parse(startDate))
+          .inSeconds;
+
+      Rendifference = DateTime.parse(endDate)
+              .difference(DateTime.parse(startDate))
+              .inSeconds +
+          1;
+
+      Future.delayed(Duration(seconds: Resdifference), () async {
+        final DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc("${FirebaseAuth.instance.currentUser!.uid}")
+            .get();
+        String locker = doc['reservedlocker'];
+
+        print(locker);
+        if (locker != "") {
+          final DocumentSnapshot doc = await FirebaseFirestore.instance
+              .collection('Users')
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .get();
+          String locker = doc['reservedlocker'];
+          print(locker);
+
+          final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+              .collection('Reservation')
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .get();
+          // DateTime date = doc2['End Date'].toDate();
+          DateTime date = DateTime.parse(doc2['End Date']);
+          // print(date);
+
+//
+          if (true) {
+            var rng = new Random();
+            var code = rng.nextInt(9000) + 1000;
+            final DocumentSnapshot doc = await FirebaseFirestore.instance
+                .collection("Reservation")
+                .doc("${FirebaseAuth.instance.currentUser!.uid}")
+                .get();
+            String lname = doc['locker_name'];
+            print(lname);
+
+            await FirebaseFirestore.instance
+                .collection("lockers")
+                .where("name", isEqualTo: "${lname}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("lockers")
+                    .doc("${lname}")
+                    .update({
+                  "available": true,
+                });
+              });
+            });
+
+            await FirebaseFirestore.instance
+                .collection("Users")
+                .where("user_id",
+                    isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("Users")
+                    .doc("${lname}")
+                    .update({
+                  "reservedlocker": "",
+                });
+              });
+            });
+            await FirebaseFirestore.instance
+                .collection("lockers")
+                .where("name", isEqualTo: "${lockername}")
+                .limit(1)
+                .get()
+                .then((v) {
+              v.docs.forEach((el) {
+                FirebaseFirestore.instance
+                    .collection("lockers")
+                    .doc("${el.id}")
+                    .update({"pin": "${code}"});
+              });
+            });
+          }
+  
+
+
+//Now use If/Else statement to know, if the current time is same as/or after the
+//time set for trigger, then trigger the event,
+
+        }
+      });
+          
+          //////////////////////////////////////////
                                                 Navigator.of(context).push(
                                                     //push to reservaion details page
                                                     MaterialPageRoute(

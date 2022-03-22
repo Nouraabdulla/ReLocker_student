@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:relocker_sa/Home_admin.dart';
+import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/firstsemester.dart';
 import 'package:relocker_sa/home_view.dart';
@@ -169,7 +170,7 @@ class _adddatesState extends State<adddates> {
                     "start": "${widget.start1}",
                   }).then((value) {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => Homeadmin()));
+                        MaterialPageRoute(builder: (context) => controlleradmin()));
                   });
                 },
                 child: Text(

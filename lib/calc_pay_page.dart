@@ -84,6 +84,8 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
 
   @override
   Widget build(BuildContext context) {
+      
+ 
     return Scaffold(
         backgroundColor: Color(0xff88d8bb),
         resizeToAvoidBottomInset: false,
@@ -241,14 +243,41 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
 // "locker_name": "",
 // "Price": ""
 // }).then((value) {
-Navigator.of(context).push(MaterialPageRoute(
-builder: (context) => first(
-numberOfWeek: int.parse(weeksNumberCont.text),
-resId: "",
-startDate: "${startDateCont.text}",
-endDate: "${endDateCont.text}",
-)));
 // });
+await FirebaseFirestore.instance
+
+.collection("Reservation")
+
+.add({
+
+"End Date": "${endDateCont.text}",
+
+"Start Date": "${startDateCont.text}",
+
+"Owner": "${FirebaseAuth.instance.currentUser!.email}",
+
+"user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+
+"locker_name": "",
+
+"Price": ""
+
+}).then((value) {
+
+Navigator.of(context).push(MaterialPageRoute(
+
+builder: (context) => first(
+
+numberOfWeek: int.parse(weeksNumberCont.text),
+
+resId: "${value.id}",
+
+startDate: "${startDateCont.text}",
+
+endDate: "${endDateCont.text}",
+
+)));
+});
                     } else if (DateTime.parse(startDateCont.text)
                             .isAfter(DateTime.parse(startdate2)) &&
                         DateTime.parse(endDateCont.text)
@@ -263,14 +292,40 @@ endDate: "${endDateCont.text}",
 // "locker_name": "",
 // "Price": ""
 // }).then((value) {
+await FirebaseFirestore.instance
+
+.collection("ReservationDetails")
+
+.add({
+
+"End Date": "${endDateCont.text}",
+
+"Start Date": "${startDateCont.text}",
+
+"Owner": "${FirebaseAuth.instance.currentUser!.email}",
+
+"user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+
+"locker_name": "",
+
+"Price": ""
+
+}).then((value) {
+
 Navigator.of(context).push(MaterialPageRoute(
+
 builder: (context) => first(
+
 numberOfWeek: int.parse(weeksNumberCont.text),
-resId: "",
+
+resId: "${value.id}",
+
 startDate: "${startDateCont.text}",
+
 endDate: "${endDateCont.text}",
+
 )));
-// });
+});
                     } else {
                       // print("your selected days out of studing date");
                       const snackBar = SnackBar(
