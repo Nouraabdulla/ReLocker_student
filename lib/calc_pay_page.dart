@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:relocker_sa/first.dart';
-import 'package:relocker_sa/recommendations.dart';
 
 import 'controller_view_screen.dart';
 
@@ -202,101 +201,6 @@ class _CalcPayPageState extends State<CalcPayPage> {
                               endDate: "${endDateCont.text}",
                             )));
                  
-                 showDialog(
-                                          context: context,
-                                          builder: (context) { 
-                                            return Container(
-                                              clipBehavior: Clip.hardEdge,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30)),
-                                              child: AlertDialog(
-                                                title: Text(
-                                                //  "Do you want to get recommendation ?",
-                                                  " would you like to get recommendations to find the suitbale lockers?",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                  ),
-                                                ),
-                                                actions: [ 
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'Yes',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                         Navigator.of(context).push(MaterialPageRoute(
-                                             builder: (context) => recommendations(
-                                              numberOfWeek: int.parse(weeksNumberCont.text),
-                                              resId: "${value.id}",
-                                             startDate: "${startDateCont.text}",
-                                            endDate: "${endDateCont.text}",
-                                            floor: floor,
-                                              )));
-      
-                                                      },
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'No',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                     
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
                 });
                 },
                 child: Text(

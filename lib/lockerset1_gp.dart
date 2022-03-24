@@ -9,8 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'controller_view_screen.dart';
-import 'home_view.dart';
-import 'locker_type.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 int Rendifference = 0;

@@ -5,9 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:relocker_sa/lockerset1_gp.dart';
 
 import 'controller_view_screen.dart';
-import 'lockerset1_gg.dart';
-import 'lockerset1_go.dart';
-import 'lockerset1_gy.dart';
+
 import 'lockerset1_gp.dart';
 
 class ground extends StatelessWidget { 
@@ -2320,87 +2318,87 @@ class ground extends StatelessWidget {
                       ),
 
                       //----------------------------------------------------
-                      Positioned(
-                        child: Container(
-                            child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (context) => lockerset1_gg(
-                          //             numberOfWeek: numberOfWeek!,
-                          //             resId: resId!,
-                          //           )));
-                          // },
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_gg(
-                                          numberOfWeek: numberOfWeek,
-                                          resId: resId!,
-                                          endDate: endDate!,
-                                          startDate: startDate!,
-                                        )));
-                          },
-                          child: Text(""),
-                          style: ElevatedButton.styleFrom(
-                              side: BorderSide.none, fixedSize: Size(215, 315)),
-                        )),
-                      ),
-                      Positioned(
-                        right: 50,
-                        child: Container(
-                            child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_go(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
-                          // },
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_go(
-                                          numberOfWeek: (numberOfWeek),
-                                          resId: (resId!),
-                                          endDate: (endDate!),
-                                          startDate: (startDate!),
-                                        )));
-                          },
-                          child: Text(""),
-                          style: ElevatedButton.styleFrom(
-                              side: BorderSide.none, fixedSize: Size(230, 325)),
-                        )),
-                      ),
+                      // Positioned(
+                      //   child: Container(
+                      //       child: OutlinedButton(
+                      //     // onPressed: () {
+                      //     //   Navigator.of(context).push(MaterialPageRoute(
+                      //     //       builder: (context) => lockerset1_gg(
+                      //     //             numberOfWeek: numberOfWeek!,
+                      //     //             resId: resId!,
+                      //     //           )));
+                      //     // },
+                      //     onPressed: () {
+                      //       Navigator.of(context)
+                      //           .pushReplacement(MaterialPageRoute(
+                      //               builder: (context) => lockerset1_gg(
+                      //                     numberOfWeek: numberOfWeek,
+                      //                     resId: resId!,
+                      //                     endDate: endDate!,
+                      //                     startDate: startDate!,
+                      //                   )));
+                      //     },
+                      //     child: Text(""),
+                      //     style: ElevatedButton.styleFrom(
+                      //         side: BorderSide.none, fixedSize: Size(215, 315)),
+                      //   )),
+                      // ),
+                      // Positioned(
+                      //   right: 50,
+                      //   child: Container(
+                      //       child: OutlinedButton(
+                      //     // onPressed: () {
+                      //     //   Navigator.of(context)
+                      //     //       .pushReplacement(MaterialPageRoute(
+                      //     //           builder: (context) => lockerset1_go(
+                      //     //                 numberOfWeek: numberOfWeek!,
+                      //     //                 resId: resId!,
+                      //     //               )));
+                      //     // },
+                      //     onPressed: () {
+                      //       Navigator.of(context)
+                      //           .pushReplacement(MaterialPageRoute(
+                      //               builder: (context) => lockerset1_go(
+                      //                     numberOfWeek: (numberOfWeek),
+                      //                     resId: (resId!),
+                      //                     endDate: (endDate!),
+                      //                     startDate: (startDate!),
+                      //                   )));
+                      //     },
+                      //     child: Text(""),
+                      //     style: ElevatedButton.styleFrom(
+                      //         side: BorderSide.none, fixedSize: Size(230, 325)),
+                      //   )),
+                      // ),
 
-                      Positioned(
-                        right: 50,
-                        bottom: 0,
-                        child: Container(
-                            child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_gy(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
-                          // },
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_gy(
-                                          numberOfWeek: (numberOfWeek),
-                                          resId: (resId!),
-                                          endDate: (endDate!),
-                                          startDate: (startDate!),
-                                        )));
-                          },
-                          child: Text(""),
-                          style: ElevatedButton.styleFrom(
-                              side: BorderSide.none, fixedSize: Size(225, 315)),
-                        )),
-                      ),
+                      // Positioned(
+                      //   right: 50,
+                      //   bottom: 0,
+                      //   child: Container(
+                      //       child: OutlinedButton(
+                      //     // onPressed: () {
+                      //     //   Navigator.of(context)
+                      //     //       .pushReplacement(MaterialPageRoute(
+                      //     //           builder: (context) => lockerset1_gy(
+                      //     //                 numberOfWeek: numberOfWeek!,
+                      //     //                 resId: resId!,
+                      //     //               )));
+                      //     // },
+                      //     onPressed: () {
+                      //       Navigator.of(context)
+                      //           .pushReplacement(MaterialPageRoute(
+                      //               builder: (context) => lockerset1_gy(
+                      //                     numberOfWeek: (numberOfWeek),
+                      //                     resId: (resId!),
+                      //                     endDate: (endDate!),
+                      //                     startDate: (startDate!),
+                      //                   )));
+                      //     },
+                      //     child: Text(""),
+                      //     style: ElevatedButton.styleFrom(
+                      //         side: BorderSide.none, fixedSize: Size(225, 315)),
+                      //   )),
+                      // ),
 
                       Positioned(
                         bottom: 0,

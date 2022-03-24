@@ -6,8 +6,6 @@ import 'package:relocker_sa/Announcements.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/login_screen.dart';
-import 'package:relocker_sa/profile.dart';
-import 'package:relocker_sa/recommendations.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/support_view.dart';
 import 'package:relocker_sa/support_support.dart';
@@ -28,14 +26,14 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
   int currentIndex = 2;
   List _screen = [closed_lock(), HomeView()];
 
-  dohavelocker() async {
-    final DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('Users')
-        .doc("${FirebaseAuth.instance.currentUser!.uid}")
-        .get();
-    haslocker = doc['reservedlocker'];
-    // print("hiiii" + haslocker);
-  }
+  // dohavelocker() async {
+  //   final DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .doc("${FirebaseAuth.instance.currentUser!.uid}")
+  //       .get();
+  //   haslocker = doc['reservedlocker'];
+  //   // print("hiiii" + haslocker);
+  // }
 Map<String, dynamic> userData = {};
     getUserData() {
        FirebaseFirestore.instance
@@ -66,7 +64,6 @@ Map<String, dynamic> userData = {};
 
   @override
   Widget build(BuildContext context) {
-    dohavelocker();
     return Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
       body: currentIndex > 0 && haslocker != ""
@@ -106,21 +103,21 @@ Map<String, dynamic> userData = {};
                                 color: Colors.grey[300],
                               ),
                               const SizedBox(height: 70),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('My account'),
-                                  leading: Icon(Icons.person),
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => profile()));
-                                },
-                              ),
+                              // const Divider(
+                              //   color: Colors.grey,
+                              //   height: 2,
+                              //   thickness: 2,
+                              // ),
+                              // GestureDetector(
+                              //   child: const ListTile(
+                              //     title: Text('My account'),
+                              //     leading: Icon(Icons.person),
+                              //   ),
+                              //   onTap: () {
+                              //     Navigator.of(context).push(MaterialPageRoute(
+                              //         builder: (context) => profile()));
+                              //   },
+                              // ),
                               const Divider(
                                 color: Colors.grey,
                                 height: 2,
@@ -327,21 +324,21 @@ Map<String, dynamic> userData = {};
                                 color: Colors.grey[300],
                               ),
                               const SizedBox(height: 70),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('My account'),
-                                  leading: Icon(Icons.person),
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => profile()));
-                                },
-                              ),
+                              // const Divider(
+                              //   color: Colors.grey,
+                              //   height: 2,
+                              //   thickness: 2,
+                              // ),
+                              // GestureDetector(
+                              //   child: const ListTile(
+                              //     title: Text('My account'),
+                              //     leading: Icon(Icons.person),
+                              //   ),
+                              //   onTap: () {
+                              //     Navigator.of(context).push(MaterialPageRoute(
+                              //         builder: (context) => profile()));
+                              //   },
+                              // ),
                               const Divider(
                                 color: Colors.grey,
                                 height: 2,

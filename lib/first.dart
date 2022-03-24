@@ -5,8 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'controller_view_screen.dart';
 import 'lockerset1_fg.dart';
-import 'lockerset1_fp.dart';
-import 'lockerset1_fp.dart';
+
 
 class first extends StatelessWidget {
   final int? numberOfWeek;
@@ -2367,25 +2366,25 @@ class first extends StatelessWidget {
                               side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                            child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_fp(
-                                          numberOfWeek: numberOfWeek!,
-                                          resId: resId!,
-                                          endDate: endDate!,
-                                          startDate: startDate!,
-                                        )));
-                          },
-                          child: Text(""),
-                          style: ElevatedButton.styleFrom(
-                              side: BorderSide.none, fixedSize: Size(215, 315)),
-                        )),
-                      ),
+                      // Positioned(
+                      //   bottom: 0,
+                      //   child: Container(
+                      //       child: OutlinedButton(
+                      //     onPressed: () {
+                      //       Navigator.of(context)
+                      //           .pushReplacement(MaterialPageRoute(
+                      //               builder: (context) => lockerset1_fp(
+                      //                     numberOfWeek: numberOfWeek!,
+                      //                     resId: resId!,
+                      //                     endDate: endDate!,
+                      //                     startDate: startDate!,
+                      //                   )));
+                      //     },
+                      //     child: Text(""),
+                      //     style: ElevatedButton.styleFrom(
+                      //         side: BorderSide.none, fixedSize: Size(215, 315)),
+                      //   )),
+                      // ),
                     ],
                   ),
                 ),

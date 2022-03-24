@@ -8,8 +8,6 @@ import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/forget_password.dart';
-import 'package:relocker_sa/profile.dart';
-import 'package:relocker_sa/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -173,24 +171,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             _cubit.password = val;
                           },
                         ),
-                        Row(
-                          children: [
-                            const Spacer(),
-                            TextButton(
-                              child: const Text(
-                                'Forget Password?',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => ForgetPassword()));
-                              },
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     const Spacer(),
+                        //     TextButton(
+                        //       child: const Text(
+                        //         'Forget Password?',
+                        //         style: TextStyle(
+                        //           fontSize: 18,
+                        //           color: Colors.black,
+                        //         ),
+                        //       ),
+                        //       onPressed: () {
+                        //         Navigator.of(context).push(MaterialPageRoute(
+                        //             builder: (context) => ForgetPassword()));
+                        //       },
+                        //     ),
+                        //   ],
+                        // ),
                         const SizedBox(height: 50),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -225,44 +223,29 @@ class _LoginScreenState extends State<LoginScreen> {
                               fallbackBuilder: (BuildContext context) =>
                                   const CircularProgressIndicator(),
                             ),
+                           
                             const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Expanded(
-                                    child: Container(
-                                  height: 2,
-                                  color: Colors.black54,
-                                )),
-                                const Text('  OR  '),
-                                Expanded(
-                                    child: Container(
-                                  height: 2,
-                                  color: Colors.black54,
-                                )),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              height: MediaQuery.of(context).size.width / 8,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'SIGN UP',
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => RegisterScreen()));
-                                },
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: MediaQuery.of(context).size.width / 1.5,
+                            //   height: MediaQuery.of(context).size.width / 8,
+                            //   child: ElevatedButton(
+                            //     child: const Text(
+                            //       'SIGN UP',
+                            //       style: TextStyle(
+                            //         color: Colors.black87,
+                            //         fontSize: 18,
+                            //       ),
+                            //     ),
+                            //     style: ElevatedButton.styleFrom(
+                            //       primary: Color(0xFF9AD6BD),
+                            //       shape: const StadiumBorder(),
+                            //     ),
+                            //     onPressed: () {
+                            //       Navigator.of(context).push(MaterialPageRoute(
+                            //           builder: (context) => RegisterScreen()));
+                            //     },
+                            //   ),
+                            // ),
                           ],
                         ),
                         const SizedBox(height: 20),
