@@ -193,34 +193,34 @@ class _AddCardState extends State<AddCard> {
                                                           const StadiumBorder(),
                                                     ),
                                                     onPressed: () {
-                                                      FirebaseFirestore.instance
-                                                          .collection(
-                                                              "Reservation")
-                                                          .doc(widget.resId)
-                                                          .update({
-                                                        "locker_name":
-                                                            widget.lockerName
-                                                      });
-                                                      FirebaseFirestore.instance
-                                                          .collection("lockers")
-                                                          .where("name",
-                                                              isEqualTo: widget
-                                                                  .lockerName)
-                                                          .limit(1)
-                                                          .get()
-                                                          .then((value) {
-                                                        value.docs
-                                                            .forEach((element) {
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "lockers")
-                                                              .doc(element.id)
-                                                              .update({
-                                                            "available": false
-                                                          });
-                                                        });
-                                                      });
+                                                      // FirebaseFirestore.instance
+                                                      //     .collection(
+                                                      //         "Reservation")
+                                                      //     .doc(widget.resId)
+                                                      //     .update({
+                                                      //   "locker_name":
+                                                      //       widget.lockerName
+                                                      // });
+                                                      // FirebaseFirestore.instance
+                                                      //     .collection("lockers")
+                                                      //     .where("name",
+                                                      //         isEqualTo: widget
+                                                      //             .lockerName)
+                                                      //     .limit(1)
+                                                      //     .get()
+                                                      //     .then((value) {
+                                                      //   value.docs
+                                                      //       .forEach((element) {
+                                                      //     FirebaseFirestore
+                                                      //         .instance
+                                                      //         .collection(
+                                                      //             "lockers")
+                                                      //         .doc(element.id)
+                                                      //         .update({
+                                                      //       "available": false
+                                                      //     });
+                                                      //   });
+                                                      // });
                                                       Navigator.of(context)
                                                           .pop();
                                                       //Go To Checkout Screen

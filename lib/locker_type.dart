@@ -62,14 +62,6 @@ class _locker_typeState extends State<locker_type> {
               icon: Image.asset('assets/images/regular.jpg'),
               iconSize: 50,
               onPressed: () async {
-                await FirebaseFirestore.instance.collection("Reservation").add({
-                  //store regular reservation info in database
-                  "End Date": "${endDate}",
-                  "Start Date": "${selectedDate}",
-                  "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-                  // "locker_name":"",
-                  // "Price":""
-                });
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ground(
                           numberOfWeek: null,
