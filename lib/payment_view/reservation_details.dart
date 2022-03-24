@@ -172,7 +172,7 @@ class ReservationDetails extends StatelessWidget {
                                 text: 'Confirm',
                                 color: const Color(0xFF89d8bb),
                                 onPressed: () async {
-                                  
+
                                   if (from == '2') {
                                     final DocumentSnapshot doc =
                                         await FirebaseFirestore.instance
@@ -261,173 +261,174 @@ class ReservationDetails extends StatelessWidget {
     rendifference = DateTime.parse(endDate).difference(startrenew).inMinutes;
     rendifference2 = DateTime.parse(endDate).difference(todayDate).inMinutes;
         }
-    FutureBuilder(
-              future: canrenew(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  // if (rendifference2 > 0 &&
-                  //         rendifference2 < rendifference) {
-                  //       Notify();
-                  //     } else {
-                  //       print('Not run');
-                  //     }
-                   return Text('');
+//     FutureBuilder(
+//               future: canrenew(),
+//               builder: (context, AsyncSnapshot snapshot) {
+//                 if (snapshot.connectionState == ConnectionState.waiting) {
+//                   return Center(
+//                     child: CircularProgressIndicator(),
+//                   );
+//                 } else {
+//                   // if (rendifference2 > 0 &&
+//                   //         rendifference2 < rendifference) {
+//                   //       Notify();
+//                   //     } else {
+//                   //       print('Not run');
+//                   //     }
+//                    return Text('');
                    
-                }
-              },
-            );
+//                 }
+//               },
+//             );
     
-    // if (rendifference2 > 0 &&
-    //     rendifference2 < rendifference) {
-    //                         Notify();
-    //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-    //                             Navigator.of(context).push(
-    //                        MaterialPageRoute(
-    //                         builder: (context) => renew()));
-    //                           });
-    //                       }
+//     // if (rendifference2 > 0 &&
+//     //     rendifference2 < rendifference) {
+//     //                         Notify();
+//     //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
+//     //                             Navigator.of(context).push(
+//     //                        MaterialPageRoute(
+//     //                         builder: (context) => renew()));
+//     //                           });
+//     //                       }
                           
-        await FirebaseFirestore.instance
-            .collection("Users")
-            .where("user_id",
-                isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
-            .limit(1)
-            .get()
-            .then((v) {
-          v.docs.forEach((el) {
-            FirebaseFirestore.instance
-                .collection("Users")
-                .doc("${el.id}")
-                .update({"reservedlocker": "${lockerName}"});
-          });
-        });
-        await FirebaseFirestore.instance
-            .collection("lockers")
-            .where("name", isEqualTo: "${lockerName}")
-            .limit(1)
-            .get()
-            .then((v) {
-          v.docs.forEach((el) {
-            FirebaseFirestore.instance
-                .collection("lockers")
-                .doc("${el.id}")
-                .update({"pin": "${code}"});
-          });
-        });
-      }
-      // change availablity
+//         await FirebaseFirestore.instance
+//             .collection("Users")
+//             .where("user_id",
+//                 isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+//             .limit(1)
+//             .get()
+//             .then((v) {
+//           v.docs.forEach((el) {
+//             FirebaseFirestore.instance
+//                 .collection("Users")
+//                 .doc("${el.id}")
+//                 .update({"reservedlocker": "${lockerName}"});
+//           });
+//         });
+//         await FirebaseFirestore.instance
+//             .collection("lockers")
+//             .where("name", isEqualTo: "${lockerName}")
+//             .limit(1)
+//             .get()
+//             .then((v) {
+//           v.docs.forEach((el) {
+//             FirebaseFirestore.instance
+//                 .collection("lockers")
+//                 .doc("${el.id}")
+//                 .update({"pin": "${code}"});
+//           });
+//         });
+//       }
+//       // change availablity
 
-      Resdifference = DateTime.parse(endDate)
-          .difference(DateTime.parse(startDate))
-          .inSeconds;
+//       Resdifference = DateTime.parse(endDate)
+//           .difference(DateTime.parse(startDate))
+//           .inSeconds;
 
-      Rendifference = DateTime.parse(endDate)
-              .difference(DateTime.parse(startDate))
-              .inSeconds +
-          1;
+//       Rendifference = DateTime.parse(endDate)
+//               .difference(DateTime.parse(startDate))
+//               .inSeconds +
+//           1;
 
-      Future.delayed(Duration(seconds: Resdifference), () async {
-        final DocumentSnapshot doc = await FirebaseFirestore.instance
-            .collection('Users')
-            .doc("${FirebaseAuth.instance.currentUser!.uid}")
-            .get();
-        String locker = doc['reservedlocker'];
+//       Future.delayed(Duration(seconds: Resdifference), () async {
+//         final DocumentSnapshot doc = await FirebaseFirestore.instance
+//             .collection('Users')
+//             .doc("${FirebaseAuth.instance.currentUser!.uid}")
+//             .get();
+//         String locker = doc['reservedlocker'];
 
-        print(locker);
-        if (locker != "") {
-          final DocumentSnapshot doc = await FirebaseFirestore.instance
-              .collection('Users')
-              .doc("${FirebaseAuth.instance.currentUser!.uid}")
-              .get();
-          String locker = doc['reservedlocker'];
-          print(locker);
+//         print(locker);
+//         if (locker != "") {
+//           final DocumentSnapshot doc = await FirebaseFirestore.instance
+//               .collection('Users')
+//               .doc("${FirebaseAuth.instance.currentUser!.uid}")
+//               .get();
+//           String locker = doc['reservedlocker'];
+//           print(locker);
 
-          final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-              .collection('Reservation')
-              .doc("${FirebaseAuth.instance.currentUser!.uid}")
-              .get();
-          // DateTime date = doc2['End Date'].toDate();
-          DateTime date = DateTime.parse(doc2['End Date']);
-          // print(date);
+//           final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+//               .collection('Reservation')
+//               .doc("${FirebaseAuth.instance.currentUser!.uid}")
+//               .get();
+//           // DateTime date = doc2['End Date'].toDate();
+//           DateTime date = DateTime.parse(doc2['End Date']);
+//           // print(date);
 
-//
-          if (true) {
-            var rng = new Random();
-            var code = rng.nextInt(9000) + 1000;
-            final DocumentSnapshot doc = await FirebaseFirestore.instance
-                .collection("Reservation")
-                .doc("${FirebaseAuth.instance.currentUser!.uid}")
-                .get();
-            String lname = doc['locker_name'];
-            print(lname);
+// //
+//           if (true) {
+//             var rng = new Random();
+//             var code = rng.nextInt(9000) + 1000;
+//             final DocumentSnapshot doc = await FirebaseFirestore.instance
+//                 .collection("Reservation")
+//                 .doc("${FirebaseAuth.instance.currentUser!.uid}")
+//                 .get();
+//             String lname = doc['locker_name'];
+//             print(lname);
 
-            await FirebaseFirestore.instance
-                .collection("lockers")
-                .where("name", isEqualTo: "${lname}")
-                .limit(1)
-                .get()
-                .then((v) {
-              v.docs.forEach((el) {
-                FirebaseFirestore.instance
-                    .collection("lockers")
-                    .doc("${lname}")
-                    .update({
-                  "available": true,
-                });
-              });
-            });
+//             await FirebaseFirestore.instance
+//                 .collection("lockers")
+//                 .where("name", isEqualTo: "${lname}")
+//                 .limit(1)
+//                 .get()
+//                 .then((v) {
+//               v.docs.forEach((el) {
+//                 FirebaseFirestore.instance
+//                     .collection("lockers")
+//                     .doc("${lname}")
+//                     .update({
+//                   "available": true,
+//                 });
+//               });
+//             });
 
-            await FirebaseFirestore.instance
-                .collection("Users")
-                .where("user_id",
-                    isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
-                .limit(1)
-                .get()
-                .then((v) {
-              v.docs.forEach((el) {
-                FirebaseFirestore.instance
-                    .collection("Users")
-                    .doc("${lname}")
-                    .update({
-                  "reservedlocker": "",
-                });
-              });
-            });
-            await FirebaseFirestore.instance
-                .collection("lockers")
-                .where("name", isEqualTo: "${lockerName}")
-                .limit(1)
-                .get()
-                .then((v) {
-              v.docs.forEach((el) {
-                FirebaseFirestore.instance
-                    .collection("lockers")
-                    .doc("${el.id}")
-                    .update({"pin": "${code}"});
-              });
-            });
-          }
+//             await FirebaseFirestore.instance
+//                 .collection("Users")
+//                 .where("user_id",
+//                     isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
+//                 .limit(1)
+//                 .get()
+//                 .then((v) {
+//               v.docs.forEach((el) {
+//                 FirebaseFirestore.instance
+//                     .collection("Users")
+//                     .doc("${lname}")
+//                     .update({
+//                   "reservedlocker": "",
+//                 });
+//               });
+//             });
+//             await FirebaseFirestore.instance
+//                 .collection("lockers")
+//                 .where("name", isEqualTo: "${lockerName}")
+//                 .limit(1)
+//                 .get()
+//                 .then((v) {
+//               v.docs.forEach((el) {
+//                 FirebaseFirestore.instance
+//                     .collection("lockers")
+//                     .doc("${el.id}")
+//                     .update({"pin": "${code}"});
+//               });
+//             });
+//           }
   
 
 
-//Now use If/Else statement to know, if the current time is same as/or after the
-//time set for trigger, then trigger the event,
+// //Now use If/Else statement to know, if the current time is same as/or after the
+// //time set for trigger, then trigger the event,
 
-        }
-      });
+//         }
+//       });
+ openPagePaymentWithListener();
                                   }
-                 // openPagePaymentWithListener();
+
                                   // Navigator.of(context).push(MaterialPageRoute(
                                   //     builder: (context) => PaymentMethod(
                                   //       resId: resId,
                                   //       lockerName: lockerName,
                                   //     ))),
                                   //
-                                )
+                                 } )
                           ],
                         ),
                       ),

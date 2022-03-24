@@ -268,8 +268,6 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
           "semester": semester,
         });
         
-       
-                          
         await FirebaseFirestore.instance
             .collection("Users")
             .where("user_id",

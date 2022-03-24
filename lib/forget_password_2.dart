@@ -50,8 +50,8 @@ class _forget_passsword_2 extends State<forget_passsword_2> {
         recipientMail: emailCont.text, userOtp: otpCont.text);
 
     if (result) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new_paaword(useremail1:useremail)));
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => new_paaword(useremail1:useremail)));
       print("otp verified");
       return '';
     } else {
@@ -97,9 +97,9 @@ class _forget_passsword_2 extends State<forget_passsword_2> {
                         shape: const StadiumBorder(),
                       ),
                       onPressed: () {
-                        // Navigator.of(context).pop();
-                         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new_paaword(useremail1:useremail)));
+                        Navigator.of(context).pop();
+          //                Navigator.of(context).pushReplacement(
+          // MaterialPageRoute(builder: (context) => new_paaword(useremail1:useremail)));
                       },
                     ),
                   ),

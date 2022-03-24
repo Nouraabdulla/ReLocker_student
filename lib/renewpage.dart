@@ -130,6 +130,14 @@ class _renewState extends State<renew> {
                       if (rendifference2 > 0 &&
                           rendifference2 < rendifference) {
                         if (typeLocker != 'f') {
+                         Notify();
+                         AwesomeNotifications().actionStream.listen((ReceivedNotification) {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Checkout()));
+                         });
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -141,7 +149,9 @@ class _renewState extends State<renew> {
                           print('here');
                          
 
-                         
+                         Notify();
+                          AwesomeNotifications().actionStream.listen((ReceivedNotification) {
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -150,7 +160,15 @@ class _renewState extends State<renew> {
                                       lockerName: lockerName,
                                       priceOneWeek: int.parse(priceOneWeek),
                                       typelocker: typeLocker)));
-                             
+                          });
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CalcPayPage(
+                                      showLockers: false,
+                                      lockerName: lockerName,
+                                      priceOneWeek: int.parse(priceOneWeek),
+                                      typelocker: typeLocker))); 
 
                         }
                       } else {
@@ -177,4 +195,20 @@ class _renewState extends State<renew> {
       ),
     );
   }
+}
+void Notify() async{
+  String timezom= await AwesomeNotifications().getLocalTimeZoneIdentifier();
+await AwesomeNotifications().createNotification(
+  content:NotificationContent(
+    id:1,
+    channelKey: 'key1',
+    title: 'This is Notification title',
+    body:'This is body of notification'
+  ),
+  schedule: NotificationInterval(
+    interval: 5,
+    timeZone: timezom,
+    repeats: false
+    )
+  );
 }

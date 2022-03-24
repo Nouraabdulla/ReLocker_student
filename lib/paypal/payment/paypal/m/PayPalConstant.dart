@@ -8,9 +8,9 @@ class PayPalConstant {
 
   //DL App ( live )
   static const clientId =
-      "AUq9sf8mwQojB2VVg23K91WEryBjRuVA61yaro3o7BnEu1ll0SJD8g4mqkgmvIrkvXDn6qVeG0S6IvgL";
+      "AbCCl71VVar2zkC2S5WHzIXTD3_1OAF6aXKRIGj5e_SU1g2nB4kMqCe13YHua0udgMhVwZcmhirWp4Gx";
   static const secret =
-      "EDlWLLvVoMOHMHs8L8_B64OE_LuGt5bLgdIc_w9V-W_5pyCdAi45W_VLmjW_rzmGU37jj1L9lZSpQMr6";
+      "ECtv55I-Pra7gJRPbCYkKLJwC0agqL-BuFvfQS4jxA82vcbU4EkEZXJvEpfBds9bNQRbvGZ_MOqB-nNN";
 
   /**
    *

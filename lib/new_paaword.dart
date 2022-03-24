@@ -12,9 +12,8 @@ import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/models/user_model.dart';
 
 class new_paaword extends StatefulWidget {
- final String useremail1;
   new_paaword({
-    Key? key,required this.useremail1,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -240,6 +239,7 @@ class _new_paaword extends State<new_paaword> {
                               //   if (state is AuthResetPasswordSuccessState) {}
                               //   _cubit.resetPassword();
                             // UserModel1(email:widget.useremail1,pass:_password.text);
+                          
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => LoginScreen()));
                               }
