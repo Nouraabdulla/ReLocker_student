@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/Home_admin.dart';
@@ -22,11 +24,54 @@ class _Controlleradmin extends State<controlleradmin> {
   int currentIndex = 2;
   List _screen = [Requests(), Homeadmin()];
 
+User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> userData = {};
+    getUserData() {
+       FirebaseFirestore.instance
+        .collection("support")
+        .where("state", isEqualTo: 'inprogress')
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) {
+        setState(() {
+          userData = element.data()!;
+        });
+      });
+  
+    });
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    // getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
       body: currentIndex > 0 ? _screen[currentIndex - 1] : _screen[0],
+    //   Column(children: [
+    //   StreamBuilder(
+    //     stream: FirebaseFirestore.instance.collection("Companies").doc().snapshots(),
+    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+    //       if (snapshot.connectionState == ConnectionState.waiting) {
+    //         return Center(
+    //           child: CircularProgressIndicator(),
+    //         );
+    //       }
+    //       return Image.network(
+    //         snapshot.data.data()["url"],
+    //         width: 100,
+    //         height: 100,
+    //       );
+    //     },
+    //   ),
+    //  ]
+    //   ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
@@ -217,17 +262,34 @@ class _Controlleradmin extends State<controlleradmin> {
               ),
               label: '',
             ),
+            
+            if(userData['state']=='inprogress')...[
             BottomNavigationBarItem(
               icon: SizedBox(
-                height: 35,
-                width: 35,
-                child: Icon(
-                  Icons.chat,
-                  color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+                height: 29,
+                width: 29,
+                child: Image.asset(
+                  'assets/images/chatRed.png',
+                  fit: BoxFit.cover,
+                  // color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
                 ),
               ),
               label: '',
             ),
+            ]else...[
+              BottomNavigationBarItem(
+              icon: SizedBox(
+                height: 29,
+                width: 29,
+                child: Image.asset(
+                  'assets/images/chat.png',
+                  fit: BoxFit.cover,
+                  // color: currentIndex == 1 ? Colors.blue : Colors.grey[800],
+                ),
+              ),
+              label: '',
+            ),
+            ],
             const BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
@@ -248,3 +310,5 @@ class _Controlleradmin extends State<controlleradmin> {
     );
   }
 }
+
+

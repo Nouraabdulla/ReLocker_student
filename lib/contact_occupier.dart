@@ -21,7 +21,7 @@ class _contact_occupierState extends State<contact_occupier> {
   String? message = "";
 
   String? title = "";
-
+String? state='inprogress';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +134,8 @@ class _contact_occupierState extends State<contact_occupier> {
                                     'title': title,
                                     'message': message,
                                     'lockername': widget.lockername,
-                                    'counter': i
+                                    'counter': i,
+                                    'state':state
                                   });
                                   i++;
                                 }
