@@ -37,39 +37,50 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
     haslocker = doc['reservedlocker'];
     // print("hiiii" + haslocker);
   }
-Map<String, dynamic> userData = {};
-    getUserData() {
-       FirebaseFirestore.instance
-        .collection("Announcements")
-        // .where("state", isEqualTo: 'inprogress')
-        .get()
-        .then((value) {
-      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
-      list.forEach((element) {
-        setState(() {
-          userData = element.data()!;
-        });
-      });
-  
-    });
-  }
+String lockerreserv='';
     User user = FirebaseAuth.instance.currentUser!;
 Map<String, dynamic> userData2 = {};
     getUserData2() {
        FirebaseFirestore.instance
         .collection("Reservation")
-        .where("Owner", isEqualTo: user.email)
+        // .where("Owner", isEqualTo: user.email)
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
       list.forEach((element) {
         setState(() {
           userData2 = element.data()!;
+          lockerreserv=userData2['locker_name'];
+          // print(lockerreserv);
+
         });
       });
   
     });
   }
+
+
+  String lockername1='';
+Map<String, dynamic> userData = {};
+    getUserData() {
+       FirebaseFirestore.instance
+        .collection("Announcements")
+        .where("lockername", isEqualTo: userData2['locker_name'])
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) {
+        setState(() {
+          userData = element.data()!;
+          // lockername1=userData['lockername'];
+            print(userData);
+
+        });
+      });
+  
+    });
+  }
+  
 
 
 
@@ -101,7 +112,7 @@ Map<String, dynamic> userData2 = {};
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: [
-             if(userData2['locker_name']==userData['lockername'])...[
+             if(lockername1==lockerreserv)...[
             BottomNavigationBarItem(
               icon: IconButton(
                 icon: Image.asset(
