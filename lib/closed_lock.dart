@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:adobe_xd/pinned.dart';
-import 'package:adobe_xd/adobe_xd.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:relocker_sa/lockerset1_fg.dart';
-import 'package:relocker_sa/opened_lock.dart';
 import 'package:relocker_sa/Receipt.dart';
-import 'package:relocker_sa/renewpage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class closed_lock extends StatefulWidget {
   closed_lock({
@@ -22,266 +16,24 @@ class closed_lock extends StatefulWidget {
   State<closed_lock> createState() => _closed_lockState();
 }
 
-// getpin() async {
-//   final DocumentSnapshot doc = await FirebaseFirestore.instance
-//       .collection("Reservation")
-//       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//       .get();
-//   String lname = doc['locker_name'];
-
-//   await FirebaseFirestore.instance.collection("lockers").doc("${lname}").get();
-//   String pin = doc['pin'];
-
-//   return pin;
-// }
 
 final random = Random();
 int randomNumber = random.nextInt(10) * 1000;
 String code = "";
 String showpin = "Show pin";
-
-// showpincode() async {
-//   final DocumentSnapshot doc = await FirebaseFirestore.instance
-//       .collection("Reservation")
-//       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//       .get();
-//   String lname = doc['locker_name'];
-
-//   final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-//       .collection("lockers")
-//       .doc("${lname}")
-//       .get();
-//   code = doc2['pin'];
-
-//   // print(code);
-// }
-///////////////////////
+String code1='7254';
+  bool showCode = false;
 
 class _closed_lockState extends State<closed_lock> {
   bool click = true;
   TextEditingController emailCont = new TextEditingController();
   TextEditingController otpCont = new TextEditingController();
 
-  // String pin = getpin();
+  
 
-  // getCode() async {
-  //   SharedPreferences sp = await SharedPreferences.getInstance();
-  //   var today = DateTime.now();
-  //   var spCode = sp.getString("code");
-  //   DateTime expDate =
-  //       DateFormat("yyyy-MM-dd").parse("${sp.getString("date")}");
-
-  //   var d = (today.difference(expDate).inHours / 24).round();
-
-  //   // if ((spCode == null || spCode == '') || d > 0) {
-  //   //   await sp.setString("code", randomNumber.toString());
-  //   //   await sp.setString("date", DateTime.now().toString().split(" ").first);
-  //   //   Future.delayed(Duration(seconds: 1), () {
-  //   //     getCode();
-  //   //   });
-  //   // } else {
-  //   //   setState(() {
-  //   //     code = spCode;
-  //   //   });
-  //   // }
-
-  //   final DocumentSnapshot doc = await FirebaseFirestore.instance
-  //       .collection("Reservation")
-  //       .doc("${FirebaseAuth.instance.currentUser!.uid}")
-  //       .get();
-  //   String lname = doc['locker_name'];
-
-  //   await FirebaseFirestore.instance
-  //       .collection("lockers")
-  //       .doc("${lname}")
-  //       .get();
-  //   code = doc['pin'];
-  //   print(code);
-  //   return code;
-  // }
-  genCode() async {
-    final DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection("Reservation")
-        .doc("${FirebaseAuth.instance.currentUser!.uid}")
-        .get();
-    String lname = doc['locker_name'];
-
-    final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-        .collection("lockers")
-        .doc("${lname}")
-        .get();
-    code = doc2['pin'];
-    print(code);
-    generatorNumber(code.toString());
-  }
-
-  void generatorNumber(String code) {
-    genCodeList.clear();
-    for (int i = 0; i < 4; i++) {
-      if (i == 0) {
-        genCodeList.add('${code.substring(0, 1)}***');
-      } else if (i == 1) {
-        genCodeList.add('*${code.substring(1, 2)}**');
-      } else if (i == 2) {
-        genCodeList.add('**${code.substring(2, 3)}*');
-      } else if (i == 3) {
-        genCodeList.add('***${code.substring(3)}');
-      }
-    }
-    genCodeList.shuffle();
-    print(genCodeList[0]);
-    print(genCodeList[1]);
-    print(genCodeList[2]);
-    print(genCodeList[3]);
-  }
-
-  bool showCode = false;
-  String code = "1234";
-  List<String> genCodeList = ['****', '****', '****', '****'];
-  String codeShowString = '****';
-
-  late Timer timer;
-  late Timer timer2;
-
-  int start = 10;
-
-  void startTimer() {
-    const oneSec = const Duration(seconds: 1);
-    timer2 = new Timer.periodic(
-      oneSec,
-      (Timer timer) async {
-        if (start == 0) {
-          setState(() {
-            codeShowString = '****';
-            timer.cancel();
-            start = 10;
-          });
-        } else if (start == 10) {
-          codeShowString = '****';
-          setState(() {
-            start--;
-          });
-        } else if (start == 8) {
-          codeShowString = genCodeList[0];
-          setState(() {
-            start--;
-          });
-        } else if (start == 6) {
-          codeShowString = genCodeList[1];
-          setState(() {
-            start--;
-          });
-        } else if (start == 4) {
-          codeShowString = genCodeList[2];
-          setState(() {
-            start--;
-          });
-        } else if (start == 2) {
-          codeShowString = genCodeList[3];
-          setState(() {
-            start--;
-          });
-        } else {
-          start--;
-        }
-      },
-    );
-  }
-
-  late EmailAuth emailAuth;
-
-  @override
-  void initState() {
-    genCode();
-    emailAuth = new EmailAuth(sessionName: "ReLocker");
-    //sendOtp();
-    super.initState();
-  }
-
-  void sendOtp() async {
-    Future.delayed(Duration.zero, () {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text("loading ..."),
-            );
-          });
-    });
-
-    bool result = await emailAuth.sendOtp(
-        recipientMail: "${FirebaseAuth.instance.currentUser!.email}",
-        otpLength: 6);
-    if (result) {
-      Navigator.of(context).pop();
-      showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) {
-            return AlertDialog(
-                title: Text("Enter code"),
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      controller: otpCont,
-                    ),
-                  ],
-                ),
-                actions: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      verify();
-                      if (verify()) {
-                        setState(() {
-                          showCode = true;
-                          otpCont.text = "";
-                          startTimer();
-                        });
-                        Navigator.of(context).pop();
-
-                        Future.delayed(Duration(seconds: 20), () {
-                          setState(() {
-                            showCode = false;
-                          });
-                        });
-                      } else {
-                        Navigator.of(context).pop();
-
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text("code not correct"),
-                              );
-                            });
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff88d8bb),
-                      shape: StadiumBorder(),
-                    ),
-                    child: Text(
-                      "verify",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ]);
-          });
-    }
-  }
-
-  bool verify() {
-    return emailAuth.validateOtp(
-        recipientMail: "${FirebaseAuth.instance.currentUser!.email}",
-        userOtp: otpCont.text);
-  }
 
   @override
   Widget build(BuildContext context) {
-    // showpincode();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -310,12 +62,7 @@ class _closed_lockState extends State<closed_lock> {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => Receipt()));
                     },
-                    //  label: Text('Receipt',
-                    //  style: TextStyle(
-                    //  fontSize: 20,
-                    //  color: Colors.black54,
-                    //  ),
-                    //  ),
+                  
                     icon: Icon(
                       Icons.receipt_long_outlined,
                       size: 40,
@@ -332,11 +79,7 @@ class _closed_lockState extends State<closed_lock> {
                       width: MediaQuery.of(context).size.width / 2.8,
                       child: SizedBox(
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(
-                            //         builder: (context) => opened_lock()));
-                          },
+                          onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             primary: Colors.white,
                             shape: const StadiumBorder(),
@@ -374,7 +117,7 @@ class _closed_lockState extends State<closed_lock> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     title: Text(
-                      showCode ? codeShowString : "PIN code",
+                      "PIN code",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -382,11 +125,9 @@ class _closed_lockState extends State<closed_lock> {
                     ),
                     // subtitle: Text(code),
                     trailing: TextButton(
-                      onPressed: showCode
-                          ? null
-                          : () async {
-                              sendOtp();
-                            },
+                      onPressed: (){
+                      showCode=true;
+                      },
                       child: Text(
                         "show",
                         style: TextStyle(
@@ -417,28 +158,7 @@ class _closed_lockState extends State<closed_lock> {
                       TextHeightBehavior(applyHeightToFirstAscent: true),
                   textAlign: TextAlign.center,
                 ),
-                Positioned(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width / 4,
-                    height: MediaQuery.of(context).size.width / 8,
-                    child: ElevatedButton(
-                        child: const Text(
-                          'renew',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 18,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xff88d8bb),
-                          shape: const StadiumBorder(),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => renew()));
-                        }),
-                  ),
-                )
+               
               ],
             ),
           ),
@@ -446,4 +166,5 @@ class _closed_lockState extends State<closed_lock> {
       ),
     );
   }
+
 }

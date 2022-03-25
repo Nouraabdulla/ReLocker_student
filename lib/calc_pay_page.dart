@@ -2,7 +2,6 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:relocker_sa/first.dart';
 
 import 'controller_view_screen.dart';
@@ -15,7 +14,7 @@ class CalcPayPage extends StatefulWidget {
 }
 
 class _CalcPayPageState extends State<CalcPayPage> {
- String floor='F';
+
   TextEditingController weeksNumberCont = new TextEditingController();
   TextEditingController startDateCont = new TextEditingController();
   TextEditingController endDateCont = new TextEditingController();
@@ -86,23 +85,7 @@ class _CalcPayPageState extends State<CalcPayPage> {
                 ),
               ),
             ),
-            /* Pinned.fromPins(
-              Pin(start: 39.0, end: 25.0),
-              Pin(size: 50.0, middle: 0.8517),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(43.0),
-                  color: const Color(0xff88d8bb),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0x29000000),
-                      offset: Offset(0, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
+            
             Pinned.fromPins(
               Pin(size: 71.0, end: 155.0),
               Pin(size: 40.0, middle: 0.3105),
@@ -182,26 +165,27 @@ class _CalcPayPageState extends State<CalcPayPage> {
               Pin(start: 39.0, end: 25.0),
               Pin(size: 50.0, middle: 0.8517),
               child: ElevatedButton(
-                onPressed: () async {
-                  await FirebaseFirestore.instance
-                      .collection("Reservation")
-                      .add({
-                    "End Date": "${endDateCont.text}",
-                    "Start Date": "${startDateCont.text}",
-                    "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-                    "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-                    "locker_name": "",
-                    "Price": ""
-                  }).then((value) {
+                onPressed: ()  {
+                  // await FirebaseFirestore.instance
+                  //     .collection("Reservation")
+                  //     .add({
+                  //   "End Date": "${endDateCont.text}",
+                  //   "Start Date": "${startDateCont.text}",
+                  //   "Owner": "${FirebaseAuth.instance.currentUser!.email}",
+                  //   "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+                  //   "locker_name": "",
+                  //   "Price": ""
+                  // }).then((value) {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => first(
                               numberOfWeek: int.parse(weeksNumberCont.text),
-                              resId: "${value.id}",
+                              resId: " ",
                               startDate: "${startDateCont.text}",
                               endDate: "${endDateCont.text}",
                             )));
                  
-                });
+                //}
+                
                 },
                 child: Text(
                   "Confirm",

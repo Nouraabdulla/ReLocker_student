@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,6 @@ import 'package:relocker_sa/bloc/cubit/auth_cubit.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
-import 'package:relocker_sa/forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -19,27 +17,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   User? user;
-  //  Query? _ref;
-  /*List list = [];
-  var c;
-  CollectionReference users = FirebaseFirestore.instance.collection('Users');
-  getData() async {
-    await users
-        .where('user_id', isEqualTo: 'yZYn8R8F80fTm2uVdI8vCGFkwzC3')
-        .get()
-        .then((value) async {
-      value.docs.forEach((element) {
-        list.add(element.data());
-      });
-    });
-    c = list[0];
-  }
-  @override
-  void initState() {
-    _ref = FirebaseFirestore.instance.collection('Users').orderBy('user_id');
-    super.initState();
-  }
-*/
   @override
   Widget build(BuildContext context) {
     AuthCubit _cubit = AuthCubit.get(context);
@@ -47,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         // if (state is AuthSignInSuccessState) {
         if (state is AuthSignInSuccessState &&
-            _cubit.email == "shoogalsaif1@gmail.com") {
+            _cubit.email!.startsWith('admin')) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => controlleradmin()));
         } else if (state is AuthSignInSuccessState) {

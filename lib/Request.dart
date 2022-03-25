@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:relocker_sa/controller_admin.dart';
 
 class Requests extends StatefulWidget {
+ 
   const Requests({Key? key}) : super(key: key);
 
   @override
@@ -46,13 +47,6 @@ class _Requests extends State<Requests> {
                     scrollDirection: Axis.vertical,
                     children: snapshot.data!.docs.map((document) {
                       return Column(children: <Widget>[
-                        //  ListTile(
-                        // selected: true,
-                        // title: Text( document['email'] ),
-//  trailing:
-                        //  InkWell(
-                        //     onTap: () { Navigator.push(context,MaterialPageRoute(
-                        //         builder: (context) => controlleradmin()));}, // Handle your callback
                         if (document['state'] == 'inprogress') ...[
                           Container(
                             margin: const EdgeInsets.symmetric(
@@ -150,7 +144,7 @@ class _Requests extends State<Requests> {
                                                             30)),
                                                 child: AlertDialog(
                                                   title: Text(
-                                                    "Are you sure you perform the request?",
+                                                    "This request is done",
                                                     style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 18,

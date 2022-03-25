@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:relocker_sa/calc_pay_page.dart';
-import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/locker_type.dart';
 
 class HomeView extends StatefulWidget {
@@ -20,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/background3.jpeg'),
+              image: AssetImage('assets/images/back1.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -28,18 +26,18 @@ class _HomeViewState extends State<HomeView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height / 2.7),
+                SizedBox(height: MediaQuery.of(context).size.height / 2.4),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Text(
-                    'Save your\nbelongings\nby\nreserving a\nlocker',
+                    'Your locker\nhas\nbecome smart',
                     style: TextStyle(
                         fontSize: 26,
                         color: Color(0xFF213569),
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: MediaQuery.of(context).size.height / 5.5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

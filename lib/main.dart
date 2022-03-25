@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/utils/bloc_observer.dart';
 import 'package:relocker_sa/utils/utils-cache_helper.dart';
-
 import 'bloc/cubit/payment_cubit.dart';
 import 'login_screen.dart';
 

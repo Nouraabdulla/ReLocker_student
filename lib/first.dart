@@ -2353,38 +2353,21 @@ class first extends StatelessWidget {
                             child: OutlinedButton(
                           onPressed: () {
                             Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
+                                .push(MaterialPageRoute(
                                     builder: (context) => lockerset1_fg(
                                           numberOfWeek: numberOfWeek!,
                                           resId: resId!,
                                           endDate: endDate!,
                                           startDate: startDate!,
                                         )));
+                        
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
                               side: BorderSide.none, fixedSize: Size(215, 315)),
                         )),
                       ),
-                      // Positioned(
-                      //   bottom: 0,
-                      //   child: Container(
-                      //       child: OutlinedButton(
-                      //     onPressed: () {
-                      //       Navigator.of(context)
-                      //           .pushReplacement(MaterialPageRoute(
-                      //               builder: (context) => lockerset1_fp(
-                      //                     numberOfWeek: numberOfWeek!,
-                      //                     resId: resId!,
-                      //                     endDate: endDate!,
-                      //                     startDate: startDate!,
-                      //                   )));
-                      //     },
-                      //     child: Text(""),
-                      //     style: ElevatedButton.styleFrom(
-                      //         side: BorderSide.none, fixedSize: Size(215, 315)),
-                      //   )),
-                      // ),
+                    
                     ],
                   ),
                 ),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/controller_admin.dart';
@@ -67,15 +66,19 @@ class _support_supportState extends State<support_support> {
         backgroundColor: const Color(0xffffffff),
         appBar: AppBar(
           backgroundColor: const Color(0xff88d8bb),
-          title: Text("support request"),
+          title: Text("Technical support"),
           centerTitle: true,
           foregroundColor: Colors.black,
           leading: IconButton(
               color: Colors.black,
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                // ان افضل هذا الامر
+                // //////////////////////
+                  Navigator.of(context).pop();
+                  /////////////////////////////////
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => ControllerViewScreen()));
               }),
         ),
         body: SafeArea(
@@ -100,7 +103,7 @@ class _support_supportState extends State<support_support> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
+                              SizedBox(
                                 child: TextField(
                                   key: _resetFormKey,
                                   decoration: InputDecoration(
@@ -117,23 +120,21 @@ class _support_supportState extends State<support_support> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: 20,
+                         const SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                         
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
+                              SizedBox(
                                 child: TextField(
                                   maxLines: 7,
                                   decoration: InputDecoration(
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(5),
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                           width: 1, color: Colors.grey),
                                     ),
                                     hintText: 'Message',
@@ -144,7 +145,7 @@ class _support_supportState extends State<support_support> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 40,
                           ),
                           SizedBox(
@@ -152,7 +153,7 @@ class _support_supportState extends State<support_support> {
                             height: MediaQuery.of(context).size.width / 9,
                             child: ElevatedButton(
                               child: const Text(
-                                'Sumbit',
+                                'Submit',
                                 style: TextStyle(
                                   color: Colors.black87,
                                   fontSize: 18,
@@ -163,11 +164,6 @@ class _support_supportState extends State<support_support> {
                                 shape: const StadiumBorder(),
                               ),
                               onPressed: () {
-                                // if(userData['locker_name']==lockername){
-                                //   print('yeeeees');
-                                // }
-
-                                if (i != 0) {
                                   FirebaseFirestore.instance
                                       .collection('support')
                                       .add({
@@ -177,16 +173,13 @@ class _support_supportState extends State<support_support> {
                                     'state': state,
                                     'lockername':
                                         '${datares['locker_name'] ?? ''}',
-                                    'counter': i
                                   });
-                                  i++;
-                                }
-
+                                  
                                 showDialog(
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                          title: Text("your request was send"),
+                                          title: Text("Your request is sent"),
                                           actions: [
                                             ElevatedButton(
                                               child: Text(
@@ -201,7 +194,7 @@ class _support_supportState extends State<support_support> {
                                                 shape: const StadiumBorder(),
                                               ),
                                               onPressed: () {
-                                                Navigator.of(context).push(
+                                                Navigator.of(context).pushReplacement(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             ControllerViewScreen()));

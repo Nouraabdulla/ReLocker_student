@@ -6,13 +6,19 @@ import 'package:relocker_sa/bloc/states/payment_states.dart';
 import 'package:relocker_sa/payment_view/add_cart.dart';
 
 class PaymentMethod extends StatelessWidget {
-  final String? resId;
+ final String? resId;
   final String? lockerName;
+  final String? startDate;
+  final String? endDate;
+  final int? totalPrice;
 
   PaymentMethod({
     Key? key,
     this.resId,
-    required this.lockerName,
+     this.lockerName,
+    this.startDate,
+    this.endDate,
+    this.totalPrice,
   }) : super(key: key);
 
   @override
@@ -87,8 +93,10 @@ class PaymentMethod extends StatelessWidget {
                               _cubit.index = 1;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AddCard(
-                                        resId: resId!,
-                                        lockerName: lockerName!,
+                                       lockerName: lockerName,
+                                        totalPrice: totalPrice,
+                                        startDate: startDate,
+                                        endDate: endDate,
                                       )));
                             },
                           ),
@@ -110,8 +118,10 @@ class PaymentMethod extends StatelessWidget {
                               _cubit.index = 2;
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => AddCard(
-                                        resId: resId!,
-                                        lockerName: lockerName!,
+                                       lockerName: lockerName,
+                                        totalPrice: totalPrice,
+                                        startDate: startDate,
+                                        endDate: endDate,
                                       )));
                             },
                           ),

@@ -8,10 +8,7 @@ import 'package:relocker_sa/bloc/states/auth_states.dart';
 import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
-import 'package:relocker_sa/support_view.dart';
-
 import 'bloc/cubit/auth_cubit.dart';
-import 'home_view.dart';
 
 class controlleradmin extends StatefulWidget {
   const controlleradmin({Key? key}) : super(key: key);

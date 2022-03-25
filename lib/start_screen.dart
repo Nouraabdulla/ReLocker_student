@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/bloc/cubit/auth_cubit.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
-import 'package:relocker_sa/register_screen.dart';
-
 import 'login_screen.dart';
 
 class StartScreen extends StatefulWidget {
@@ -33,7 +31,7 @@ class _StartScreenState extends State<StartScreen> {
           child: SingleChildScrollView(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(top: 300),
+                padding: const EdgeInsets.only(top: 390),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
 
@@ -55,7 +53,7 @@ class _StartScreenState extends State<StartScreen> {
                           'LOG IN',
                           style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 18,
+                            fontSize: 19,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -67,7 +65,7 @@ class _StartScreenState extends State<StartScreen> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 80),
                     // SizedBox(
                     //   width: MediaQuery.of(context).size.width / 1.5,
                     //   height: MediaQuery.of(context).size.width / 8,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
-import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:relocker_sa/lockerset1_gp.dart';
 
@@ -38,12 +37,7 @@ class ground extends StatelessWidget {
                     builder: (context) => ControllerViewScreen()));
               },
               child: Text("Cancle", style: TextStyle(color: Colors.black)))
-        ], /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
+        ], 
       ),
       body: Stack(
         children: <Widget>[
@@ -2317,106 +2311,15 @@ class ground extends StatelessWidget {
                         ),
                       ),
 
-                      //----------------------------------------------------
-                      // Positioned(
-                      //   child: Container(
-                      //       child: OutlinedButton(
-                      //     // onPressed: () {
-                      //     //   Navigator.of(context).push(MaterialPageRoute(
-                      //     //       builder: (context) => lockerset1_gg(
-                      //     //             numberOfWeek: numberOfWeek!,
-                      //     //             resId: resId!,
-                      //     //           )));
-                      //     // },
-                      //     onPressed: () {
-                      //       Navigator.of(context)
-                      //           .pushReplacement(MaterialPageRoute(
-                      //               builder: (context) => lockerset1_gg(
-                      //                     numberOfWeek: numberOfWeek,
-                      //                     resId: resId!,
-                      //                     endDate: endDate!,
-                      //                     startDate: startDate!,
-                      //                   )));
-                      //     },
-                      //     child: Text(""),
-                      //     style: ElevatedButton.styleFrom(
-                      //         side: BorderSide.none, fixedSize: Size(215, 315)),
-                      //   )),
-                      // ),
-                      // Positioned(
-                      //   right: 50,
-                      //   child: Container(
-                      //       child: OutlinedButton(
-                      //     // onPressed: () {
-                      //     //   Navigator.of(context)
-                      //     //       .pushReplacement(MaterialPageRoute(
-                      //     //           builder: (context) => lockerset1_go(
-                      //     //                 numberOfWeek: numberOfWeek!,
-                      //     //                 resId: resId!,
-                      //     //               )));
-                      //     // },
-                      //     onPressed: () {
-                      //       Navigator.of(context)
-                      //           .pushReplacement(MaterialPageRoute(
-                      //               builder: (context) => lockerset1_go(
-                      //                     numberOfWeek: (numberOfWeek),
-                      //                     resId: (resId!),
-                      //                     endDate: (endDate!),
-                      //                     startDate: (startDate!),
-                      //                   )));
-                      //     },
-                      //     child: Text(""),
-                      //     style: ElevatedButton.styleFrom(
-                      //         side: BorderSide.none, fixedSize: Size(230, 325)),
-                      //   )),
-                      // ),
-
-                      // Positioned(
-                      //   right: 50,
-                      //   bottom: 0,
-                      //   child: Container(
-                      //       child: OutlinedButton(
-                      //     // onPressed: () {
-                      //     //   Navigator.of(context)
-                      //     //       .pushReplacement(MaterialPageRoute(
-                      //     //           builder: (context) => lockerset1_gy(
-                      //     //                 numberOfWeek: numberOfWeek!,
-                      //     //                 resId: resId!,
-                      //     //               )));
-                      //     // },
-                      //     onPressed: () {
-                      //       Navigator.of(context)
-                      //           .pushReplacement(MaterialPageRoute(
-                      //               builder: (context) => lockerset1_gy(
-                      //                     numberOfWeek: (numberOfWeek),
-                      //                     resId: (resId!),
-                      //                     endDate: (endDate!),
-                      //                     startDate: (startDate!),
-                      //                   )));
-                      //     },
-                      //     child: Text(""),
-                      //     style: ElevatedButton.styleFrom(
-                      //         side: BorderSide.none, fixedSize: Size(225, 315)),
-                      //   )),
-                      // ),
-
                       Positioned(
                         bottom: 0,
                         child: Container(
                             child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_gpl(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
-                          // },
                           onPressed: () {
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                                     builder: (context) => lockerset1_gpl(
-                                          numberOfWeek: (numberOfWeek),
+                                          numberOfWeek:0,
                                           resId: (resId!),
                                           endDate: (endDate!),
                                           startDate: (startDate!),

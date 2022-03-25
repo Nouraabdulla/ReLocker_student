@@ -26,7 +26,7 @@ class _search_lockername extends State<search_lockername> {
               backgroundColor: const Color(0xff88d8bb),
               title: TextFormField(
                 decoration: InputDecoration(
-                  hintText: "Search for locker name",
+                  hintText: "Search for locker number",
                 ),
                 onChanged: (val) => initiateSearch(val),
               ),
@@ -94,7 +94,7 @@ class _search_lockername extends State<search_lockername> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  'LockerName: ' +
+                                                  'Locker number:' +
                                                       document['locker_name'],
                                                   style: const TextStyle(
                                                       fontSize: 20,
