@@ -1,15 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:relocker_sa/controller_admin.dart';
-import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/lockerset1_fp.dart';
 import 'package:relocker_sa/lockerset1_gg.dart';
 import 'package:relocker_sa/lockerset1_go.dart';
 import 'package:relocker_sa/lockerset1_gp.dart';
 import 'package:relocker_sa/lockerset1_gy.dart';
-
 import 'lockerset1_fg.dart';
 
 
@@ -19,7 +13,7 @@ class recommendations extends StatefulWidget {
   final String floor;
   final String startDate;
   final String endDate;
-    recommendations({Key? key,    this.numberOfWeek,     this.resId='',   this.floor='',  this.startDate='',  this.endDate=''}) : super(key: key);
+    recommendations({Key? key, this.numberOfWeek, this.resId='', this.floor='', this.startDate='', this.endDate=''}) : super(key: key);
 
   @override
   State<recommendations> createState() => _recommendations();
