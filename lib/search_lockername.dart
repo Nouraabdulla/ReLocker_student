@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:relocker_sa/contact_occupier.dart';
 import 'package:relocker_sa/controller_admin.dart';
-import 'package:relocker_sa/controller_view_screen.dart';
 
 class search_lockername extends StatefulWidget {
   const search_lockername({Key? key}) : super(key: key);

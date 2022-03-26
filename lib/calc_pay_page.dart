@@ -166,16 +166,7 @@ class _CalcPayPageState extends State<CalcPayPage> {
               Pin(size: 50.0, middle: 0.8517),
               child: ElevatedButton(
                 onPressed: ()  {
-                  // await FirebaseFirestore.instance
-                  //     .collection("Reservation")
-                  //     .add({
-                  //   "End Date": "${endDateCont.text}",
-                  //   "Start Date": "${startDateCont.text}",
-                  //   "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-                  //   "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-                  //   "locker_name": "",
-                  //   "Price": ""
-                  // }).then((value) {
+               
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => first(
                               numberOfWeek: int.parse(weeksNumberCont.text),

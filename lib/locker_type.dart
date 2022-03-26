@@ -1,12 +1,8 @@
 import 'package:adobe_xd/pinned.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
-import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/ground.dart';
 
-import 'package:relocker_sa/widgets/howtoreserve.dart';
 
 class locker_type extends StatefulWidget {
   locker_type({Key? key}) : super(key: key);

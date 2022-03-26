@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
 
 class support_support extends StatefulWidget {
@@ -41,7 +39,7 @@ class _support_supportState extends State<support_support> {
   getData() {
     FirebaseFirestore.instance
         .collection("Reservation")
-        .where("Owner", isEqualTo: user!.email)
+        .where("user_id", isEqualTo: user!.uid)
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;

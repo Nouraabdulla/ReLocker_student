@@ -1,9 +1,3 @@
-import 'dart:async';
-import 'dart:math';
-import 'package:adobe_xd/pinned.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:email_auth/email_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/Receipt.dart';
 
@@ -17,20 +11,10 @@ class closed_lock extends StatefulWidget {
 }
 
 
-final random = Random();
-int randomNumber = random.nextInt(10) * 1000;
-String code = "";
-String showpin = "Show pin";
-String code1='7254';
-  bool showCode = false;
-
 class _closed_lockState extends State<closed_lock> {
   bool click = true;
   TextEditingController emailCont = new TextEditingController();
   TextEditingController otpCont = new TextEditingController();
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +46,6 @@ class _closed_lockState extends State<closed_lock> {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => Receipt()));
                     },
-                  
                     icon: Icon(
                       Icons.receipt_long_outlined,
                       size: 40,
@@ -79,7 +62,8 @@ class _closed_lockState extends State<closed_lock> {
                       width: MediaQuery.of(context).size.width / 2.8,
                       child: SizedBox(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                          },
                           style: ElevatedButton.styleFrom(
                             primary: Colors.white,
                             shape: const StadiumBorder(),
@@ -117,26 +101,13 @@ class _closed_lockState extends State<closed_lock> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16)),
                     title: Text(
-                      "PIN code",
+                      "7382",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                       ),
                     ),
-                    // subtitle: Text(code),
-                    trailing: TextButton(
-                      onPressed: (){
-                      showCode=true;
-                      },
-                      child: Text(
-                        "show",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
+                   
                   ),
                 ),
                 Padding(

@@ -58,12 +58,8 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              // builder: (context) => closed_lock()));
                               builder: (context) => locker_type()));
 
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
                         },
                       ),
                     ),

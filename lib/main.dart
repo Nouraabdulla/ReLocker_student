@@ -6,7 +6,6 @@ import 'package:relocker_sa/bloc/cubit/auth_cubit.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'package:relocker_sa/utils/bloc_observer.dart';
-import 'package:relocker_sa/utils/utils-cache_helper.dart';
 import 'bloc/cubit/payment_cubit.dart';
 import 'login_screen.dart';
 
@@ -14,7 +13,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
   await Firebase.initializeApp();
-  await CacheHelper.init();
 
   //check status login
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,8 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(
-            create: (context) => AuthCubit()..getUserInfo()),
+        
         BlocProvider<PaymentCubit>(
             create: (context) => PaymentCubit()..getData())
       ],

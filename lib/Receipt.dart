@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,7 +52,6 @@ class _ReceiptState extends State<Receipt> {
     return BlocConsumer<PaymentCubit, PaymentStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        final random = Random();
 
         return Scaffold(
           backgroundColor: const Color(0xFF89d8bb),

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:relocker_sa/Home_admin.dart';
 import 'package:relocker_sa/Request.dart';
 import 'package:relocker_sa/bloc/states/auth_states.dart';
-import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
 import 'bloc/cubit/auth_cubit.dart';
@@ -51,24 +50,7 @@ User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Color(0xFFd3f3e6),
       body: currentIndex > 0 ? _screen[currentIndex - 1] : _screen[0],
-    //   Column(children: [
-    //   StreamBuilder(
-    //     stream: FirebaseFirestore.instance.collection("Companies").doc().snapshots(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //       if (snapshot.connectionState == ConnectionState.waiting) {
-    //         return Center(
-    //           child: CircularProgressIndicator(),
-    //         );
-    //       }
-    //       return Image.network(
-    //         snapshot.data.data()["url"],
-    //         width: 100,
-    //         height: 100,
-    //       );
-    //     },
-    //   ),
-    //  ]
-    //   ),
+   
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),

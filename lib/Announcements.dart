@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:relocker_sa/controller_admin.dart';
+
 import 'package:relocker_sa/controller_view_screen.dart';
 
 class Announcements extends StatefulWidget {
@@ -19,7 +18,7 @@ class _Announcements extends State<Announcements> {
   getUserData() {
     FirebaseFirestore.instance
         .collection("Reservation")
-        .where("Owner", isEqualTo: user!.email)
+        .where("user_id", isEqualTo: user!.uid)
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
@@ -61,7 +60,6 @@ class _Announcements extends State<Announcements> {
             StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('Announcements')
-                    .orderBy('counter', descending: true)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -75,8 +73,6 @@ class _Announcements extends State<Announcements> {
                     scrollDirection: Axis.vertical,
                     children: snapshot.data!.docs.map((document) {
                       return Column(children: <Widget>[
-                        if (document['lockername'] ==
-                            userData['locker_name']) ...[
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 8),
@@ -116,7 +112,7 @@ class _Announcements extends State<Announcements> {
                                   ]),
                             ),
                           ),
-                        ]
+                        
                       ]);
                     }).toList(),
                   );

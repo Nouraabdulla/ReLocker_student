@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:relocker_sa/lockerset1_gp.dart';
-
 import 'controller_view_screen.dart';
-
 import 'lockerset1_gp.dart';
 
 class ground extends StatelessWidget { 

@@ -21,30 +21,8 @@ String haslocker = "";
 class _ControllerViewScreenState extends State<ControllerViewScreen> {
   int currentIndex = 2;
   List _screen = [closed_lock(), HomeView()];
-  
-Map<String, dynamic> userData = {};
-    getUserData() {
-       FirebaseFirestore.instance
-        .collection("Announcements")
-        // .where("state", isEqualTo: 'inprogress')
-        .get()
-        .then((value) {
-      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
-      list.forEach((element) {
-        setState(() {
-          userData = element.data()!;
-        });
-      });
-  
-    });
-  }
 
-  @override
-  void initState() {
-    getUserData();
-    // getUser();
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -66,26 +66,7 @@ class _StartScreenState extends State<StartScreen> {
                       ),
                     ),
                     const SizedBox(height: 80),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width / 1.5,
-                    //   height: MediaQuery.of(context).size.width / 8,
-                    //   child: ElevatedButton(
-                    //     child: const Text(
-                    //       'SIGN UP',
-                    //       style: TextStyle(
-                    //         color: Colors.black87,
-                    //         fontSize: 18,
-                    //       ),
-                    //     ),
-                    //     style: ElevatedButton.styleFrom(
-                    //       primary: Color(0xFF9AD6BD),
-                    //       shape: const StadiumBorder(),
-                    //     ),
-                    //     onPressed: (){
-                    //       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RegisterScreen()));
-                    //     },
-                    //   ),
-                    // ),
+                   
                   ],
                 ),
               ),

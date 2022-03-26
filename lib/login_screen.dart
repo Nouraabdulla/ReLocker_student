@@ -148,24 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             _cubit.password = val;
                           },
                         ),
-                        // Row(
-                        //   children: [
-                        //     const Spacer(),
-                        //     TextButton(
-                        //       child: const Text(
-                        //         'Forget Password?',
-                        //         style: TextStyle(
-                        //           fontSize: 18,
-                        //           color: Colors.black,
-                        //         ),
-                        //       ),
-                        //       onPressed: () {
-                        //         Navigator.of(context).push(MaterialPageRoute(
-                        //             builder: (context) => ForgetPassword()));
-                        //       },
-                        //     ),
-                        //   ],
-                        // ),
+                      
                         const SizedBox(height: 50),
                         Column(
                           mainAxisSize: MainAxisSize.min,
@@ -177,52 +160,37 @@ class _LoginScreenState extends State<LoginScreen> {
                               widgetBuilder: (BuildContext context) => SizedBox(
                                 width: MediaQuery.of(context).size.width / 1.5,
                                 height: MediaQuery.of(context).size.width / 8,
-                                child: ElevatedButton(
-                                  child: const Text(
-                                    'LOG IN',
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 18,
+                             child: Positioned(
+                              
+                                 child: ElevatedButton(
+                                    child: const Text(
+                                      'LOG IN',
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 18,
+                                      ),
                                     ),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.grey.shade300,
+                                      shape: const StadiumBorder(),
+                                    ),
+                                    onPressed: () async {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+                                        await _cubit.logIn();
+                                      }
+                                    },
                                   ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Colors.grey.shade300,
-                                    shape: const StadiumBorder(),
-                                  ),
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
-                                      await _cubit.logIn();
-                                    }
-                                  },
-                                ),
+                              )
+                                  
+                                
                               ),
                               fallbackBuilder: (BuildContext context) =>
                                   const CircularProgressIndicator(),
                             ),
                            
                             const SizedBox(height: 5),
-                            // SizedBox(
-                            //   width: MediaQuery.of(context).size.width / 1.5,
-                            //   height: MediaQuery.of(context).size.width / 8,
-                            //   child: ElevatedButton(
-                            //     child: const Text(
-                            //       'SIGN UP',
-                            //       style: TextStyle(
-                            //         color: Colors.black87,
-                            //         fontSize: 18,
-                            //       ),
-                            //     ),
-                            //     style: ElevatedButton.styleFrom(
-                            //       primary: Color(0xFF9AD6BD),
-                            //       shape: const StadiumBorder(),
-                            //     ),
-                            //     onPressed: () {
-                            //       Navigator.of(context).push(MaterialPageRoute(
-                            //           builder: (context) => RegisterScreen()));
-                            //     },
-                            //   ),
-                            // ),
+                           
                           ],
                         ),
                         const SizedBox(height: 20),

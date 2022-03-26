@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:relocker_sa/controller_admin.dart';
 
 class Requests extends StatefulWidget {
  
@@ -34,7 +32,6 @@ class _Requests extends State<Requests> {
             StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('support')
-                    .orderBy('counter', descending: false)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -71,26 +68,7 @@ class _Requests extends State<Requests> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-//         Container(
-//         alignment: Alignment.topLeft,
-//         width: 30,
-//         height: 40,
-//          child: Checkbox(
-//         checkColor: Colors.white,
-//         value: isChecked,
-//         onChanged: (bool? value) {
-//           setState(() {
-//             isChecked = value!;
-//           });
-//         },
-//    ),
-//  ),
-                                          Text(
-                                            'Email: ' + document['email'],
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                  
                                           Text(
                                             'LockerNumber: ' +
                                                 document['lockername'],
@@ -111,21 +89,7 @@ class _Requests extends State<Requests> {
                                                 fontWeight: FontWeight.bold),
                                           ),
 
-//             child:FittedBox(
-//               fit: BoxFit.fill,
-// child: Text( responseList['email'] ),
-//             ),
-                                          // margin: const EdgeInsets.all(4.0),
-                                          //     width: MediaQuery.of(context).size.width * 0.8,
-                                          //     height: MediaQuery.of(context).size.width * 0.13,
-                                          //     alignment: Alignment.center,
-                                          //     decoration:BoxDecoration(
-                                          //           color: Colors.grey,
-                                          //           border: Border.all(
-                                          //   color: Colors.black,
-                                          //   width: 1,
-                                          // ),
-                                          //           ),
+
                                         ]),
                                     IconButton(
                                       icon: Icon(
@@ -239,16 +203,11 @@ class _Requests extends State<Requests> {
                             ),
                           ),
 
-// ),
                         ]
                       ]);
                     }).toList(),
                   );
                 })
-
-        //  ],
-        //  )
-        // ),
         );
   }
 }
