@@ -14,7 +14,7 @@ class recommendations extends StatefulWidget {
   final String startDate;
   final String endDate;
     recommendations({Key? key, this.numberOfWeek, this.resId='', this.floor='', this.startDate='', this.endDate=''}) : super(key: key);
-
+    
   @override
   State<recommendations> createState() => _recommendations();
 }
