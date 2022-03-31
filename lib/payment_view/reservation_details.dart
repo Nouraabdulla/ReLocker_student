@@ -10,6 +10,8 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/bloc/cubit/payment_cubit.dart';
 import 'package:relocker_sa/bloc/states/payment_states.dart';
+import 'package:relocker_sa/payment_view/add_cart.dart';
+import 'package:relocker_sa/payment_view/checkout.dart';
 import 'package:relocker_sa/payment_view/payment_method.dart';
 import 'package:relocker_sa/paypal/payment/paypal/v/PaypalGenericPage.dart';
 import 'package:relocker_sa/renewpage.dart';
@@ -143,19 +145,15 @@ class ReservationDetails extends StatelessWidget {
                                       MediaQuery.of(context).size.width / 2.5,
                                   child: InputField(
                                       title: 'Start Date',
-                                      hint:
-                                          '${startDate}',
+                                      hint: '${startDate}',
                                       widget: Container()),
-                               
                                 ),
-                                
                                 SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width / 2.5,
                                   child: InputField(
                                     title: 'End Date',
-                                    hint:
-                                        '${endDate}',
+                                    hint: '${endDate}',
                                     widget: Container(),
                                   ),
                                 ),
@@ -172,95 +170,6 @@ class ReservationDetails extends StatelessWidget {
                                 text: 'Confirm',
                                 color: const Color(0xFF89d8bb),
                                 onPressed: () async {
-
-                                  if (from == '2') {
-                                    final DocumentSnapshot doc =
-                                        await FirebaseFirestore.instance
-                                            .collection('semester')
-                                            .doc("semester1")
-                                            .get();
-                                    String startdate1 = doc['start'];
-                                    String endDate1 = doc['end'];
-                                    final DocumentSnapshot doc2 =
-                                        await FirebaseFirestore.instance
-                                            .collection('semester')
-                                            .doc("semester2")
-                                            .get();
-                                    String startdate2 = doc['start'];
-                                    String endDate2 = doc['end'];
-// to know which semester dates to send
-                                    // if (DateTime.parse(startDate).isAfter(
-                                    //         DateTime.parse(startdate1)) &&
-                                    //     DateTime.parse(endDate).isBefore(
-                                    //         DateTime.parse(endDate1))) {
-                                    //   openPagePaymentWithListener();
-                                    // } else if (DateTime.parse(startDate)
-                                    //         .isAfter(
-                                    //             DateTime.parse(startdate2)) &&
-                                    //     DateTime.parse(endDate).isBefore(
-                                    //         DateTime.parse(endDate2))) {
-                                    //   final DocumentSnapshot doc2 =
-                                    //       await FirebaseFirestore.instance
-                                    //           .collection('Reservation')
-                                    //           .doc(
-                                    //               "${FirebaseAuth.instance.currentUser!.uid}")
-                                    //           .get();
-                                    //   String type = doc2['typeLocker'];
-                                    //   if (type == "f") {
-                                    //     openPagePaymentWithListener();
-                                    //   } else {
-                                    //     print(
-                                    //         "make a new reservation in the next semester");
-                                    //   }
-                                    // } else {
-                                    //   print(
-                                    //       "you can't reserve in holidays days");
-                                    // }
-                                    User? user = FirebaseAuth.instance.currentUser;
-        var rng = new Random();
-        var code = rng.nextInt(9000) + 1000;
-        int semester = 0;
-    //  DateTime enddate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    DateTime startrenew = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    DateTime todayDate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    int rendifference = 0;
-    int rendifference2 = 0;
-        // to get semester
-        
-//to know which semester dates to send
-        if (DateTime.now().isAfter(DateTime.parse(startdate1)) &&
-            DateTime.now().isBefore(DateTime.parse(endDate1))) {
-          semester = 1;
-        } else if (DateTime.now().isAfter(DateTime.parse(startdate2)) &&
-            DateTime.now().isBefore(DateTime.parse(endDate2))) {
-          semester = 2;
-        }
-
-        await FirebaseFirestore.instance
-            .collection("Reservation")
-            .doc("${FirebaseAuth.instance.currentUser!.uid}")
-            .set({
-          //store reservation info in database
-          "Owner": "${user!.email}",
-          "End Date": endDate,
-          "Start Date": startDate,
-          "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-          "locker_name": lockerName,
-          "Price": totalPrice,
-          "typeLocker": typelocker,
-          // "priceOneWeek": priceOneWeek, //another way
-          "priceOneWeek": (typelocker == 'f' && lockerSize == 's')
-              ? 15
-              : (typelocker == 'f' && lockerSize == 'l')
-                  ? 25
-                  : '',
-          "semester": semester
-        });
-        canrenew(){
-       startrenew =DateTime.parse(endDate).subtract(Duration(days: 3));
-    rendifference = DateTime.parse(endDate).difference(startrenew).inMinutes;
-    rendifference2 = DateTime.parse(endDate).difference(todayDate).inMinutes;
-        }
 //     FutureBuilder(
 //               future: canrenew(),
 //               builder: (context, AsyncSnapshot snapshot) {
@@ -276,11 +185,11 @@ class ReservationDetails extends StatelessWidget {
 //                   //       print('Not run');
 //                   //     }
 //                    return Text('');
-                   
+
 //                 }
 //               },
 //             );
-    
+
 //     // if (rendifference2 > 0 &&
 //     //     rendifference2 < rendifference) {
 //     //                         Notify();
@@ -290,7 +199,7 @@ class ReservationDetails extends StatelessWidget {
 //     //                         builder: (context) => renew()));
 //     //                           });
 //     //                       }
-                          
+
 //         await FirebaseFirestore.instance
 //             .collection("Users")
 //             .where("user_id",
@@ -411,24 +320,21 @@ class ReservationDetails extends StatelessWidget {
 //               });
 //             });
 //           }
-  
-
 
 // //Now use If/Else statement to know, if the current time is same as/or after the
 // //time set for trigger, then trigger the event,
 
 //         }
 //       });
- openPagePaymentWithListener();
-                                  }
+                                  openPagePaymentWithListener();
+                                }
 
-                                  // Navigator.of(context).push(MaterialPageRoute(
-                                  //     builder: (context) => PaymentMethod(
-                                  //       resId: resId,
-                                  //       lockerName: lockerName,
-                                  //     ))),
-                                  //
-                                 } )
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => AddCard(
+                                //           resId: resId,
+                                //           lockerName: lockerName,
+                                //         )));
+                                )
                           ],
                         ),
                       ),
@@ -478,11 +384,11 @@ class ReservationDetails extends StatelessWidget {
         var rng = new Random();
         var code = rng.nextInt(9000) + 1000;
         int semester = 0;
-    //  DateTime enddate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    DateTime startrenew = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    DateTime todayDate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
-    int rendifference = 0;
-    int rendifference2 = 0;
+        //  DateTime enddate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
+        DateTime startrenew = DateFormat("yyyy-MM-dd").parse("2022-05-04");
+        DateTime todayDate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
+        int rendifference = 0;
+        int rendifference2 = 0;
         // to get semester
         final DocumentSnapshot doc = await FirebaseFirestore.instance
             .collection('semester')
@@ -525,41 +431,43 @@ class ReservationDetails extends StatelessWidget {
                   : '',
           "semester": semester
         });
-        canrenew(){
-       startrenew =DateTime.parse(endDate).subtract(Duration(days: 3));
-    rendifference = DateTime.parse(endDate).difference(startrenew).inMinutes;
-    rendifference2 = DateTime.parse(endDate).difference(todayDate).inMinutes;
+        canrenew() {
+          startrenew = DateTime.parse(endDate).subtract(Duration(days: 3));
+          rendifference =
+              DateTime.parse(endDate).difference(startrenew).inMinutes;
+          rendifference2 =
+              DateTime.parse(endDate).difference(todayDate).inMinutes;
         }
-    FutureBuilder(
-              future: canrenew(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  // if (rendifference2 > 0 &&
-                  //         rendifference2 < rendifference) {
-                  //       Notify();
-                  //     } else {
-                  //       print('Not run');
-                  //     }
-                   return Text('');
-                   
-                }
-              },
-            );
-    
-    // if (rendifference2 > 0 &&
-    //     rendifference2 < rendifference) {
-    //                         Notify();
-    //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-    //                             Navigator.of(context).push(
-    //                        MaterialPageRoute(
-    //                         builder: (context) => renew()));
-    //                           });
-    //                       }
-                          
+
+        FutureBuilder(
+          future: canrenew(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              // if (rendifference2 > 0 &&
+              //         rendifference2 < rendifference) {
+              //       Notify();
+              //     } else {
+              //       print('Not run');
+              //     }
+              return Text('');
+            }
+          },
+        );
+
+        // if (rendifference2 > 0 &&
+        //     rendifference2 < rendifference) {
+        //                         Notify();
+        //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
+        //                             Navigator.of(context).push(
+        //                        MaterialPageRoute(
+        //                         builder: (context) => renew()));
+        //                           });
+        //                       }
+
         await FirebaseFirestore.instance
             .collection("Users")
             .where("user_id",
@@ -680,8 +588,6 @@ class ReservationDetails extends StatelessWidget {
               });
             });
           }
-  
-
 
 //Now use If/Else statement to know, if the current time is same as/or after the
 //time set for trigger, then trigger the event,
