@@ -2,19 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:relocker_sa/editfgzone.dart';
 
 import 'controller_view_screen.dart';
+import 'editfozone.dart';
+import 'editfpzone.dart';
+import 'editfyzone.dart';
 import 'lockerset1_fg.dart';
+import 'lockerset1_fo.dart';
 import 'lockerset1_fp.dart';
 import 'lockerset1_fp.dart';
+import 'lockerset1_fy.dart';
 
 class first extends StatelessWidget {
   final int? numberOfWeek;
   final String? resId;
   final String? startDate;
   final String? endDate;
-  first({Key? key, this.numberOfWeek, this.resId, this.startDate, this.endDate})
-      : super(key: key);
+  final String? from;
+  final String? option;
+  first({
+    Key? key,
+    this.numberOfWeek,
+    this.resId,
+    this.startDate,
+    this.endDate,
+    this.from = '1',
+    this.option = "",
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -406,146 +421,6 @@ class first extends StatelessWidget {
                           textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false),
                           textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 304), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 292), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 280), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 268), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 257), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 245), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 234), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 222), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 210), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 55.5),
-                        Pin(size: 9.0, start: 198), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
                         ),
                       ),
 
@@ -1380,105 +1255,6 @@ class first extends StatelessWidget {
                               color: const Color(0xffe4e4e4),
                               border: Border.all(
                                   width: 0.5, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 244), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 232), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 220), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 204), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 192), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 180), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 12.0, start: 193),
-                        Pin(size: 9.0, end: 168), // locker
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xffafafaf),
-                              border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
                             ),
                           ),
                         ),
@@ -2353,14 +2129,22 @@ class first extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_fg(
-                                          numberOfWeek: numberOfWeek!,
-                                          resId: resId!,
-                                          endDate: endDate!,
-                                          startDate: startDate!,
-                                        )));
+                            if (from == "2") {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => editfgzone(
+                                            option: option,
+                                          )));
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => lockerset1_fg(
+                                            numberOfWeek: numberOfWeek!,
+                                            resId: resId!,
+                                            endDate: endDate!,
+                                            startDate: startDate!,
+                                          )));
+                            }
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
@@ -2372,18 +2156,81 @@ class first extends StatelessWidget {
                         child: Container(
                             child: OutlinedButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => lockerset1_fp(
-                                          numberOfWeek: numberOfWeek!,
-                                          resId: resId!,
-                                          endDate: endDate!,
-                                          startDate: startDate!,
-                                        )));
+                            if (from == "2") {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => editfpzone(
+                                            option: option,
+                                          )));
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => lockerset1_fp(
+                                            numberOfWeek: numberOfWeek!,
+                                            resId: resId!,
+                                            endDate: endDate!,
+                                            startDate: startDate!,
+                                          )));
+                            }
                           },
                           child: Text(""),
                           style: ElevatedButton.styleFrom(
                               side: BorderSide.none, fixedSize: Size(215, 315)),
+                        )),
+                      ),
+                      Positioned(
+                        right: 50,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            if (from == "2") {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => editfozone(
+                                            option: option,
+                                          )));
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => lockerset1_fo(
+                                            numberOfWeek: numberOfWeek!,
+                                            resId: resId!,
+                                            endDate: endDate!,
+                                            startDate: startDate!,
+                                          )));
+                            }
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              side: BorderSide.none, fixedSize: Size(215, 315)),
+                        )),
+                      ),
+                      Positioned(
+                        right: 50,
+                        bottom: 0,
+                        child: Container(
+                            child: OutlinedButton(
+                          onPressed: () {
+                            if (from == "2") {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => editfyzone(
+                                            option: option,
+                                          )));
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => lockerset1_fy(
+                                            numberOfWeek: numberOfWeek!,
+                                            resId: resId!,
+                                            endDate: endDate!,
+                                            startDate: startDate!,
+                                          )));
+                            }
+                          },
+                          child: Text(""),
+                          style: ElevatedButton.styleFrom(
+                              side: BorderSide.none, fixedSize: Size(225, 315)),
                         )),
                       ),
                     ],

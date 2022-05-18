@@ -15,29 +15,29 @@ import 'home_view.dart';
 
 int Rendifference = 0;
 int Resdifference = 0;
-String go1size = "";
-String go2size = "";
-String go3size = "";
-String go4size = "";
-String go5size = "";
-String go6size = "";
-String go7size = "";
-String go8size = "";
-String go9size = "";
-String go10size = "";
+String fo1size = "";
+String fo2size = "";
+String fo3size = "";
+String fo4size = "";
+String fo5size = "";
+String fo6size = "";
+String fo7size = "";
+String fo8size = "";
+String fo9size = "";
+String fo10size = "";
 
 Color w = Color.fromARGB(255, 255, 255, 255);
 Color g = Color(0xFFA1E2C9);
 Color b = Color.fromARGB(255, 10, 10, 10);
 
-class lockerset1_go extends StatefulWidget {
+class lockerset1_fo extends StatefulWidget {
   final int numberOfWeek;
   final String resId;
   final String startDate;
   final String endDate;
   final String? from;
 
-  lockerset1_go(
+  lockerset1_fo(
       {Key? key,
       required this.numberOfWeek,
       required this.resId,
@@ -47,10 +47,10 @@ class lockerset1_go extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<lockerset1_go> createState() => _lockerset1_goState();
+  State<lockerset1_fo> createState() => _lockerset1_foState();
 }
 
-class _lockerset1_goState extends State<lockerset1_go> {
+class _lockerset1_foState extends State<lockerset1_fo> {
   String mySvg1(color) {
     return '<svg viewBox="249.0 618.1 79.0 122.4" ><path transform="translate(-2194.52, 743.73)" d="M 2522.52490234375 -3.299476623535156 C 2521.978515625 -27.48745727539062 2522.08837890625 -3.299476623535156 2522.08837890625 -3.299476623535156 L 2522.08837890625 -125.671630859375 C 2522.08837890625 -125.671630859375 2443.545166015625 -125.671630859375 2443.545166015625 -125.671630859375 L 2443.545166015625 -52.18785095214844 L 2484.196044921875 -52.18785095214844 L 2484.196044921875 -3.299476623535156 L 2522.52490234375 -3.299476623535156 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
   }
@@ -484,24 +484,23 @@ class _lockerset1_goState extends State<lockerset1_go> {
         });
   }
 
-//get new block data
   checkAvailableblockes() async {
     final DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('zones')
-        .doc("gozone") //zone
+        .doc("fozone") //zone
         .get();
 
     setState(() {
-      go1size = doc['go1size'];
-      go2size = doc['go2size'];
-      go3size = doc['go3size'];
-      go4size = doc['go4size'];
-      go5size = doc['go5size'];
-      go6size = doc['go6size'];
-      go7size = doc['go7size'];
-      go8size = doc['go8size'];
-      go9size = doc['go9size'];
-      go10size = doc['go10size'];
+      fo1size = doc['fo1size'];
+      fo2size = doc['fo2size'];
+      fo3size = doc['fo3size'];
+      fo4size = doc['fo4size'];
+      fo5size = doc['fo5size'];
+      fo6size = doc['fo6size'];
+      fo7size = doc['fo7size'];
+      fo8size = doc['fo8size'];
+      fo9size = doc['fo9size'];
+      fo10size = doc['fo10size'];
 
       //اكمل باقي البلوكس لهذا الزون
     });
@@ -585,7 +584,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                         Pin(size: 53.0, middle: 0.1808),
                         Pin(size: 16.0, start: 32.9),
                         child: Text(
-                          '6G21',
+                          '6F21',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -599,12 +598,24 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 41.5, start: 28.6),
-                        Pin(size: 185.0, start: 96.5), // grey area
+                        Pin(size: 80, start: 96.5), // grey area
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffe4e4e4),
                             border: Border.all(
                                 width: 1.0, color: const Color(0xff707070)),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 62.5, start: 27.6),
+                        Pin(size: 185.0, start: 176.5), // white area
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            border: Border.all(
+                                width: 1.0,
+                                color: Color.fromARGB(255, 255, 255, 255)),
                           ),
                         ),
                       ),
@@ -626,7 +637,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                         Pin(size: 53.0, middle: 0.395),
                         Pin(size: 16.0, start: 323),
                         child: Text(
-                          '6G13',
+                          '6G15',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -642,7 +653,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                         Pin(size: 53.0, middle: 0.3904),
                         Pin(size: 16.0, start: 180),
                         child: Text(
-                          '6G16',
+                          '6G17',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -684,7 +695,35 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 69.6, end: 39.6),
-                        Pin(size: 83.5, start: 133), //15
+                        Pin(size: 70.5, start: 133), //15
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfff3922c),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 24.6, end: 84.6),
+                        Pin(size: 70.5, start: 133), //15
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 213, 212, 212),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 69.6, end: 39.6),
+                        Pin(size: 54.1, start: 203), //14
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -698,7 +737,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 69.6, end: 39.6),
-                        Pin(size: 107.1, start: 216), //14
+                        Pin(size: 54.1, start: 256), //14
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -712,7 +751,21 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 69.6, end: 39.6),
-                        Pin(size: 85.9, start: 323), //12
+                        Pin(size: 54.1, start: 310), //14
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfff3922c),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 69.6, end: 39.6),
+                        Pin(size: 50, start: 358), //12
                         child: Transform.rotate(
                           angle: 3.1416,
                           child: Container(
@@ -728,7 +781,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                         Pin(size: 53.0, middle: 0.5238),
                         Pin(size: 16.0, start: 32.9),
                         child: Text(
-                          '6G20',
+                          '6F20',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -744,7 +797,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                         Pin(size: 53.0, end: 47.1),
                         Pin(size: 16.0, start: 32.9),
                         child: Text(
-                          '6G18',
+                          '6G19',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -758,9 +811,9 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, end: 40.8),
-                        Pin(size: 16.0, start: 165),
+                        Pin(size: 16.0, start: 225),
                         child: Text(
-                          '6G15',
+                          '6G16',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -774,7 +827,7 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, end: 40.8),
-                        Pin(size: 16.0, start: 260),
+                        Pin(size: 16.0, start: 275),
                         child: Text(
                           '6G14',
                           style: TextStyle(
@@ -790,7 +843,23 @@ class _lockerset1_goState extends State<lockerset1_go> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 65.0, end: 40.8),
-                        Pin(size: 16.0, start: 365),
+                        Pin(size: 16.0, start: 325),
+                        child: Text(
+                          '6G13',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 65.0, end: 40.8),
+                        Pin(size: 16.0, start: 375),
                         child: Text(
                           '6G12',
                           style: TextStyle(
@@ -895,16 +964,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go1size == "") {
+                              if (fo1size == "") {
                               } else {
-                                showLocker(context, "go1", go1size);
+                                showLocker(context, "fo1", fo1size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go1size == "" ? w : g,
+                                color: fo1size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go1size == "" ? w : b),
+                                    width: 0.3, color: fo1size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -917,16 +986,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go2size == "") {
+                              if (fo2size == "") {
                               } else {
-                                showLocker(context, "go2", go2size);
+                                showLocker(context, "fo2", fo2size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go2size == "" ? w : g,
+                                color: fo2size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go2size == "" ? w : b),
+                                    width: 0.3, color: fo2size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -939,16 +1008,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go3size == "") {
+                              if (fo3size == "") {
                               } else {
-                                showLocker(context, "go3", go3size);
+                                showLocker(context, "fo3", fo3size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go3size == "" ? w : g,
+                                color: fo3size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go3size == "" ? w : b),
+                                    width: 0.3, color: fo3size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -961,16 +1030,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go4size == "") {
+                              if (fo4size == "") {
                               } else {
-                                showLocker(context, "go4", go4size);
+                                showLocker(context, "fo4", fo4size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go4size == "" ? w : g,
+                                color: fo4size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go4size == "" ? w : b),
+                                    width: 0.3, color: fo4size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -983,16 +1052,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go5size == "") {
+                              if (fo5size == "") {
                               } else {
-                                showLocker(context, "go5", go5size);
+                                showLocker(context, "fo5", fo5size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go5size == "" ? w : g,
+                                color: fo5size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go5size == "" ? w : b),
+                                    width: 0.3, color: fo5size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -1005,16 +1074,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go6size == "") {
+                              if (fo6size == "") {
                               } else {
-                                showLocker(context, "go6", go6size);
+                                showLocker(context, "fo6", fo6size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go6size == "" ? w : g,
+                                color: fo6size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go6size == "" ? w : b),
+                                    width: 0.3, color: fo6size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -1027,16 +1096,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go7size == "") {
+                              if (fo7size == "") {
                               } else {
-                                showLocker(context, "go7", go7size);
+                                showLocker(context, "fo7", fo7size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go7size == "" ? w : g,
+                                color: fo7size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go7size == "" ? w : b),
+                                    width: 0.3, color: fo7size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -1049,16 +1118,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              if (go8size == "") {
+                              if (fo8size == "") {
                               } else {
-                                showLocker(context, "go8", go8size);
+                                showLocker(context, "fo8", fo8size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go8size == "" ? w : g,
+                                color: fo8size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go8size == "" ? w : b),
+                                    width: 0.3, color: fo8size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -1071,16 +1140,16 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 0,
                           child: GestureDetector(
                             onTap: () {
-                              if (go9size == "") {
+                              if (fo9size == "") {
                               } else {
-                                showLocker(context, "go9", go9size);
+                                showLocker(context, "fo9", fo9size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go9size == "" ? w : g,
+                                color: fo9size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go9size == "" ? w : b),
+                                    width: 0.3, color: fo9size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -1093,23 +1162,21 @@ class _lockerset1_goState extends State<lockerset1_go> {
                           angle: 0,
                           child: GestureDetector(
                             onTap: () {
-                              if (go10size == "") {
+                              if (fo10size == "") {
                               } else {
-                                showLocker(context, "go10", go10size);
+                                showLocker(context, "fo10", fo10size);
                               }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: go10size == "" ? w : g,
+                                color: fo10size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: go10size == "" ? w : b),
+                                    width: 0.3, color: fo10size == "" ? w : b),
                               ),
                             ),
                           ),
                         ),
                       ),
-
-                      //---------------------- locker set -------------------
                     ],
                   ),
                 ),

@@ -1,9 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/locker_type.dart';
 import 'package:relocker_sa/renewpage.dart';
+import 'bloc/cubit/auth_cubit.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -13,6 +16,27 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  String haslocker = "";
+
+  dohavelocker() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc("${FirebaseAuth.instance.currentUser!.uid}")
+        .get();
+    setState(() {
+      haslocker = doc['reservedlocker'];
+    });
+
+    // print("hiiii" + haslocker);
+  }
+
+  @override
+  void initState() {
+    dohavelocker();
+    // getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/background3.jpeg'),
+              image: AssetImage('assets/images/homebackground.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -41,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 90),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -61,15 +85,27 @@ class _HomeViewState extends State<HomeView> {
                           shape: const StadiumBorder(),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                          //     // builder: (context) => closed_lock()));
-                              builder: (context) => locker_type()));
-                        //    Notify();
-                        //  AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-                        //         Navigator.of(context).push(
-                        //    MaterialPageRoute(
-                        //     builder: (context) => renew()));
-                        //       });
+                          if (haslocker == "") {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                //     // builder: (context) => closed_lock()));
+                                builder: (context) => locker_type()));
+                          } else {
+                            const snackBar = SnackBar(
+                              content: Text(
+                                  'you can not reserve more than one locker'),
+                            );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+
+                          //    Notify();
+                          //  AwesomeNotifications().actionStream.listen((ReceivedNotification) {
+                          //         Navigator.of(context).push(
+                          //    MaterialPageRoute(
+                          //     builder: (context) => renew()));
+                          //       });
                           // Navigator.of(context).push(
                           //     MaterialPageRoute(
                           //         builder: (context) => locker_type()));

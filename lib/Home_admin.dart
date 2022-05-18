@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:relocker_sa/editblocksoptions.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/locker_type.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
@@ -18,6 +19,7 @@ class Homeadmin extends StatefulWidget {
 }
 
 class _HomeAdmin extends State<Homeadmin> {
+  String from = '2';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +29,7 @@ class _HomeAdmin extends State<Homeadmin> {
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/background3.jpeg'),
+              image: AssetImage('assets/images/homebackground.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -46,7 +48,7 @@ class _HomeAdmin extends State<Homeadmin> {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 90),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -65,7 +67,12 @@ class _HomeAdmin extends State<Homeadmin> {
                           primary: Colors.white,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => editblocksoptions(
+                                    from: from,
+                                  )));
+                        },
                       ),
                     ),
                   ],

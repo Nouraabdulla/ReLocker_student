@@ -22,6 +22,7 @@ class _howtoreserveState extends State<howtoreserve> {
     'assets/images/howto3.png',
     'assets/images/howto4.png',
     'assets/images/howto5.png',
+    'assets/images/howto6.png',
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class _howtoreserveState extends State<howtoreserve> {
           children: [
             CarouselSlider(
               options: CarouselOptions(
-                height: 500.0,
+                height: 600.0,
                 initialPage: 0,
                 autoPlay: false,
                 reverse: false,
@@ -97,7 +98,7 @@ class _howtoreserveState extends State<howtoreserve> {
 
   Widget biuldIndicator() => AnimatedSmoothIndicator(
         activeIndex: _currentIndex,
-        count: 5,
+        count: 6,
         effect: SwapEffect(
           dotWidth: 12,
           dotHeight: 12,

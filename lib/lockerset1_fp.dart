@@ -13,19 +13,44 @@ import 'home_view.dart';
 
 int Rendifference = 0;
 int Resdifference = 0;
+String fp1size = "";
+String fp2size = "";
+String fp3size = "";
+String fp4size = "";
+String fp5size = "";
+String fp6size = "";
+String fp7size = "";
+String fp8size = "";
+String fp9size = "";
+String fp10size = "";
+String fp11size = "";
+String fp12size = "";
+String fp13size = "";
+String fp14size = "";
+String fp15size = "";
+String fp16size = "";
+String fp17size = "";
+String fp18size = "";
+String fp19size = "";
+
+Color w = Color.fromARGB(255, 255, 255, 255);
+Color g = Color(0xFFA1E2C9);
+Color b = Color.fromARGB(255, 10, 10, 10);
 
 class lockerset1_fp extends StatefulWidget {
   final int numberOfWeek;
   final String resId;
   final String startDate;
   final String endDate;
+  final String? from;
 
   lockerset1_fp(
       {Key? key,
       required this.numberOfWeek,
       required this.resId,
       required this.startDate,
-      required this.endDate})
+      required this.endDate,
+      this.from = "1"})
       : super(key: key);
 
   @override
@@ -124,34 +149,6 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 80.0,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       Positioned(
-                  //         top: 0,
-                  //         child: Container(
-                  //           child: SvgPicture.string(
-                  //             _svg_f2vz4y,
-                  //             allowDrawingOutsideViewBox: true,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 0,
-                  //         child: Container(
-                  //             child: SvgPicture.string(
-                  //           _svg_ct53v6,
-                  //           allowDrawingOutsideViewBox: true,
-                  //           fit: BoxFit.fill,
-                  //         )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
                     //display lockers
                     child: StreamBuilder<QuerySnapshot>(
@@ -506,10 +503,42 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
         });
   }
 
+//get new block data
+  checkAvailableblockes() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('zones')
+        .doc("fpzone") //zone
+        .get();
+
+    setState(() {
+      fp1size = doc['fp1size'];
+      fp2size = doc['fp2size'];
+      fp3size = doc['fp3size'];
+      fp4size = doc['fp4size'];
+      fp5size = doc['fp5size'];
+      fp6size = doc['fp6size'];
+      fp7size = doc['fp7size'];
+      fp8size = doc['fp8size'];
+      fp9size = doc['fp9size'];
+      fp10size = doc['fp10size'];
+      fp11size = doc['fp11size'];
+      fp12size = doc['fp12size'];
+      fp13size = doc['fp13size'];
+      fp14size = doc['fp14size'];
+      fp15size = doc['fp15size'];
+      fp16size = doc['fp16size'];
+      fp17size = doc['fp17size'];
+      fp18size = doc['fp18size'];
+      fp19size = doc['fp19size'];
+      //اكمل باقي البلوكس لهذا الزون
+    });
+    // gg0size = doc['gg0size'];
+  }
+
   @override
   void initState() {
-    // setLockerAvailable();
-    checkAvailableLockers();
+    checkAvailableblockes();
+    // getUser();
     super.initState();
   }
 
@@ -534,12 +563,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                     builder: (context) => ControllerViewScreen()));
               },
               child: Text("Cancle", style: TextStyle(color: Colors.black)))
-        ], /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
+        ],
       ),
       body: Stack(
         children: <Widget>[
@@ -557,7 +581,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       //--------------- map ------------------
                       Pinned.fromPins(
                         Pin(size: 66.9, start: 40.2),
-                        Pin(size: 92.3, start: 317), //54
+                        Pin(size: 102.3, start: 317), //54
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -568,7 +592,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 95.1, start: 106),
-                        Pin(size: 69.4, start: 340), //55
+                        Pin(size: 69.4, start: 350), //55
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -623,7 +647,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 93.3, end: 29.7),
-                        Pin(size: 69.4, start: 340), //56
+                        Pin(size: 69.4, start: 350), //56
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xffbe97c3),
@@ -634,7 +658,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.8045),
-                        Pin(size: 16.0, start: 370),
+                        Pin(size: 16.0, start: 380),
                         child: Text(
                           '6F56',
                           style: TextStyle(
@@ -650,7 +674,7 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.4823),
-                        Pin(size: 16.0, start: 370),
+                        Pin(size: 16.0, start: 380),
                         child: Text(
                           '6F55',
                           style: TextStyle(
@@ -866,18 +890,43 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, end: 22.1),
+                        Pin(size: 16.0, start: 75.4), // locker1
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp1size == "") {
+                              } else {
+                                showLocker(context, "fp1", fp1size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp1size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp1size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 22.1),
                         Pin(size: 16.0, start: 95.4), //locker2
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp2", "s");
+                              if (fp2size == "") {
+                              } else {
+                                showLocker(context, "fp2", fp2size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp2size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp2size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -890,13 +939,16 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp3", "s");
+                              if (fp3size == "") {
+                              } else {
+                                showLocker(context, "fp3", fp3size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp3size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp3size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -909,13 +961,16 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp4", "s");
+                              if (fp4size == "") {
+                              } else {
+                                showLocker(context, "fp4", fp4size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp4size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp4size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -928,13 +983,16 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp5", "s");
+                              if (fp5size == "") {
+                              } else {
+                                showLocker(context, "fp5", fp5size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp5size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp5size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -947,13 +1005,16 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp6", "s");
+                              if (fp6size == "") {
+                              } else {
+                                showLocker(context, "fp6", fp6size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp6size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp6size == "" ? w : b),
                               ),
                             ),
                           ),
@@ -966,60 +1027,264 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp7", "s");
+                              if (fp7size == "") {
+                              } else {
+                                showLocker(context, "fp7", fp7size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp7size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp7size == "" ? w : b),
                               ),
                             ),
                           ),
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 21.1, end: 22.1),
-                        Pin(size: 16.0, start: 75.4), // locker1
+                        Pin(size: 21.1, end: 45.1),
+                        Pin(size: 16.0, start: 221), // locker8
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp8size == "") {
+                              } else {
+                                showLocker(context, "fp8", fp8size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp8size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp8size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 65.1),
+                        Pin(size: 16.0, start: 221), // locker9
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp9size == "") {
+                              } else {
+                                showLocker(context, "fp9", fp9size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp9size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp9size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 92),
+                        Pin(size: 16.0, start: 241), // locker10
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "fp1", "s");
+                              if (fp10size == "") {
+                              } else {
+                                showLocker(context, "fp10", fp10size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: fp10size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3, color: fp10size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 65.1),
+                        Pin(size: 16.0, start: 261), // locker11
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp11size == "") {
+                              } else {
+                                showLocker(context, "fp11", fp11size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp11size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp11size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 45.1),
+                        Pin(size: 16.0, start: 261), // locker12
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp12size == "") {
+                              } else {
+                                showLocker(context, "fp12", fp12size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp12size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp12size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 181),
+                        Pin(size: 16.0, start: 75.4), // locker13
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp13size == "") {
+                              } else {
+                                showLocker(context, "fp13", fp13size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp13size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp13size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 181),
+                        Pin(size: 16.0, start: 95.4), // locker14
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp14size == "") {
+                              } else {
+                                showLocker(context, "fp14", fp14size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp14size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp14size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 181),
+                        Pin(size: 16.0, start: 115.4), // locker15
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp15size == "") {
+                              } else {
+                                showLocker(context, "fp15", fp15size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp15size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp15size == "" ? w : b),
                               ),
                             ),
                           ),
                         ),
                       ),
 
-                      //-------------------- locker set ----------------
-
-                      // Container(
-                      //   child: CarouselSlider(
-                      //     options: CarouselOptions(
-                      //       height: 900.0,
-                      //       viewportFraction: 1,
-                      //       aspectRatio: 16 / 9,
-                      //       enableInfiniteScroll: false,
-                      //       autoPlay: false,
-                      //     ),
-                      //     items: _lockers.map((i) {
-                      //       return Builder(
-                      //         builder: (BuildContext context) {
-                      //           return Container(
-                      //             child: i,
-                      //           );
-                      //         },
-                      //       );
-                      // //     }).toList(),
-                      //   ),
-                      // ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 100.1),
+                        Pin(size: 16.0, start: 325), // locker16
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp16size == "") {
+                              } else {
+                                showLocker(context, "fp16", fp16size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp16size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp16size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 80.1),
+                        Pin(size: 16.0, start: 325), // locker17
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp17size == "") {
+                              } else {
+                                showLocker(context, "fp17", fp17size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp17size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp17size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, end: 60.1),
+                        Pin(size: 16.0, start: 325), // locker18
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fp18size == "") {
+                              } else {
+                                showLocker(context, "fp18", fp18size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fp18size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fp18size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -1030,2954 +1295,4 @@ class _lockerset1_fpState extends State<lockerset1_fp> {
       ),
     );
   }
-
-  //larg locker widget
-
-  //list
-
-  List _lockers = [
-    // ------------------- small lockers -------------------
-    // -------------------- 1 --------------------
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    //-------------------------- 2 -------------------
-
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    // ---------------------- 3 -----------------------
-
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    // ----------------- 4 -----------------------
-
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    //---------------------- 5 --------------------------
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    //---------------------------6 ----------------------------
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-
-    //----------------------------- 7 ----------------------
-    Stack(children: <Widget>[
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 71.0, end: 230), //6-g-004
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 162), //6-g-008
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 94), //6-g-012
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 71.0, end: 230), //6-g-003
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 162), //6-g-007
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 94), //6-g-011
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 71.0, end: 230), //6-g-002
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 162), //6-g-006
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3279),
-        Pin(size: 69.0, end: 94), //6-g-010
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 71.0, end: 230), //6-g-001
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 162), //6-g-005
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, start: 4.0),
-        Pin(size: 69.0, end: 94), //6-g-009
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffd6fff0),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, end: 12.0),
-        Pin(size: 69.0, end: 26), // 6-G-016
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.6393),
-        Pin(size: 69.0, end: 26), // 6-G-015
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 79.0, middle: 0.3238),
-        Pin(size: 69.0, end: 26), // 6-G-014
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 78.0, start: 4.0),
-        Pin(size: 69.0, end: 26), // 6-G-013
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xffefecec),
-            border: Border.all(width: 1.0, color: const Color(0xff707070)),
-          ),
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 280), //6-G-001
-        child: Text(
-          '6-G-017',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 280), // 6-G-002
-        child: Text(
-          '6-G-018',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 280), // 6-G-003
-        child: Text(
-          '6-G-019',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 280),
-        child: Text(
-          '6-G-020',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-021',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-022',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-023',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 210),
-        child: Text(
-          '6-G-024',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 14.0),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-025',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.337),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-026',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6087),
-        Pin(size: 14.0, end: 140),
-        child: Text(
-          '6-G-027',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 140), //6-G-012
-        child: Text(
-          '6-G-028',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, start: 13.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-029',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.3188),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-030',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, middle: 0.6014),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-031',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Pinned.fromPins(
-        Pin(size: 47.0, end: 33.0),
-        Pin(size: 14.0, end: 70),
-        child: Text(
-          '6-G-032',
-          style: TextStyle(
-            fontFamily: 'Helvetica Neue',
-            fontSize: 12,
-            color: const Color(0xff0f0000),
-            height: 3.6666666666666665,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    ]),
-  ];
 }

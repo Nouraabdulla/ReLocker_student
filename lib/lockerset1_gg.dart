@@ -15,19 +15,49 @@ import 'home_view.dart';
 
 int Rendifference = 0;
 int Resdifference = 0;
+String gg1size = "";
+String gg2size = "";
+String gg3size = "";
+String gg4size = "";
+String gg5size = "";
+String gg6size = "";
+String gg7size = "";
+String gg8size = "";
+String gg9size = "";
+String gg10size = "";
+String gg11size = "";
+String gg12size = "";
+String gg13size = "";
+String gg14size = "";
+String gg15size = "";
+String gg16size = "";
+String gg17size = "";
+String gg18size = "";
+String gg19size = "";
+String gg20size = "";
+String gg21size = "";
+String gg22size = "";
+String gg23size = "";
+String gg24size = "";
+
+Color w = Color.fromARGB(255, 255, 255, 255);
+Color g = Color(0xFFA1E2C9);
+Color b = Color.fromARGB(255, 10, 10, 10);
 
 class lockerset1_gg extends StatefulWidget {
   final int numberOfWeek;
   final String resId;
   final String startDate;
   final String endDate;
+  final String? from;
 
   lockerset1_gg(
       {Key? key,
       required this.numberOfWeek,
       required this.resId,
       required this.startDate,
-      required this.endDate})
+      required this.endDate,
+      this.from = "1"})
       : super(key: key);
   @override
   State<lockerset1_gg> createState() => _lockerset1_ggState();
@@ -113,34 +143,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 80.0,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       Positioned(
-                  //         top: 0,
-                  //         child: Container(
-                  //           child: SvgPicture.string(
-                  //             _svg_f2vz4y,
-                  //             allowDrawingOutsideViewBox: true,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 0,
-                  //         child: Container(
-                  //             child: SvgPicture.string(
-                  //           _svg_ct53v6,
-                  //           allowDrawingOutsideViewBox: true,
-                  //           fit: BoxFit.fill,
-                  //         )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
                     //display lockers
                     child: StreamBuilder<QuerySnapshot>(
@@ -208,17 +210,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                   }
                                                 }
 
-                                                var rng = new Random();
-                                                var code =
-                                                    rng.nextInt(9000) + 1000;
-
-                                                String lockername =
-                                                    data['name'];
-
-                                                String startDate =
-                                                    widget.startDate;
-                                                String endDate = widget.endDate;
-
                                                 Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (context) =>
@@ -238,7 +229,9 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                                 totalPrice:
                                                                     total,
                                                                 lockerName:
-                                                                    lockername)));
+                                                                    data[
+                                                                        'name'],
+                                                                from: "1")));
                                               }
                                             : () {},
                                         child: Container(
@@ -321,19 +314,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                         }
                                                       }
 
-                                                      var rng = new Random();
-                                                      var code =
-                                                          rng.nextInt(9000) +
-                                                              1000;
-
-                                                      String lockername =
-                                                          data1['name'];
-
-                                                      String startDate =
-                                                          widget.startDate;
-                                                      String endDate =
-                                                          widget.endDate;
-
                                                       Navigator.of(context).push(MaterialPageRoute(
                                                           builder: (context) =>
                                                               ReservationDetails(
@@ -352,7 +332,9 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                                   totalPrice:
                                                                       total,
                                                                   lockerName:
-                                                                      lockername)));
+                                                                      data1[
+                                                                          "name"],
+                                                                  from: "1")));
                                                     }
                                                   : () {},
                                               child: Container(
@@ -422,19 +404,6 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                         }
                                                       }
 
-                                                      var rng = new Random();
-                                                      var code =
-                                                          rng.nextInt(9000) +
-                                                              1000;
-
-                                                      String lockername =
-                                                          data2['name'];
-
-                                                      String startDate =
-                                                          widget.startDate;
-                                                      String endDate =
-                                                          widget.endDate;
-
                                                       Navigator.of(context).push(MaterialPageRoute(
                                                           builder: (context) =>
                                                               ReservationDetails(
@@ -453,7 +422,9 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                                                                   totalPrice:
                                                                       total,
                                                                   lockerName:
-                                                                      lockername)));
+                                                                      data2[
+                                                                          'name'],
+                                                                  from: "1")));
                                                     }
                                                   : () {},
                                               child: Container(
@@ -493,6 +464,50 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
             ),
           );
         });
+  }
+
+//get new block data
+  checkAvailableblockes() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('zones')
+        .doc("ggzone") //zone
+        .get();
+
+    setState(() {
+      gg1size = doc['gg1size'];
+      gg2size = doc['gg2size'];
+      gg3size = doc['gg3size'];
+      gg4size = doc['gg4size'];
+      gg5size = doc['gg5size'];
+      gg6size = doc['gg6size'];
+      gg7size = doc['gg7size'];
+      gg8size = doc['gg8size'];
+      gg9size = doc['gg9size'];
+      gg10size = doc['gg10size'];
+      gg11size = doc['gg11size'];
+      gg12size = doc['gg12size'];
+      gg13size = doc['gg13size'];
+      gg14size = doc['gg14size'];
+      gg15size = doc['gg15size'];
+      gg16size = doc['gg16size'];
+      gg17size = doc['gg17size'];
+      gg18size = doc['gg18size'];
+      gg19size = doc['gg19size'];
+      gg20size = doc['gg20size'];
+      gg21size = doc['gg21size'];
+      gg22size = doc['gg22size'];
+      gg23size = doc['gg23size'];
+      gg24size = doc['gg24size'];
+      //اكمل باقي البلوكس لهذا الزون
+    });
+    // gg0size = doc['gg0size'];
+  }
+
+  @override
+  void initState() {
+    checkAvailableblockes();
+    // getUser();
+    super.initState();
   }
 
   @override
@@ -561,7 +576,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
 
                       Pinned.fromPins(
                         Pin(size: 65.0, start: 40.0),
-                        Pin(size: 136.0, start: 7.0), //6g35
+                        Pin(size: 143.0, start: 0), //6g35
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xff82b685),
@@ -627,7 +642,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 100.0, end: 29.0),
-                        Pin(size: 79.0, start: 7.0), //6g30
+                        Pin(size: 79.0, start: 0), //6g30
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xff82b685),
@@ -638,7 +653,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 92.0, middle: 0.4487),
-                        Pin(size: 79.0, start: 7.0), //6g31
+                        Pin(size: 79.0, start: 0), //6g31
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xff82b685),
@@ -787,7 +802,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.4652),
-                        Pin(size: 16.0, start: 41.0),
+                        Pin(size: 16.0, start: 34.0),
                         child: Text(
                           '6G31',
                           style: TextStyle(
@@ -803,7 +818,7 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 53.0, middle: 0.8205),
-                        Pin(size: 16.0, start: 41.0),
+                        Pin(size: 16.0, start: 34.0),
                         child: Text(
                           '6G30',
                           style: TextStyle(
@@ -955,56 +970,24 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.3361),
-                        Pin(size: 16.0, start: 310), // locker front to 41
+                        Pin(size: 16.0, start: 220), // locker front to 40
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg5", "l");
+                              if (gg1size == "") {
+                              } else {
+                                showLocker(context, "gg1", gg1size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg1size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3361),
-                        Pin(size: 16.0, start: 290), // locker front to 41
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              showLocker(context, "gg4", "l");
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
-                                border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3361),
-                        Pin(size: 16.0, start: 270), // locker front to 41
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              showLocker(context, "gg3", "l");
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
-                                border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg1size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1017,13 +1000,19 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg2", "s");
+                              if (gg2size == "") {
+                              } else {
+                                showLocker(context, "gg2", gg2size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg2size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg2size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1031,75 +1020,75 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                       ),
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.3361),
-                        Pin(size: 16.0, start: 220), // locker front to 40
+                        Pin(size: 16.0, start: 270), // locker front to 41
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg1", "s");
+                              if (gg3size == "") {
+                              } else {
+                                showLocker(context, "gg3", gg3size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg3size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg3size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.3361),
+                        Pin(size: 16.0, start: 290), // locker front to 41
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg4size == "") {
+                              } else {
+                                showLocker(context, "gg4", gg4size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg4size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg4size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.4299),
-                        Pin(size: 16.0, start: 390), // locker next to stairs
+                        Pin(size: 21.1, middle: 0.3361),
+                        Pin(size: 16.0, start: 310), // locker front to 41
                         child: Transform.rotate(
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg9", "s");
+                              if (gg5size == "") {
+                              } else {
+                                showLocker(context, "gg5", gg5size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg5size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.4299),
-                        Pin(size: 16.0, start: 370), // locker next to stairs
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              showLocker(context, "gg8", "l");
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
-                                border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.4299),
-                        Pin(size: 16.0, start: 350), // locker next to stairs
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              showLocker(context, "gg7", "l");
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
-                                border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg5size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1112,18 +1101,101 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg6", "l");
+                              if (gg6size == "") {
+                              } else {
+                                showLocker(context, "gg6", gg6size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg6size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg6size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
                         ),
                       ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.4299),
+                        Pin(size: 16.0, start: 350), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg7size == "") {
+                              } else {
+                                showLocker(context, "gg7", gg7size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg7size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg7size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.4299),
+                        Pin(size: 16.0, start: 370), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg8size == "") {
+                              } else {
+                                showLocker(context, "gg8", gg8size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg8size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg8size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.4299),
+                        Pin(size: 16.0, start: 390), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg9size == "") {
+                              } else {
+                                showLocker(context, "gg9", gg9size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg9size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg9size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                       Pinned.fromPins(
                         Pin(size: 21.1, middle: 0.5786),
                         Pin(size: 16.0, start: 348), // locker under stairs
@@ -1131,13 +1203,19 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 3.1416,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg10", "s");
+                              if (gg10size == "") {
+                              } else {
+                                showLocker(context, "gg10", gg10size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg10size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg10size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1150,13 +1228,19 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 3.1416,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg11", "s");
+                              if (gg11size == "") {
+                              } else {
+                                showLocker(context, "gg11", gg11size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg11size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg11size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1169,13 +1253,19 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg12", "s");
+                              if (gg12size == "") {
+                              } else {
+                                showLocker(context, "gg12", gg12size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg12size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg12size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1188,13 +1278,19 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg13", "s");
+                              if (gg13size == "") {
+                              } else {
+                                showLocker(context, "gg13", gg13size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg13size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg13size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
@@ -1207,18 +1303,276 @@ class _lockerset1_ggState extends State<lockerset1_gg> {
                           angle: 1.5708,
                           child: GestureDetector(
                             onTap: () {
-                              showLocker(context, "gg14", "s");
+                              if (gg14size == "") {
+                              } else {
+                                showLocker(context, "gg14", gg14size);
+                              }
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: const Color(0xff88d8bb),
+                                color: gg14size == "" ? w : g,
                                 border: Border.all(
-                                    width: 0.3, color: const Color(0xff000000)),
+                                    width: 0.3,
+                                    color: gg14size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
                               ),
                             ),
                           ),
                         ),
                       ),
+                      //new lockers
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.783),
+                        Pin(size: 16.0, start: 83), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg15size == "") {
+                              } else {
+                                showLocker(context, "gg15", gg15size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg15size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg15size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.712),
+                        Pin(size: 16.0, start: 83), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg16size == "") {
+                              } else {
+                                showLocker(context, "gg16", gg16size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg16size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg16size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.641),
+                        Pin(size: 16.0, start: 83), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg17size == "") {
+                              } else {
+                                showLocker(context, "gg17", gg17size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg17size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg17size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.579),
+                        Pin(size: 16.0, start: 83), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg18size == "") {
+                              } else {
+                                showLocker(context, "gg18", gg18size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg18size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg18size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.42),
+                        Pin(size: 16.0, start: 80), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 0,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg19size == "") {
+                              } else {
+                                showLocker(context, "gg19", gg19size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg19size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg19size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.424),
+                        Pin(size: 16.0, start: 111), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg20size == "") {
+                              } else {
+                                showLocker(context, "gg20", gg20size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg20size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg20size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.424),
+                        Pin(size: 16.0, start: 132), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg21size == "") {
+                              } else {
+                                showLocker(context, "gg21", gg21size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg21size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg21size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.424),
+                        Pin(size: 16.0, start: 185), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg22size == "") {
+                              } else {
+                                showLocker(context, "gg22", gg22size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg22size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg22size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.337),
+                        Pin(size: 16.0, start: 370), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg23size == "") {
+                              } else {
+                                showLocker(context, "gg23", gg23size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg23size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg23size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 21.1, middle: 0.337),
+                        Pin(size: 16.0, start: 391), // locker next to stairs
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (gg24size == "") {
+                              } else {
+                                showLocker(context, "gg24", gg24size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gg24size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3,
+                                    color: gg24size == ""
+                                        ? w
+                                        : b), //colore changes based on add/delete not user type
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                       Pinned.fromPins(
                         Pin(size: 22.4, middle: 0.5082),
                         Pin(size: 1.0, start: 399), //stairs line

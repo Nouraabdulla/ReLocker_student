@@ -52,26 +52,8 @@ class _Controlleradmin extends State<controlleradmin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFd3f3e6),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: currentIndex > 0 ? _screen[currentIndex - 1] : _screen[0],
-      //   Column(children: [
-      //   StreamBuilder(
-      //     stream: FirebaseFirestore.instance.collection("Companies").doc().snapshots(),
-      //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //       if (snapshot.connectionState == ConnectionState.waiting) {
-      //         return Center(
-      //           child: CircularProgressIndicator(),
-      //         );
-      //       }
-      //       return Image.network(
-      //         snapshot.data.data()["url"],
-      //         width: 100,
-      //         height: 100,
-      //       );
-      //     },
-      //   ),
-      //  ]
-      //   ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
@@ -91,6 +73,7 @@ class _Controlleradmin extends State<controlleradmin> {
                   setState(() {
                     showModalBottomSheet(
                       context: context,
+                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
                       builder: (context) {
                         return Container(
                           child: Column(
@@ -131,8 +114,7 @@ class _Controlleradmin extends State<controlleradmin> {
                                 ),
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          fsemesterdates()));
+                                      builder: (context) => fsemesterdates()));
                                 },
                               ),
                               const Divider(
@@ -141,26 +123,32 @@ class _Controlleradmin extends State<controlleradmin> {
                                 thickness: 2,
                               ),
                               const SizedBox(height: 40),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                height: MediaQuery.of(context).size.width / 8,
-                                child: BlocConsumer<AuthCubit, AuthStates>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) => ElevatedButton(
-                                    child: const Text(
-                                      'LOG OUT',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    child: SizedBox(
+                                        height: 60,
+                                        width: 120, // fixed width and height
+                                        child: Image.asset(
+                                          'assets/images/ksulogo.png',
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.centerRight,
                                         )),
-                                    onPressed: () {
+                                    onTap: () {},
+                                  ),
+                                  SizedBox(
+                                    width: 160,
+                                  ),
+                                  GestureDetector(
+                                    child: SizedBox(
+                                        height: 60,
+                                        width: 60, // fixed width and height
+                                        child: Image.asset(
+                                          'assets/images/logoutb.png',
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.centerRight,
+                                        )),
+                                    onTap: () {
                                       showDialog(
                                           context: context,
                                           builder: (context) {
@@ -258,7 +246,7 @@ class _Controlleradmin extends State<controlleradmin> {
                                           });
                                     },
                                   ),
-                                ),
+                                ],
                               ),
                               const SizedBox(height: 40),
                             ],

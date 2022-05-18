@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
+import 'package:relocker_sa/editblocksoptions.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/ground.dart';
 import 'package:relocker_sa/locker_Gfloor.dart';
@@ -13,74 +14,80 @@ import 'package:relocker_sa/recommendations.dart';
 import 'package:relocker_sa/widgets/howtoreserve.dart';
 
 class locker_type extends StatefulWidget {
-  locker_type({Key? key}) : super(key: key);
+  final String? from;
+  final String? option;
+  locker_type({Key? key, this.from = '1', this.option = ""}) : super(key: key);
 
   @override
   State<locker_type> createState() => _locker_typeState();
 }
-String startdate1='';
-String endDate1='';
-String startdate2='';
-String endDate2='';
-class _locker_typeState extends State<locker_type> {
- String floor = 'G';
-DateTime todayDate = DateFormat("yyyy-MM-dd")
-.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
-getdata() async{
-final DocumentSnapshot doc = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester1")
-                    .get();
-                 startdate1 = doc['start'];
-                 endDate1 = doc['end'];
-                final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester2")
-                    .get();
-                 startdate2 = doc['start'];
-                 endDate2 = doc['end'];
-}
-@override
+String startdate1 = '';
+String endDate1 = '';
+String startdate2 = '';
+String endDate2 = '';
+String flour = "";
+
+class _locker_typeState extends State<locker_type> {
+  String floor = 'G';
+  DateTime todayDate = DateFormat("yyyy-MM-dd")
+      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+  getdata() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('semester')
+        .doc("semester1")
+        .get();
+    startdate1 = doc['start'];
+    endDate1 = doc['end'];
+    final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+        .collection('semester')
+        .doc("semester2")
+        .get();
+    startdate2 = doc['start'];
+    endDate2 = doc['end'];
+  }
+
+  @override
   void initState() {
     getdata();
     // getUser();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
-          backgroundColor: const Color(0xff88d8bb),
-          title: Text("Choose type"),
-          centerTitle: true,
-          foregroundColor: Colors.black,
-          leading: IconButton(
-            color: Colors.black,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.help_outline_outlined,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => howtoreserve()));
-
-              },
-            )
-          ] /* textAlign: TextAlign.center,
+        backgroundColor: const Color(0xff88d8bb),
+        title: Text("Choose type"),
+        centerTitle: true,
+        foregroundColor: Colors.black,
+        leading: IconButton(
+          color: Colors.black,
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        actions: (widget.from == "2")
+            ? <Widget>[]
+            : <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.help_outline_outlined,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => howtoreserve()));
+                  },
+                )
+              ], /* textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Helvetica Neue',
                   fontSize: 20,
                   color: Colors.black,
                 ))*/
-          ),
+      ),
       body: Stack(
         children: <Widget>[
           Pinned.fromPins(
@@ -91,206 +98,193 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
               iconSize: 50,
               onPressed: () async {
                 print('before');
-                // final DocumentSnapshot doc = await FirebaseFirestore.instance
-                //     .collection('semester')
-                //     .doc("semester1")
-                //     .get();
-                // String startdate1 = doc['start'];
-                // String endDate1 = doc['end'];
-                // final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-                //     .collection('semester')
-                //     .doc("semester2")
-                //     .get();
-                // String startdate2 = doc['start'];
-                // String endDate2 = doc['end'];
+
                 print(startdate1);
                 print(endDate1);
-
-
-//to know which semester dates to send
-                if (
-                  //  todayDate.isAtSameMomentAs(DateTime.parse(startdate1)) &&
-                  //  todayDate.isAtSameMomentAs(DateTime.parse(endDate1))
-                  todayDate.isAfter(DateTime.parse(startdate1)) &&
-                   todayDate.isBefore(DateTime.parse(endDate1))
-                   ) {
-                  
-                    print(todayDate);
-                 print('here......'+startdate1);
-                 print(endDate1);
-
-Navigator.of(context).push(MaterialPageRoute(
-builder: (context) => ground(
-numberOfWeek: 0,
-resId: '',
-startDate: startdate1,
-endDate: endDate1,
-)));
-showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: AlertDialog(
-                          title: Text(
-                            //  "Do you want to get recommendation ?",
-                            " would you like to get recommendations to find the suitbale lockers?",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                          actions: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: ()  {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => recommendations(
-                                            numberOfWeek:0,
-                                           resId: "",
-                                          startDate: startdate1,
-                                          endDate: endDate1,
-                                            floor: floor,
-                                          )));
-                                }),),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                                
-                               )
-                          ]
-                            )
-                        );
-                      
-                    });
-                }else  if (
-                  // todayDate.isAtSameMomentAs(DateTime.parse(startdate1)) &&
-                  //  todayDate.isAtSameMomentAs(DateTime.parse(endDate1))
-                  todayDate.isAfter(DateTime.parse(startdate2)) &&
-                   todayDate.isBefore(DateTime.parse(endDate2))
-                   ) {
-
-
-Navigator.of(context).push(MaterialPageRoute(
-
-builder: (context) => ground(
-  numberOfWeek:0,
-resId: "",
-startDate: startdate2,
-endDate: endDate2,
-)));
-showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: AlertDialog(
-                          title: Text(
-                            //  "Do you want to get recommendation ?",
-                            " would you like to get recommendations to find the suitbale lockers?",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                            ),
-                          ),
-                          actions: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'Yes',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: ()  {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => recommendations(
-                                            numberOfWeek:0,
-                                           resId: "",
-                                          startDate: startdate1,
-                                          endDate: endDate1,
-                                            floor: floor,
-                                          )));
-                                }),),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              height: MediaQuery.of(context).size.width / 9,
-                              child: ElevatedButton(
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color(0xFF9AD6BD),
-                                  shape: const StadiumBorder(),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                                
-                               )
-                          ]
-                            )
-                        );
-                      
-                    });
-
+//if it's the admin just move to next page
+                if (widget.from == "2") {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ground(
+                            from: widget.from,
+                            option: widget.option,
+                          )));
                 } else {
-const snackBar = SnackBar(
-
-content: Text(
-'you can reserve during semester days only'),
-);
+//to know which semester dates to send
+                  if (todayDate.isAfter(DateTime.parse(startdate1)) &&
+                      todayDate.isBefore(DateTime.parse(endDate1))) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ground(
+                              numberOfWeek: 0,
+                              resId: '',
+                              startDate: startdate1,
+                              endDate: endDate1,
+                              from: widget.from,
+                            )));
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: AlertDialog(
+                                  title: Text(
+                                    //  "Do you want to get recommendation ?",
+                                    " would you like to get recommendations to find the suitbale lockers?",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  actions: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 5,
+                                      height:
+                                          MediaQuery.of(context).size.width / 9,
+                                      child: ElevatedButton(
+                                          child: const Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Color(0xFF9AD6BD),
+                                            shape: const StadiumBorder(),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        recommendations(
+                                                          numberOfWeek: 0,
+                                                          resId: "",
+                                                          startDate: startdate1,
+                                                          endDate: endDate1,
+                                                          floor: floor,
+                                                        )));
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 5,
+                                      height:
+                                          MediaQuery.of(context).size.width / 9,
+                                      child: ElevatedButton(
+                                        child: const Text(
+                                          'No',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Color(0xFF9AD6BD),
+                                          shape: const StadiumBorder(),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    )
+                                  ]));
+                        });
+                  } else if (
+                      // todayDate.isAtSameMomentAs(DateTime.parse(startdate1)) &&
+                      //  todayDate.isAtSameMomentAs(DateTime.parse(endDate1))
+                      todayDate.isAfter(DateTime.parse(startdate2)) &&
+                          todayDate.isBefore(DateTime.parse(endDate2))) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ground(
+                              numberOfWeek: 0,
+                              resId: "",
+                              startDate: startdate2,
+                              endDate: endDate2,
+                            )));
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: AlertDialog(
+                                  title: Text(
+                                    //  "Do you want to get recommendation ?",
+                                    " would you like to get recommendations to find the suitbale lockers?",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  actions: [
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 5,
+                                      height:
+                                          MediaQuery.of(context).size.width / 9,
+                                      child: ElevatedButton(
+                                          child: const Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            primary: Color(0xFF9AD6BD),
+                                            shape: const StadiumBorder(),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        recommendations(
+                                                          numberOfWeek: 0,
+                                                          resId: "",
+                                                          startDate: startdate1,
+                                                          endDate: endDate1,
+                                                          floor: floor,
+                                                        )));
+                                          }),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          MediaQuery.of(context).size.width / 5,
+                                      height:
+                                          MediaQuery.of(context).size.width / 9,
+                                      child: ElevatedButton(
+                                        child: const Text(
+                                          'No',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Color(0xFF9AD6BD),
+                                          shape: const StadiumBorder(),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    )
+                                  ]));
+                        });
+                  } else {
+                    const snackBar = SnackBar(
+                      content:
+                          Text('you can reserve during semester days only'),
+                    );
 // Find the ScaffoldMessenger in the widget tree
 // and use it to show a SnackBar.
-ScaffoldMessenger.of(context)
-.showSnackBar(snackBar);
-                  // print("you can't reserve in the holiday days");
-                }
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // print("you can't reserve in the holiday days");
+                  }
+                } //else for checking the admin
 
                 // showDialog(
                 //     context: context,
@@ -353,12 +347,12 @@ ScaffoldMessenger.of(context)
                 //                   Navigator.of(context).pop();
                 //                 },
                 //               ),
-                                
+
                 //                )
                 //           ]
                 //             )
                 //         );
-                      
+
                 //     });
               },
             ),
@@ -370,8 +364,16 @@ ScaffoldMessenger.of(context)
               icon: Image.asset('assets/images/flexible.jpg'),
               iconSize: 50,
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => CalcPayPage()));
+                if (widget.from == "2") {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => first(
+                            from: widget.from,
+                            option: widget.option,
+                          )));
+                } else {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CalcPayPage()));
+                }
               },
             ),
           ),

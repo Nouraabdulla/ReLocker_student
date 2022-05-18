@@ -24,6 +24,7 @@ class ControllerViewScreen extends StatefulWidget {
 }
 
 String haslocker = "";
+bool dohave = false;
 
 class _ControllerViewScreenState extends State<ControllerViewScreen> {
   int currentIndex = 2;
@@ -34,14 +35,22 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
         .collection('Users')
         .doc("${FirebaseAuth.instance.currentUser!.uid}")
         .get();
-    haslocker = doc['reservedlocker'];
+    setState(() {
+      haslocker = doc['reservedlocker'];
+    });
+    if (haslocker != "") {
+      dohave = true;
+    } else {
+      dohave = false;
+    }
     // print("hiiii" + haslocker);
   }
-String lockerreserv='';
-    User user = FirebaseAuth.instance.currentUser!;
-Map<String, dynamic> userData2 = {};
-    getUserData2() {
-       FirebaseFirestore.instance
+
+  String lockerreserv = '';
+  User user = FirebaseAuth.instance.currentUser!;
+  Map<String, dynamic> userData2 = {};
+  getUserData2() {
+    FirebaseFirestore.instance
         .collection("Reservation")
         // .where("Owner", isEqualTo: user.email)
         .get()
@@ -50,20 +59,17 @@ Map<String, dynamic> userData2 = {};
       list.forEach((element) {
         setState(() {
           userData2 = element.data()!;
-          lockerreserv=userData2['locker_name'];
+          lockerreserv = userData2['locker_name'];
           // print(lockerreserv);
-
         });
       });
-  
     });
   }
 
-
-  String lockername1='';
-Map<String, dynamic> userData = {};
-    getUserData() {
-       FirebaseFirestore.instance
+  String lockername1 = '';
+  Map<String, dynamic> userData = {};
+  getUserData() {
+    FirebaseFirestore.instance
         .collection("Announcements")
         .where("lockername", isEqualTo: userData2['locker_name'])
         .get()
@@ -73,31 +79,26 @@ Map<String, dynamic> userData = {};
         setState(() {
           userData = element.data()!;
           // lockername1=userData['lockername'];
-            print(userData);
-
+          print(userData);
         });
       });
-  
     });
   }
-  
-
-
 
   @override
   void initState() {
+    dohavelocker();
     getUserData();
     getUserData2();
     // getUser();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     dohavelocker();
     return Scaffold(
-      backgroundColor: Color(0xFFd3f3e6),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: currentIndex > 0 &&
               haslocker !=
                   "" //check if the user has locker to go to the lock page
@@ -112,462 +113,490 @@ Map<String, dynamic> userData = {};
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: [
-             if(lockername1==lockerreserv)...[
-            BottomNavigationBarItem(
-              icon: IconButton(
-                icon: Image.asset(
-                  'assets/images/moreRed.png',
-                  fit: BoxFit.cover,
-                  // color: Colors.grey[800],
+            if (lockername1 == lockerreserv) ...[
+              BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: Image.asset(
+                    'assets/images/moreRed.png',
+                    fit: BoxFit.cover,
+                    // color: Colors.grey[800],
+                  ),
+                  iconSize: 38.0,
+                  onPressed: () {
+                    setState(() {
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
+                        builder: (context) {
+                          return Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 2,
+                                  width: 40,
+                                  color: Colors.grey[300],
+                                ),
+                                const SizedBox(height: 70),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                GestureDetector(
+                                  child: const ListTile(
+                                    title: Text('My account'),
+                                    leading: Icon(Icons.person),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => profile()));
+                                  },
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                GestureDetector(
+                                  child: const ListTile(
+                                    title: Text('Technical support'),
+                                    leading: Icon(Icons.headset_outlined),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                support_support()));
+                                  },
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                GestureDetector(
+                                  child: ListTile(
+                                      title: Text('Personal announcements'),
+                                      leading: SizedBox(
+                                          height: 35.0,
+                                          width: 35.0, // fixed width and height
+                                          child: Image.asset(
+                                            'assets/images/announcementRed.png',
+                                            fit: BoxFit.cover,
+                                          ))),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Announcements()));
+                                  },
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                const SizedBox(height: 40),
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      child: SizedBox(
+                                          height: 60,
+                                          width: 120, // fixed width and height
+                                          child: Image.asset(
+                                            'assets/images/ksulogo.png',
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.centerRight,
+                                          )),
+                                      onTap: () {},
+                                    ),
+                                    SizedBox(
+                                      width: 160,
+                                    ),
+                                    GestureDetector(
+                                      child: SizedBox(
+                                          height: 60,
+                                          width: 60, // fixed width and height
+                                          child: Image.asset(
+                                            'assets/images/logoutb.png',
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.centerRight,
+                                          )),
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Container(
+                                                clipBehavior: Clip.hardEdge,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30)),
+                                                child: AlertDialog(
+                                                  title: Text(
+                                                    "Are you sure you want to logout?",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              9,
+                                                      child: ElevatedButton(
+                                                        child: const Text(
+                                                          'Yes',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              Color(0xFF9AD6BD),
+                                                          shape:
+                                                              const StadiumBorder(),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          AuthCubit.get(context)
+                                                              .signOut();
+
+                                                          Navigator.of(context)
+                                                              .pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              StartScreen()));
+                                                        },
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              9,
+                                                      child: ElevatedButton(
+                                                        child: const Text(
+                                                          'No',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              Color(0xFF9AD6BD),
+                                                          shape:
+                                                              const StadiumBorder(),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 40),
+                              ],
+                            ),
+                          );
+                        },
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
+                          ),
+                        ),
+                        clipBehavior: Clip.hardEdge,
+                      );
+                    });
+                  },
                 ),
-                iconSize: 38.0,
-                onPressed: () {
-                  setState(() {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 2,
-                                width: 40,
-                                color: Colors.grey[300],
-                              ),
-                              const SizedBox(height: 70),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('My account'),
-                                  leading: Icon(Icons.person),
+                label: '',
+              ),
+            ] else ...[
+              BottomNavigationBarItem(
+                icon: IconButton(
+                  icon: Image.asset(
+                    'assets/images/more.png',
+                    fit: BoxFit.cover,
+                    // color: Colors.grey[800],
+                  ),
+                  iconSize: 38.0,
+                  onPressed: () {
+                    setState(() {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(height: 10),
+                                Container(
+                                  height: 2,
+                                  width: 40,
+                                  color: Colors.grey[300],
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => profile()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('Technical support'),
-                                  leading: Icon(Icons.headset_outlined),
+                                const SizedBox(height: 70),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => support_support()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                             
-                              GestureDetector(
-                                child:  ListTile(
-                                  title: Text('Personal announcements'),
-                                  leading: SizedBox(
-                               height: 35.0,
-                               width: 35.0, // fixed width and height
-                               child: Image.asset( 
-                                 'assets/images/announcementRed.png',
-                                  fit: BoxFit.cover,)
-                                  )
+                                GestureDetector(
+                                  child: const ListTile(
+                                    title: Text('My account'),
+                                    leading: Icon(Icons.person),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => profile()));
+                                  },
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Announcements()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              const SizedBox(height: 40),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                height: MediaQuery.of(context).size.width / 8,
-                                child: BlocConsumer<AuthCubit, AuthStates>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) => ElevatedButton(
-                                    child: const Text(
-                                      'LOG OUT',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                GestureDetector(
+                                  child: const ListTile(
+                                    title: Text('Technical support'),
+                                    leading: Icon(Icons.headset_outlined),
+                                  ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                support_support()));
+                                  },
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
+                                ),
+                                GestureDetector(
+                                  child: ListTile(
+                                    title: Text('Personal announcements'),
+                                    leading: SizedBox(
+                                      height: 35.0,
+                                      width: 35.0, // fixed width and height
+                                      child: Image.asset(
+                                        'assets/images/Announcement.png',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        )),
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Container(
-                                              clipBehavior: Clip.hardEdge,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30)),
-                                              child: AlertDialog(
-                                                title: Text(
-                                                  "Are you sure you want to logout?",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                  ),
-                                                ),
-                                                actions: [
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'Yes',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        AuthCubit.get(context)
-                                                            .signOut();
-
-                                                        Navigator.of(context)
-                                                            .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            StartScreen()));
-                                                      },
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'No',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
-                                                        ),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                    },
                                   ),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Announcements()));
+                                  },
                                 ),
-                              ),
-                              const SizedBox(height: 40),
-                            ],
-                          ),
-                        );
-                      },
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
-                        ),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                    );
-                  });
-                },
-                
-              ),
-              label: '',
-            ),
-            ]else ...[
-          BottomNavigationBarItem(
-              icon: IconButton(
-                icon: Image.asset(
-                  'assets/images/more.png',
-                  fit: BoxFit.cover,
-                  // color: Colors.grey[800],
-                ),
-                iconSize: 38.0,
-                onPressed: () {
-                  setState(() {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(height: 10),
-                              Container(
-                                height: 2,
-                                width: 40,
-                                color: Colors.grey[300],
-                              ),
-                              const SizedBox(height: 70),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('My account'),
-                                  leading: Icon(Icons.person),
+                                const Divider(
+                                  color: Colors.grey,
+                                  height: 2,
+                                  thickness: 2,
                                 ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => profile()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child: const ListTile(
-                                  title: Text('Technical support'),
-                                  leading: Icon(Icons.headset_outlined),
-                                ),
-                                onTap: () {
-                              
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => support_support()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              GestureDetector(
-                                child:  ListTile(
-                                  title: Text('Personal announcements'),
-                                  leading:SizedBox(
-                               height: 35.0,
-                               width: 35.0, // fixed width and height
-                               child: Image.asset( 
-                                 'assets/images/Announcement.png',
-                                  fit: BoxFit.cover,
-                                  ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Announcements()));
-                                },
-                              ),
-                              const Divider(
-                                color: Colors.grey,
-                                height: 2,
-                                thickness: 2,
-                              ),
-                              const SizedBox(height: 40),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                height: MediaQuery.of(context).size.width / 8,
-                                child: BlocConsumer<AuthCubit, AuthStates>(
-                                  listener: (context, state) {},
-                                  builder: (context, state) => ElevatedButton(
-                                    child: const Text(
-                                      'LOG OUT',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
-                                      ),
+                                const SizedBox(height: 40),
+                                Row(
+                                  children: [
+                                    GestureDetector(
+                                      child: SizedBox(
+                                          height: 60,
+                                          width: 120, // fixed width and height
+                                          child: Image.asset(
+                                            'assets/images/ksulogo.png',
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.centerRight,
+                                          )),
+                                      onTap: () {},
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        )),
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Container(
-                                              clipBehavior: Clip.hardEdge,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30)),
-                                              child: AlertDialog(
-                                                title: Text(
-                                                  "Are you sure you want to logout?",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
+                                    SizedBox(
+                                      width: 160,
+                                    ),
+                                    GestureDetector(
+                                      child: SizedBox(
+                                          height: 60,
+                                          width: 60, // fixed width and height
+                                          child: Image.asset(
+                                            'assets/images/logoutb.png',
+                                            fit: BoxFit.cover,
+                                            alignment: Alignment.centerRight,
+                                          )),
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Container(
+                                                clipBehavior: Clip.hardEdge,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30)),
+                                                child: AlertDialog(
+                                                  title: Text(
+                                                    "Are you sure you want to logout?",
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                    ),
                                                   ),
-                                                ),
-                                                actions: [
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'Yes',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
+                                                  actions: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              9,
+                                                      child: ElevatedButton(
+                                                        child: const Text(
+                                                          'Yes',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                        AuthCubit.get(context)
-                                                            .signOut();
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              Color(0xFF9AD6BD),
+                                                          shape:
+                                                              const StadiumBorder(),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                          AuthCubit.get(context)
+                                                              .signOut();
 
-                                                        Navigator.of(context)
-                                                            .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            StartScreen()));
-                                                      },
+                                                          Navigator.of(context)
+                                                              .pushReplacement(
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              StartScreen()));
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            5,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width /
-                                                            9,
-                                                    child: ElevatedButton(
-                                                      child: const Text(
-                                                        'No',
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 18,
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              9,
+                                                      child: ElevatedButton(
+                                                        child: const Text(
+                                                          'No',
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                          ),
                                                         ),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              Color(0xFF9AD6BD),
+                                                          shape:
+                                                              const StadiumBorder(),
+                                                        ),
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
                                                       ),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        primary:
-                                                            Color(0xFF9AD6BD),
-                                                        shape:
-                                                            const StadiumBorder(),
-                                                      ),
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                    },
-                                  ),
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(height: 40),
-                            ],
+                                const SizedBox(height: 40),
+                              ],
+                            ),
+                          );
+                        },
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(25),
                           ),
-                        );
-                      },
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
                         ),
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                    );
-                  });
-                },
-                
+                        clipBehavior: Clip.hardEdge,
+                      );
+                    });
+                  },
+                ),
+                label: '',
               ),
-              label: '',
-            ),
             ],
             BottomNavigationBarItem(
               icon: SizedBox(
                 height: 35,
                 width: 35,
-                child: Image.asset(
-                  'assets/images/key.png',
-                  fit: BoxFit.cover,
-                  color: currentIndex == 1 && haslocker != ""
-                      ? Colors.blue
-                      : Colors.grey[800],
-                  alignment: Alignment.center,
-                ),
+                child: dohave
+                    ? Image.asset(
+                        'assets/images/key.png',
+                        fit: BoxFit.cover,
+                        color: currentIndex == 1 && haslocker != ""
+                            ? Colors.blue
+                            : Colors.grey[800],
+                        alignment: Alignment.center,
+                      )
+                    : Image.asset(
+                        'assets/images/key.png',
+                        fit: BoxFit.cover,
+                        color: currentIndex == 1 && haslocker != ""
+                            ? Color.fromARGB(255, 162, 162, 162)
+                            : Color.fromARGB(255, 162, 162, 162),
+                        alignment: Alignment.center,
+                      ),
               ),
               label: '',
             ),
@@ -582,6 +611,7 @@ Map<String, dynamic> userData = {};
           selectedItemColor: Colors.blue,
           currentIndex: currentIndex,
           onTap: (int index) {
+            print("object");
             setState(() {
               currentIndex = index;
             });

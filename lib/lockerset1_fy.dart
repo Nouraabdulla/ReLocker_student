@@ -6,46 +6,43 @@ import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'calc_pay_page.dart';
 import 'controller_view_screen.dart';
-import 'home_view.dart';
-import 'main.dart';
 
 int Rendifference = 0;
 int Resdifference = 0;
-String fg1size = "";
-String fg2size = "";
-String fg3size = "";
-String fg4size = "";
-String fg5size = "";
-String fg6size = "";
-String fg7size = "";
-String fg8size = "";
-String fg9size = "";
-String fg10size = "";
-String fg11size = "";
-String fg12size = "";
-String fg13size = "";
-String fg14size = "";
-String fg15size = "";
-String fg16size = "";
+String fy1size = "";
+String fy2size = "";
+String fy3size = "";
+String fy4size = "";
+String fy5size = "";
+String fy6size = "";
+String fy7size = "";
+String fy8size = "";
+String fy9size = "";
+String fy10size = "";
+String fy11size = "";
+String fy12size = "";
+String fy13size = "";
+String fy14size = "";
+String fy15size = "";
+String fy16size = "";
 
 Color w = Color.fromARGB(255, 255, 255, 255);
 Color g = Color(0xFFA1E2C9);
 Color b = Color.fromARGB(255, 10, 10, 10);
 
-class lockerset1_fg extends StatefulWidget {
+class lockerset1_fy extends StatefulWidget {
   final int numberOfWeek;
   final String resId;
   final String startDate;
   final String endDate;
   final String? from;
 
-  lockerset1_fg(
+  lockerset1_fy(
       {Key? key,
       required this.numberOfWeek,
       required this.resId,
@@ -55,10 +52,10 @@ class lockerset1_fg extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<lockerset1_fg> createState() => _lockerset1_fgState();
+  State<lockerset1_fy> createState() => _lockerset1_fyState();
 }
 
-class _lockerset1_fgState extends State<lockerset1_fg> {
+class _lockerset1_fyState extends State<lockerset1_fy> {
   String mySvg1(color) {
     return '<svg viewBox="249.0 618.1 79.0 122.4" ><path transform="translate(-2194.52, 743.73)" d="M 2522.52490234375 -3.299476623535156 C 2521.978515625 -27.48745727539062 2522.08837890625 -3.299476623535156 2522.08837890625 -3.299476623535156 L 2522.08837890625 -125.671630859375 C 2522.08837890625 -125.671630859375 2443.545166015625 -125.671630859375 2443.545166015625 -125.671630859375 L 2443.545166015625 -52.18785095214844 L 2484.196044921875 -52.18785095214844 L 2484.196044921875 -3.299476623535156 L 2522.52490234375 -3.299476623535156 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
   }
@@ -204,6 +201,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                         widget.numberOfWeek;
                                                   }
                                                 }
+
                                                 var rng = new Random();
                                                 var code =
                                                     rng.nextInt(9000) + 1000;
@@ -214,268 +212,13 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                 String startDate =
                                                     widget.startDate;
                                                 String endDate = widget.endDate;
-                                                //////////////////////////////////////
-                                                User? user = FirebaseAuth
-                                                    .instance.currentUser;
-                                                int semester = 0;
-                                                //  DateTime enddate = DateFormat("yyyy-MM-dd").parse("2022-05-04");
 
-                                                // to get semester
-                                                final DocumentSnapshot doc =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('semester')
-                                                        .doc("semester1")
-                                                        .get();
-                                                String startdate1 =
-                                                    doc['start'];
-                                                String endDate1 = doc['end'];
-                                                final DocumentSnapshot doc2 =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('semester')
-                                                        .doc("semester2")
-                                                        .get();
-                                                String startdate2 =
-                                                    doc['start'];
-                                                String endDate2 = doc['end'];
-//to know which semester dates to send
-                                                if (DateTime.now().isAfter(
-                                                        DateTime.parse(
-                                                            startdate1)) &&
-                                                    DateTime.now().isBefore(
-                                                        DateTime.parse(
-                                                            endDate1))) {
-                                                  semester = 1;
-                                                } else if (DateTime.now()
-                                                        .isAfter(DateTime.parse(
-                                                            startdate2)) &&
-                                                    DateTime.now().isBefore(
-                                                        DateTime.parse(
-                                                            endDate2))) {
-                                                  semester = 2;
-                                                }
-
-                                                await FirebaseFirestore.instance
-                                                    .collection("Reservation")
-                                                    .doc(
-                                                        "${FirebaseAuth.instance.currentUser!.uid}")
-                                                    .set({
-                                                  //store reservation info in database
-                                                  "Owner": "${user!.email}",
-                                                  "End Date": endDate,
-                                                  "Start Date": startDate,
-                                                  "user_id":
-                                                      "${FirebaseAuth.instance.currentUser!.uid}",
-                                                  "locker_name": lockername,
-                                                  "Price": total,
-                                                  "typeLocker": locker_type,
-                                                  // "priceOneWeek": priceOneWeek, //another way
-                                                  "priceOneWeek":
-                                                      (locker_type == 'f' &&
-                                                              locker_size ==
-                                                                  's')
-                                                          ? 15
-                                                          : (locker_type ==
-                                                                      'f' &&
-                                                                  locker_size ==
-                                                                      'l')
-                                                              ? 25
-                                                              : '',
-                                                  "semester": semester,
-                                                });
-
-                                                await FirebaseFirestore.instance
-                                                    .collection("Users")
-                                                    .where("user_id",
-                                                        isEqualTo:
-                                                            "${FirebaseAuth.instance.currentUser!.uid}")
-                                                    .limit(1)
-                                                    .get()
-                                                    .then((v) {
-                                                  v.docs.forEach((el) {
-                                                    FirebaseFirestore.instance
-                                                        .collection("Users")
-                                                        .doc("${el.id}")
-                                                        .update({
-                                                      "reservedlocker":
-                                                          "${lockername}"
-                                                    });
-                                                  });
-                                                });
-                                                await FirebaseFirestore.instance
-                                                    .collection("lockers")
-                                                    .where("name",
-                                                        isEqualTo:
-                                                            "${lockername}")
-                                                    .limit(1)
-                                                    .get()
-                                                    .then((v) {
-                                                  v.docs.forEach((el) {
-                                                    FirebaseFirestore.instance
-                                                        .collection("lockers")
-                                                        .doc("${el.id}")
-                                                        .update(
-                                                            {"pin": "${code}"});
-                                                  });
-                                                });
-
-                                                // change availablity
-
-                                                Resdifference =
-                                                    DateTime.parse(endDate)
-                                                        .difference(
-                                                            DateTime.parse(
-                                                                startDate))
-                                                        .inSeconds;
-
-                                                Rendifference =
-                                                    DateTime.parse(endDate)
-                                                            .difference(
-                                                                DateTime.parse(
-                                                                    startDate))
-                                                            .inSeconds +
-                                                        1;
-
-                                                Future.delayed(
-                                                    Duration(
-                                                        seconds: Resdifference),
-                                                    () async {
-                                                  final DocumentSnapshot doc =
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection('Users')
-                                                          .doc(
-                                                              "${FirebaseAuth.instance.currentUser!.uid}")
-                                                          .get();
-                                                  String locker =
-                                                      doc['reservedlocker'];
-
-                                                  print(locker);
-                                                  if (locker != "") {
-                                                    final DocumentSnapshot doc =
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection('Users')
-                                                            .doc(
-                                                                "${FirebaseAuth.instance.currentUser!.uid}")
-                                                            .get();
-                                                    String locker =
-                                                        doc['reservedlocker'];
-                                                    print(locker);
-
-                                                    final DocumentSnapshot
-                                                        doc2 =
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'Reservation')
-                                                            .doc(
-                                                                "${FirebaseAuth.instance.currentUser!.uid}")
-                                                            .get();
-                                                    // DateTime date = doc2['End Date'].toDate();
-                                                    DateTime date =
-                                                        DateTime.parse(
-                                                            doc2['End Date']);
-                                                    // print(date);
-
-//
-                                                    if (true) {
-                                                      var rng = new Random();
-                                                      var code =
-                                                          rng.nextInt(9000) +
-                                                              1000;
-                                                      final DocumentSnapshot
-                                                          doc =
-                                                          await FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "Reservation")
-                                                              .doc(
-                                                                  "${FirebaseAuth.instance.currentUser!.uid}")
-                                                              .get();
-                                                      String lname =
-                                                          doc['locker_name'];
-                                                      print(lname);
-
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection("lockers")
-                                                          .where("name",
-                                                              isEqualTo:
-                                                                  "${lname}")
-                                                          .limit(1)
-                                                          .get()
-                                                          .then((v) {
-                                                        v.docs.forEach((el) {
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "lockers")
-                                                              .doc("${lname}")
-                                                              .update({
-                                                            "available": true,
-                                                          });
-                                                        });
-                                                      });
-
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection("Users")
-                                                          .where("user_id",
-                                                              isEqualTo:
-                                                                  "${FirebaseAuth.instance.currentUser!.uid}")
-                                                          .limit(1)
-                                                          .get()
-                                                          .then((v) {
-                                                        v.docs.forEach((el) {
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "Users")
-                                                              .doc("${lname}")
-                                                              .update({
-                                                            "reservedlocker":
-                                                                "",
-                                                          });
-                                                        });
-                                                      });
-                                                      await FirebaseFirestore
-                                                          .instance
-                                                          .collection("lockers")
-                                                          .where("name",
-                                                              isEqualTo:
-                                                                  "${lockername}")
-                                                          .limit(1)
-                                                          .get()
-                                                          .then((v) {
-                                                        v.docs.forEach((el) {
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "lockers")
-                                                              .doc("${el.id}")
-                                                              .update({
-                                                            "pin": "${code}"
-                                                          });
-                                                        });
-                                                      });
-                                                    }
-
-//Now use If/Else statement to know, if the current time is same as/or after the
-//time set for trigger, then trigger the event,
-
-                                                  }
-                                                });
-
-                                                //////////////////////////////////////////
                                                 Navigator.of(context).push(
-                                                    //push to reservaion details page
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             ReservationDetails(
                                                                 priceOneWeek:
-                                                                    fslp,
+                                                                    rslp,
                                                                 typelocker:
                                                                     locker_type,
                                                                 lockerSize:
@@ -488,8 +231,8 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                                     .resId,
                                                                 totalPrice:
                                                                     total,
-                                                                lockerName: data[
-                                                                    'name'])));
+                                                                lockerName:
+                                                                    lockername)));
                                               }
                                             : () {},
                                         child: Container(
@@ -589,7 +332,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                           builder: (context) =>
                                                               ReservationDetails(
                                                                   priceOneWeek:
-                                                                      fllp,
+                                                                      rllp,
                                                                   typelocker:
                                                                       locker_type,
                                                                   lockerSize:
@@ -690,7 +433,7 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                                                           builder: (context) =>
                                                               ReservationDetails(
                                                                   priceOneWeek:
-                                                                      fllp,
+                                                                      rllp,
                                                                   typelocker:
                                                                       locker_type,
                                                                   lockerSize:
@@ -750,26 +493,26 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
   checkAvailableblockes() async {
     final DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('zones')
-        .doc("fgzone") //zone
+        .doc("fyzone") //zone
         .get();
 
     setState(() {
-      fg1size = doc['fg1size'];
-      fg2size = doc['fg2size'];
-      fg3size = doc['fg3size'];
-      fg4size = doc['fg4size'];
-      fg5size = doc['fg5size'];
-      fg6size = doc['fg6size'];
-      fg7size = doc['fg7size'];
-      fg8size = doc['fg8size'];
-      fg9size = doc['fg9size'];
-      fg10size = doc['fg10size'];
-      fg11size = doc['fg11size'];
-      fg12size = doc['fg12size'];
-      fg13size = doc['fg13size'];
-      fg14size = doc['fg14size'];
-      fg15size = doc['fg15size'];
-      fg16size = doc['fg16size'];
+      fy1size = doc['fy1size'];
+      fy2size = doc['fy2size'];
+      fy3size = doc['fy3size'];
+      fy4size = doc['fy4size'];
+      fy5size = doc['fy5size'];
+      fy6size = doc['fy6size'];
+      fy7size = doc['fy7size'];
+      fy8size = doc['fy8size'];
+      fy9size = doc['fy9size'];
+      fy10size = doc['fy10size'];
+      fy11size = doc['fy11size'];
+      fy12size = doc['fy12size'];
+      fy13size = doc['fy13size'];
+      fy14size = doc['fy14size'];
+      fy15size = doc['fy15size'];
+      fy16size = doc['fy16size'];
 
       //اكمل باقي البلوكس لهذا الزون
     });
@@ -804,277 +547,41 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                     builder: (context) => ControllerViewScreen()));
               },
               child: Text("Cancle", style: TextStyle(color: Colors.black)))
-        ], /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
+        ],
       ),
       body: Stack(
         children: <Widget>[
-          Container(),
           Pinned.fromPins(
-            Pin(size: 328.0, middle: 0.4762),
-            Pin(start: 103.0, end: 0.5),
+            Pin(size: 323.0, middle: 0.5618),
+            Pin(start: 109.0, end: 0.0),
             child: Scrollbar(
               child: SingleChildScrollView(
                 child: SizedBox(
-                  width: 328.0,
+                  width: 323.0,
                   height: 800.0,
                   child: Stack(
                     children: <Widget>[
-                      //-------------------------- map -------------
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 29.0, start: 137), // exit
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff7dd871),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 85.0, middle: 0.6134),
-                        Pin(size: 50.0, start: 260.5), // 38
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 95.0, start: 1.0), // 27
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 50.0, start: 165.5), //36
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 51.0, start: 215), //37
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 155.0, start: 265.5), //49
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 103.0, end: 29.0),
-                        Pin(size: 79.0, start: 01.0), //25
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 98.0, middle: 0.4416),
-                        Pin(size: 79.0, start: 01.0), //26
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 5.0, middle: 0.4591),
-                        Pin(size: 63.0, start: 358), // wall next to stairs
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 67.0, start: 35.0),
-                        Pin(size: 16.0, start: 330),
-                        child: Text(
-                          '6F49',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 67.0, start: 36.0),
-                        Pin(size: 16.0, start: 232),
-                        child: Text(
-                          '6F37',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 67.0, start: 36.0),
-                        Pin(size: 16.0, start: 185),
-                        child: Text(
-                          '6F36',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 53.0, start: 42.0),
-                        Pin(size: 16.0, start: 35.0),
-                        child: Text(
-                          '6F27',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 53.0, middle: 0.4593),
-                        Pin(size: 16.0, start: 35.0),
-                        child: Text(
-                          '6F26',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 53.0, middle: 0.8185),
-                        Pin(size: 16.0, start: 35.0),
-                        child: Text(
-                          '6F25',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 53.0, middle: 0.6074),
-                        Pin(size: 16.0, start: 278),
-                        child: Text(
-                          '6F38',
-                          style: TextStyle(
-                            fontFamily: 'Helvetica Neue',
-                            fontSize: 14,
-                            color: const Color(0xff1c0000),
-                            height: 3.142857142857143,
-                          ),
-                          textHeightBehavior: TextHeightBehavior(
-                              applyHeightToFirstAscent: false),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 27.0, middle: 0.7804),
-                        Pin(size: 8.0, start: 190), // between stairs2 bases
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
+                      // ------------------- map -------------------------
 
                       Pinned.fromPins(
-                        Pin(size: 85.0, middle: 0.6134),
-                        Pin(size: 92.0, start: 169), //35
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
+                        Pin(size: 152.7, start: 24.1),
+                        Pin(size: 218.1, start: 86), // middle area
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
                           ),
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 150.0, end: 29.0),
-                        Pin(size: 60.0, start: 110), //above 35
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 53.0, middle: 0.6074),
-                        Pin(size: 16.0, start: 210),
+                        Pin(size: 53.0, start: 110.3),
+                        Pin(size: 16.0, start: 200), // 6G02
                         child: Text(
-                          '6F35',
+                          '6G02',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
@@ -1087,35 +594,341 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 26.7, middle: 0.7796),
-                        Pin(size: 1.0, start: 192), // stairs2 line
+                        Pin(size: 53.0, start: 39.9),
+                        Pin(size: 16.0, start: 100), // 6G01
+                        child: Text(
+                          '6G01',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 96.8, start: 24.1),
+                        Pin(size: 74.9, start: 328), // 6G03 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc51f),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 53.0, start: 43.1),
+                        Pin(size: 16.0, start: 360), // 6G03
+                        child: Text(
+                          '6G03',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 77.1, start: 23.3),
+                        Pin(size: 57.4, start: 180), // white
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            border: Border.all(
+                                width: 0.3,
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 47.1, start: 24.3),
+                        Pin(size: 27.4, start: 276), // stairs base
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xffe4e4e4),
+                            border: Border.all(
+                                width: 0.3, color: const Color(0xff1c0000)),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 49.0),
+                        Pin(size: 27.1, start: 276), // stairs line
                         child: SvgPicture.string(
-                          _svg_co67m9,
+                          _svg_keikg,
                           allowDrawingOutsideViewBox: true,
                           fit: BoxFit.fill,
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 26.7, middle: 0.7796),
-                        Pin(size: 1.0, start: 194), // stairs2 line
+                        Pin(size: 1.0, start: 44.3),
+                        Pin(size: 27.1, start: 276), // stairs line
                         child: SvgPicture.string(
-                          _svg_zan6zu,
+                          _svg_xhp1c,
                           allowDrawingOutsideViewBox: true,
                           fit: BoxFit.fill,
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 27.0, middle: 0.7804),
-                        Pin(size: 1.0, start: 195), // stairs2 line
+                        Pin(size: 1.0, start: 39.6),
+                        Pin(size: 27.1, start: 276), // stairs line
                         child: SvgPicture.string(
-                          _svg_so97s,
+                          _svg_bj8reo,
                           allowDrawingOutsideViewBox: true,
                           fit: BoxFit.fill,
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 51.0, start: 43.0),
-                        Pin(size: 14.0, start: 145),
+                        Pin(size: 1.0, start: 34.9),
+                        Pin(size: 27.1, start: 276), // stairs line
+                        child: SvgPicture.string(
+                          _svg_dwbxvk,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 26.8),
+                        Pin(size: 27.1, start: 276), // stairs line
+                        child: SvgPicture.string(
+                          _svg_dw3n40,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 30.9),
+                        Pin(size: 27.1, start: 276), // stairs line
+                        child: SvgPicture.string(
+                          _svg_j0qngg,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 47.1, start: 24.3),
+                        Pin(size: 13.4, start: 263), // between stairs base
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xffe4e4e4),
+                            border: Border.all(
+                                width: 0.3, color: const Color(0xff1c0000)),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 47.1, start: 24.3),
+                        Pin(size: 27.4, start: 243), // stairs base
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xffe4e4e4),
+                            border: Border.all(
+                                width: 0.3, color: const Color(0xff1c0000)),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 49.0),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_keikg,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 44.3),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_xhp1c,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 39.6),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_bj8reo,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 34.9),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_dwbxvk,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 26.8),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_dw3n40,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 1.0, start: 30.9),
+                        Pin(size: 27.1, start: 243), // stairs line
+                        child: SvgPicture.string(
+                          _svg_j0qngg,
+                          allowDrawingOutsideViewBox: true,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 59.5, start: 222), // 6g06 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 63.0, start: 160), // 6g07 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 24.7, start: 136), // exit
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xff7dd871),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 64.7, start: 72), // 6g09 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 64.3, start: 8.3), // 6g11 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 65.0, end: 39.1),
+                        Pin(size: 16.0, start: 32.5), // 6G11
+                        child: Text(
+                          '6G11',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 65.0, end: 41.0),
+                        Pin(size: 16.0, start: 100), // 6G09
+                        child: Text(
+                          '6G09',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 65.0, end: 39.9),
+                        Pin(size: 16.0, start: 185), // 6G07
+                        child: Text(
+                          '6G07',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 65.0, end: 39.9),
+                        Pin(size: 16.0, start: 245), // 6G06
+                        child: Text(
+                          '6G06',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 42.0, middle: 0.817),
+                        Pin(size: 14.0, start: 142), // Exit
                         child: Text(
                           'Exit',
                           style: TextStyle(
@@ -1129,870 +942,44 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-
                       Pinned.fromPins(
-                        Pin(size: 36.0, end: 29.0),
-                        Pin(size: 8.0, start: 190), // between stairs2
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.3, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 27.0, middle: 0.7804),
-                        Pin(size: 21.0, start: 170), // stairs2 base
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 37.0, end: 29.0),
-                        Pin(size: 21.0, start: 170), // stairs2 base with lines
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 60.6),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_ecu,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 56.8),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_ea22zy,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 52.4),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_xp5,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 48.3),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_rm3jvr,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 40.7),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_fjj2mn,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 37.7),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_g90z,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 33.7),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_haivz2,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 31.0),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_nb5hd2,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 40.7),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_fjj2mn,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 43.9),
-                        Pin(size: 20.2, start: 170), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_h9pi,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 27.0, middle: 0.7804),
-                        Pin(size: 21.0, start: 196), // stairs2 base
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 37.0, end: 29.0),
-                        Pin(size: 21.0, start: 196), // stairs2 base with line
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 60.6),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_vn1f2,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 56.8),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_aemh0,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 52.4),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_gerrt,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 48.3),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_c1muet,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 40.7),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_v3zs3l,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 37.7),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_d0gfz,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 33.7),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_wuzlg0,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 31.0),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_w5hv54,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, end: 43.9),
-                        Pin(size: 20.2, start: 196), // stairs2 line
-                        child: SvgPicture.string(
-                          _svg_ezfrg,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-
-                      // ------------------------ map ------------
-                      Pinned.fromPins(
-                        Pin(size: 85.0, middle: 0.6134),
-                        Pin(size: 49.0, start: 310), // photocopy room
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 65.0, start: 37.0),
-                        Pin(size: 41.0, start: 96), // 6F28, 6F34
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xff82b685),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 222), // lockrr1
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 29.3, start: 281), // empty class
                         child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg1size == "") {
-                              } else {
-                                showLocker(context, "fg1", fg1size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg1size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg1size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 242), // lockrr2
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg2size == "") {
-                              } else {
-                                showLocker(context, "fg2", fg2size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg2size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg2size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 262), // lockrr3
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg3size == "") {
-                              } else {
-                                showLocker(context, "fg3", fg3size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg3size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg3size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 282), // lockrr4
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg4size == "") {
-                              } else {
-                                showLocker(context, "fg4", fg4size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg4size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg4size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 302), // lockrr5
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg5size == "") {
-                              } else {
-                                showLocker(context, "fg5", fg5size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg5size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg5size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 322), // locker6
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg6size == "") {
-                              } else {
-                                showLocker(context, "fg6", fg6size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg6size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg6size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 342), // locker7
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg7size == "") {
-                              } else {
-                                showLocker(context, "fg7", fg7size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg7size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg7size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 362), // locker8
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg8size == "") {
-                              } else {
-                                showLocker(context, "fg8", fg8size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg8size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg8size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 382), // lcoker9
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg9size == "") {
-                              } else {
-                                showLocker(context, "fg9", fg9size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg9size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg9size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.3295),
-                        Pin(size: 16.0, start: 402), // locker10
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg10size == "") {
-                              } else {
-                                showLocker(context, "fg10", fg10size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg10size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg10size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.73),
-                        Pin(size: 16.0, start: 94), // lockrr11
-                        child: Transform.rotate(
-                          angle: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg11size == "") {
-                              } else {
-                                showLocker(context, "fg11", fg11size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg11size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg11size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.66),
-                        Pin(size: 16.0, start: 94), // lockrr12
-                        child: Transform.rotate(
-                          angle: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg12size == "") {
-                              } else {
-                                showLocker(context, "fg12", fg12size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg12size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg12size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.59),
-                        Pin(size: 16.0, start: 94), // lockrr13
-                        child: Transform.rotate(
-                          angle: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg13size == "") {
-                              } else {
-                                showLocker(context, "fg13", fg13size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg13size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg13size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.527),
-                        Pin(size: 16.0, start: 94), // lockrr14
-                        child: Transform.rotate(
-                          angle: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg14size == "") {
-                              } else {
-                                showLocker(context, "fg14", fg14size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg14size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg14size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.427),
-                        Pin(size: 16.0, start: 145), // lockrr15
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg15size == "") {
-                              } else {
-                                showLocker(context, "fg15", fg15size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg15size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg15size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 21.1, middle: 0.427),
-                        Pin(size: 16.0, start: 125), // lockrr16
-                        child: Transform.rotate(
-                          angle: 1.5708,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (fg16size == "") {
-                              } else {
-                                showLocker(context, "fg16", fg16size);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: fg16size == "" ? w : g,
-                                border: Border.all(
-                                    width: 0.3, color: fg16size == "" ? w : b),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 27.0, middle: 0.5524),
-                        Pin(size: 8.0, start: 368), // between stairs1 bases
-                        child: Transform.rotate(
-                          angle: 1.5708,
+                          angle: 3.1416,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: const Color(0xffe5e5e5),
+                              color: const Color(0xfffcc425),
                               border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                                  width: 0.5, color: const Color(0xff000000)),
                             ),
                           ),
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 1.0, middle: 0.548),
-                        Pin(size: 26.7, start: 358), // stairs line
-                        child: SvgPicture.string(
-                          _svg_ndxdyq,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, middle: 0.5432),
-                        Pin(size: 26.7, start: 358), // stairs line
-                        child: SvgPicture.string(
-                          _svg_inin3v,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 1.0, middle: 0.5528),
-                        Pin(size: 27.0, start: 358), // stairs line
-                        child: SvgPicture.string(
-                          _svg_if9bag,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 39.0, middle: 0.5546),
-                        Pin(size: 8.0, start: 398), // between stairs1 bases
+                        Pin(size: 68.1, end: 39.4),
+                        Pin(size: 93.1, start: 310), //6G05 class
                         child: Transform.rotate(
-                          angle: 1.5708,
+                          angle: 3.1416,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: const Color(0xffe5e5e5),
+                              color: const Color(0xfffcc425),
                               border: Border.all(
-                                  width: 0.3, color: const Color(0xff000000)),
+                                  width: 0.5, color: const Color(0xff000000)),
                             ),
                           ),
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 23.0, middle: 0.6),
-                        Pin(size: 63.0, start: 358), //stairs base1
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 385), // stairs line
-                        child: SvgPicture.string(
-                          _svg_pa14i,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 385), // stairs line
-                        child: SvgPicture.string(
-                          _svg_e9l6,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 393), // stairs line
-                        child: SvgPicture.string(
-                          _svg_feiliz,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 397), // stairs line
-                        child: SvgPicture.string(
-                          _svg_sohgwp,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 401), // stairs line
-                        child: SvgPicture.string(
-                          _svg_yxplo,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 405), // stairs line
-                        child: SvgPicture.string(
-                          _svg_x33p3l,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 409), // stairs line
-                        child: SvgPicture.string(
-                          _svg_b2nwt4,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 413), // stairs line
-                        child: SvgPicture.string(
-                          _svg_unqi3,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.6008),
-                        Pin(size: 1.0, start: 417), // stairs line
-                        child: SvgPicture.string(
-                          _svg_fdv8qi,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-
-                      Pinned.fromPins(
-                        Pin(size: 23.0, middle: 0.5033),
-                        Pin(size: 63.0, start: 358), // stairs base1
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5e5),
-                            border: Border.all(
-                                width: 0.5, color: const Color(0xff000000)),
-                          ),
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 390), // stairs line 3
-                        child: SvgPicture.string(
-                          _svg_o6swbu,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 387), // stairs line2
-                        child: SvgPicture.string(
-                          _svg_jg4lm6,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 393), // stairs line4
-                        child: SvgPicture.string(
-                          _svg_z52l8t,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 400), // stairs line6
-                        child: SvgPicture.string(
-                          _svg_ylpd,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 384), // stairs line1
-                        child: SvgPicture.string(
-                          _svg_cil5lo,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 403), // stairs line7
-                        child: SvgPicture.string(
-                          _svg_clktw9,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 411), // stairs line9
-                        child: SvgPicture.string(
-                          _svg_euye8,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 415), // stairs line10
-                        child: SvgPicture.string(
-                          _svg_bmv4p9,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5034),
-                        Pin(size: 1.0, start: 407), // stairs line8
-                        child: SvgPicture.string(
-                          _svg_z5py1a,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 22.4, middle: 0.5043),
-                        Pin(size: 1.0, start: 397), // stairs line5
-                        child: SvgPicture.string(
-                          _svg_kp61nv,
-                          allowDrawingOutsideViewBox: true,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Pinned.fromPins(
-                        Pin(size: 80.0, middle: 0.6132),
-                        Pin(size: 36.0, start: 317),
+                        Pin(size: 65.0, end: 39.1),
+                        Pin(size: 16.0, start: 350), //6G05
                         child: Text(
-                          'Photocopy room',
+                          '6G05',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
                             color: const Color(0xff1c0000),
-                            height: 1.4285714285714286,
+                            height: 3.142857142857143,
                           ),
                           textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false),
@@ -2000,19 +987,346 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
                         ),
                       ),
                       Pinned.fromPins(
-                        Pin(size: 80.0, start: 30.0),
-                        Pin(size: 36.0, start: 100),
+                        Pin(size: 55.4, middle: 0.4515),
+                        Pin(size: 78.6, start: 8.3), //6G10 class
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc425),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 53.0, middle: 0.4582),
+                        Pin(size: 16.0, start: 45.0), //6G10
                         child: Text(
-                          '6F28\n6F34',
+                          '6G10',
                           style: TextStyle(
                             fontFamily: 'Helvetica Neue',
                             fontSize: 14,
                             color: const Color(0xff1c0000),
-                            height: 1.4285714285714286,
+                            height: 3.142857142857143,
                           ),
                           textHeightBehavior: TextHeightBehavior(
                               applyHeightToFirstAscent: false),
                           textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 94.7, middle: 0.5291),
+                        Pin(size: 75.1, start: 328), // 6G04 calss
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xfffcc51f),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 62.6, middle: 0.4364),
+                        Pin(size: 57.7, start: 87), //grey box
+                        child: Transform.rotate(
+                          angle: 3.1416,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xffe4e4e4),
+                              border: Border.all(
+                                  width: 0.5, color: const Color(0xff000000)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 53.0, middle: 0.5195),
+                        Pin(size: 16.0, start: 360), //6G04
+                        child: Text(
+                          '6G04',
+                          style: TextStyle(
+                            fontFamily: 'Helvetica Neue',
+                            fontSize: 14,
+                            color: const Color(0xff1c0000),
+                            height: 3.142857142857143,
+                          ),
+                          textHeightBehavior: TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+
+                      Pinned.fromPins(
+                        Pin(size: 18.0, start: 37.1),
+                        Pin(size: 24.0, start: 301), // lockr1
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fy1size == "") {
+                              } else {
+                                showLocker(context, "fy1", fy1size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fy1size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fy1size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, start: 61),
+                        Pin(size: 24.0, start: 301), // lockr 2
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fy2size == "") {
+                              } else {
+                                showLocker(context, "fy2", fy2size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fy2size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fy2size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.2764),
+                        Pin(size: 24.0, start: 301), // locker3
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fy3size == "") {
+                              } else {
+                                showLocker(context, "fy3", fy3size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fy3size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fy3size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.3747),
+                        Pin(size: 24.0, start: 301), // locker4
+                        child: Transform.rotate(
+                          angle: 1.5708,
+                          child: GestureDetector(
+                            onTap: () {
+                              if (fy4size == "") {
+                              } else {
+                                showLocker(context, "fy4", fy4size);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: fy4size == "" ? w : g,
+                                border: Border.all(
+                                    width: 0.3, color: fy4size == "" ? w : b),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 177), // locker 5
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy5size == "") {
+                            } else {
+                              showLocker(context, "fy5", fy5size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy5size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy5size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 155), // locker6
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy6size == "") {
+                            } else {
+                              showLocker(context, "fy6", fy6size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy6size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy6size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 123), // lockr7
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy7size == "") {
+                            } else {
+                              showLocker(context, "fy7", fy7size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy7size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy7size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 100), // lockr8
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy8size == "") {
+                            } else {
+                              showLocker(context, "fy8", fy8size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy8size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy8size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 220), // locker9
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy9size == "") {
+                            } else {
+                              showLocker(context, "fy9", fy9size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy9size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy9size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 240), // locker10
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy10size == "") {
+                            } else {
+                              showLocker(context, "fy10", fy10size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy10size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy10size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 260), // locker11
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy11size == "") {
+                            } else {
+                              showLocker(context, "fy11", fy11size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy11size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy11size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 47), // lockr12
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy12size == "") {
+                            } else {
+                              showLocker(context, "fy12", fy12size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy12size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy12size == "" ? w : b),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Pinned.fromPins(
+                        Pin(size: 18.0, middle: 0.5794),
+                        Pin(size: 24.0, start: 25), // lockr13
+
+                        child: GestureDetector(
+                          onTap: () {
+                            if (fy13size == "") {
+                            } else {
+                              showLocker(context, "fy13", fy13size);
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: fy13size == "" ? w : g,
+                              border: Border.all(
+                                  width: 0.3, color: fy13size == "" ? w : b),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -2026,6 +1340,21 @@ class _lockerset1_fgState extends State<lockerset1_fg> {
     );
   }
 }
+
+const String _svg_keikg =
+    '<svg viewBox="49.0 266.8 1.0 27.1" ><path transform="translate(49.0, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_xhp1c =
+    '<svg viewBox="44.3 266.8 1.0 27.1" ><path transform="translate(44.3, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_bj8reo =
+    '<svg viewBox="39.6 266.8 1.0 27.1" ><path transform="translate(39.6, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_dwbxvk =
+    '<svg viewBox="34.9 266.8 1.0 27.1" ><path transform="translate(34.9, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_dw3n40 =
+    '<svg viewBox="26.8 266.8 1.0 27.1" ><path transform="translate(26.8, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_j0qngg =
+    '<svg viewBox="30.9 266.8 1.0 27.1" ><path transform="translate(30.9, 266.84)" d="M 0 0 L 0 27.1439208984375" fill="none" stroke="#1c0000" stroke-width="0.30000001192092896" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
+const String _svg_xekqzk =
+    '<svg viewBox="70.9 266.5 1.0 119.0" ><path transform="translate(70.91, 266.5)" d="M 0 0 L 0 119" fill="none" stroke="#1c0000" stroke-width="0.5" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
 
 const String _svg_jx3xp =
     '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="none" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
