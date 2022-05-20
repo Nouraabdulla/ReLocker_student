@@ -582,7 +582,33 @@ class _lockerset1_gplState extends State<lockerset1_gpl> {
       ),
       body: Stack(
         children: <Widget>[
-          Container(),
+          Pinned.fromPins(
+            Pin(size: 23.1, middle: 0.2295),
+            Pin(size: 16.0, start: 50), // lockrr5
+            child: Transform.rotate(
+              angle: 1.5708,
+              child: GestureDetector(
+                onTap: () {
+                  // showLocker(context, "fg5", "l");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xff88d8bb),
+                    border:
+                        Border.all(width: 0.3, color: const Color(0xff000000)),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Pinned.fromPins(
+            Pin(size: 200.1, middle: 0.6295),
+            Pin(size: 20.0, start: 50),
+            child: Text('Represents a set of lockers',
+                style: TextStyle(
+                  fontSize: 15,
+                )),
+          ),
           Pinned.fromPins(
             Pin(size: 328.0, middle: 0.4762),
             Pin(start: 103.0, end: 0.5),

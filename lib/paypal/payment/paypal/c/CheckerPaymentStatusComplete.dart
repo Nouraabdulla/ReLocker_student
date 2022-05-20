@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:relocker_sa/Receipt.dart';
 import 'package:relocker_sa/paypal/payment/paypal/m/capture/PayPalCaptureOrderAPI.dart';
 import 'package:relocker_sa/paypal/payment/paypal/v/PaypalGenericPage.dart';
 import 'package:relocker_sa/paypal/payment/tools/ToolsPayment.dart';
@@ -76,7 +77,8 @@ extension CheckerPaymentStatusComplete on PaypalGenericState {
         "finishClassAndMakeCallback() - orderKey: " + responseCreateOrder!.id!);
 
     //dismiss page
-    Navigator.of(context).pop();
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Receipt()));
 
     //callback
     payPalCallBack!(isTransactionSuccess, "Success", responseCreateOrder!.id!);

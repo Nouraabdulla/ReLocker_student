@@ -1,24 +1,17 @@
 import 'dart:math';
-
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:intl/intl.dart';
 import 'package:relocker_sa/bloc/cubit/payment_cubit.dart';
 import 'package:relocker_sa/bloc/states/payment_states.dart';
-import 'package:relocker_sa/payment_view/add_cart.dart';
-import 'package:relocker_sa/payment_view/checkout.dart';
-import 'package:relocker_sa/payment_view/payment_method.dart';
 import 'package:relocker_sa/paypal/payment/paypal/v/PaypalGenericPage.dart';
 import 'package:relocker_sa/renewpage.dart';
 import 'package:relocker_sa/widgets/custom_button.dart';
 import 'package:relocker_sa/widgets/input_field.dart';
 import 'package:relocker_sa/widgets/relocker_logo_widget.dart';
-
 import '../controller_view_screen.dart';
 import '../home_view.dart';
 
@@ -59,6 +52,7 @@ class ReservationDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("nda - ReservationDetails - build() ");
+    this.context = context;
     return Scaffold(
       backgroundColor: const Color(0xFF89d8bb),
       appBar: AppBar(
@@ -150,172 +144,9 @@ class ReservationDetails extends StatelessWidget {
                   CustomButton(
                       text: 'Confirm',
                       color: const Color(0xFF89d8bb),
-                      onPressed: () async {
-//     FutureBuilder(
-//               future: canrenew(),
-//               builder: (context, AsyncSnapshot snapshot) {
-//                 if (snapshot.connectionState == ConnectionState.waiting) {
-//                   return Center(
-//                     child: CircularProgressIndicator(),
-//                   );
-//                 } else {
-//                   // if (rendifference2 > 0 &&
-//                   //         rendifference2 < rendifference) {
-//                   //       Notify();
-//                   //     } else {
-//                   //       print('Not run');
-//                   //     }
-//                    return Text('');
-
-//                 }
-//               },
-//             );
-
-//     // if (rendifference2 > 0 &&
-//     //     rendifference2 < rendifference) {
-//     //                         Notify();
-//     //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-//     //                             Navigator.of(context).push(
-//     //                        MaterialPageRoute(
-//     //                         builder: (context) => renew()));
-//     //                           });
-//     //                       }
-
-//         await FirebaseFirestore.instance
-//             .collection("Users")
-//             .where("user_id",
-//                 isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
-//             .limit(1)
-//             .get()
-//             .then((v) {
-//           v.docs.forEach((el) {
-//             FirebaseFirestore.instance
-//                 .collection("Users")
-//                 .doc("${el.id}")
-//                 .update({"reservedlocker": "${lockerName}"});
-//           });
-//         });
-//         await FirebaseFirestore.instance
-//             .collection("lockers")
-//             .where("name", isEqualTo: "${lockerName}")
-//             .limit(1)
-//             .get()
-//             .then((v) {
-//           v.docs.forEach((el) {
-//             FirebaseFirestore.instance
-//                 .collection("lockers")
-//                 .doc("${el.id}")
-//                 .update({"pin": "${code}"});
-//           });
-//         });
-//       }
-//       // change availablity
-
-//       Resdifference = DateTime.parse(endDate)
-//           .difference(DateTime.parse(startDate))
-//           .inSeconds;
-
-//       Rendifference = DateTime.parse(endDate)
-//               .difference(DateTime.parse(startDate))
-//               .inSeconds +
-//           1;
-
-//       Future.delayed(Duration(seconds: Resdifference), () async {
-//         final DocumentSnapshot doc = await FirebaseFirestore.instance
-//             .collection('Users')
-//             .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//             .get();
-//         String locker = doc['reservedlocker'];
-
-//         print(locker);
-//         if (locker != "") {
-//           final DocumentSnapshot doc = await FirebaseFirestore.instance
-//               .collection('Users')
-//               .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//               .get();
-//           String locker = doc['reservedlocker'];
-//           print(locker);
-
-//           final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-//               .collection('Reservation')
-//               .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//               .get();
-//           // DateTime date = doc2['End Date'].toDate();
-//           DateTime date = DateTime.parse(doc2['End Date']);
-//           // print(date);
-
-// //
-//           if (true) {
-//             var rng = new Random();
-//             var code = rng.nextInt(9000) + 1000;
-//             final DocumentSnapshot doc = await FirebaseFirestore.instance
-//                 .collection("Reservation")
-//                 .doc("${FirebaseAuth.instance.currentUser!.uid}")
-//                 .get();
-//             String lname = doc['locker_name'];
-//             print(lname);
-
-//             await FirebaseFirestore.instance
-//                 .collection("lockers")
-//                 .where("name", isEqualTo: "${lname}")
-//                 .limit(1)
-//                 .get()
-//                 .then((v) {
-//               v.docs.forEach((el) {
-//                 FirebaseFirestore.instance
-//                     .collection("lockers")
-//                     .doc("${lname}")
-//                     .update({
-//                   "available": true,
-//                 });
-//               });
-//             });
-
-//             await FirebaseFirestore.instance
-//                 .collection("Users")
-//                 .where("user_id",
-//                     isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
-//                 .limit(1)
-//                 .get()
-//                 .then((v) {
-//               v.docs.forEach((el) {
-//                 FirebaseFirestore.instance
-//                     .collection("Users")
-//                     .doc("${lname}")
-//                     .update({
-//                   "reservedlocker": "",
-//                 });
-//               });
-//             });
-//             await FirebaseFirestore.instance
-//                 .collection("lockers")
-//                 .where("name", isEqualTo: "${lockerName}")
-//                 .limit(1)
-//                 .get()
-//                 .then((v) {
-//               v.docs.forEach((el) {
-//                 FirebaseFirestore.instance
-//                     .collection("lockers")
-//                     .doc("${el.id}")
-//                     .update({"pin": "${code}"});
-//               });
-//             });
-//           }
-
-// //Now use If/Else statement to know, if the current time is same as/or after the
-// //time set for trigger, then trigger the event,
-
-//         }
-//       });
+                      onPressed: () {
                         openPagePaymentWithListener();
-                      }
-
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => AddCard(
-                      //           resId: resId,
-                      //           lockerName: lockerName,
-                      //         )));
-                      )
+                      })
                 ],
               ),
             ),
@@ -334,7 +165,6 @@ class ReservationDetails extends StatelessWidget {
   }
 
   //------------------------------------------------------------------------ payment
-
   Future openPagePaymentWithListener() async {
     var price_double = totalPrice!.toDouble();
 
@@ -382,26 +212,40 @@ class ReservationDetails extends StatelessWidget {
           semester = 2;
         }
 
-        await FirebaseFirestore.instance
-            .collection("Reservation")
-            .doc("${FirebaseAuth.instance.currentUser!.uid}")
-            .set({
-          //store reservation info in database
-          "Owner": "${user!.email}",
-          "End Date": endDate,
-          "Start Date": startDate,
-          "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-          "locker_name": lockerName,
-          "Price": totalPrice,
-          "typeLocker": typelocker,
-          // "priceOneWeek": priceOneWeek, //another way
-          "priceOneWeek": (typelocker == 'f' && lockerSize == 's')
-              ? 15
-              : (typelocker == 'f' && lockerSize == 'l')
-                  ? 25
-                  : '',
-          "semester": semester
-        });
+        if (from == "2") {
+          await FirebaseFirestore.instance
+              .collection("Reservation")
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .update({
+            //store reservation info in databas
+            "End Date": endDate,
+            "Price": totalPrice,
+            // "priceOneWeek": priceOneWeek, //another way
+            "semester": semester
+          });
+        } else {
+          await FirebaseFirestore.instance
+              .collection("Reservation")
+              .doc("${FirebaseAuth.instance.currentUser!.uid}")
+              .set({
+            //store reservation info in database
+            "Owner": "${user!.email}",
+            "End Date": endDate,
+            "Start Date": startDate,
+            "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
+            "locker_name": lockerName,
+            "Price": totalPrice,
+            "typeLocker": typelocker,
+            // "priceOneWeek": priceOneWeek, //another way
+            "priceOneWeek": (typelocker == 'f' && lockerSize == 's')
+                ? 15
+                : (typelocker == 'f' && lockerSize == 'l')
+                    ? 25
+                    : '',
+            "semester": semester
+          });
+        }
+
         canrenew() {
           startrenew = DateTime.parse(endDate).subtract(Duration(days: 3));
           rendifference =
@@ -418,26 +262,10 @@ class ReservationDetails extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else {
-              // if (rendifference2 > 0 &&
-              //         rendifference2 < rendifference) {
-              //       Notify();
-              //     } else {
-              //       print('Not run');
-              //     }
               return Text('');
             }
           },
         );
-
-        // if (rendifference2 > 0 &&
-        //     rendifference2 < rendifference) {
-        //                         Notify();
-        //                      AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-        //                             Navigator.of(context).push(
-        //                        MaterialPageRoute(
-        //                         builder: (context) => renew()));
-        //                           });
-        //                       }
 
         await FirebaseFirestore.instance
             .collection("Users")
@@ -463,12 +291,24 @@ class ReservationDetails extends StatelessWidget {
             FirebaseFirestore.instance
                 .collection("lockers")
                 .doc("${el.id}")
-                .update({"pin": "${code}"});
+                .update({"available": false});
+          });
+        });
+        await FirebaseFirestore.instance
+            .collection("lockers")
+            .where("name", isEqualTo: "${lockerName}")
+            .limit(1)
+            .get()
+            .then((v) {
+          v.docs.forEach((el) {
+            FirebaseFirestore.instance
+                .collection("lockers")
+                .doc("${el.id}")
+                .update({"maintanence": false});
           });
         });
       }
       // change availablity
-
       Resdifference = DateTime.parse(endDate)
           .difference(DateTime.parse(startDate))
           .inSeconds;
@@ -498,11 +338,8 @@ class ReservationDetails extends StatelessWidget {
               .collection('Reservation')
               .doc("${FirebaseAuth.instance.currentUser!.uid}")
               .get();
-          // DateTime date = doc2['End Date'].toDate();
           DateTime date = DateTime.parse(doc2['End Date']);
-          // print(date);
 
-//
           if (true) {
             var rng = new Random();
             var code = rng.nextInt(9000) + 1000;
@@ -559,10 +396,8 @@ class ReservationDetails extends StatelessWidget {
               });
             });
           }
-
 //Now use If/Else statement to know, if the current time is same as/or after the
 //time set for trigger, then trigger the event,
-
         }
       });
     });
@@ -571,19 +406,3 @@ class ReservationDetails extends StatelessWidget {
     Navigator.push(context, materialPageRoute);
   }
 }
-// void Notify() async{
-//   String timezom= await AwesomeNotifications().getLocalTimeZoneIdentifier();
-// await AwesomeNotifications().createNotification(
-//   content:NotificationContent(
-//     id:1,
-//     channelKey: 'key1',
-//     title: 'This is Notification title',
-//     body:'This is body of notification'
-//   ),
-//   schedule: NotificationInterval(
-//     interval: 5,
-//     timeZone: timezom,
-//     repeats: false
-//     )
-//   );
-// }

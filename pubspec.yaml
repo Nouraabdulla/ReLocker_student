@@ -38,6 +38,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   
   cupertino_icons: ^1.0.2
+  dcdg: ^4.0.1
+  flutter_elegant_number_button: ^0.0.6
+  firebase_database: ^9.0.0
   dio: ^4.0.6
   string_validator: ^0.3.0
   carousel_slider: ^4.0.0

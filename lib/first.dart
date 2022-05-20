@@ -4,6 +4,7 @@ import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:relocker_sa/editfgzone.dart';
 
+import 'controller_admin.dart';
 import 'controller_view_screen.dart';
 import 'editfozone.dart';
 import 'editfpzone.dart';
@@ -47,8 +48,13 @@ class first extends StatelessWidget {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                if (from == "2") {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => controlleradmin()));
+                } else {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ControllerViewScreen()));
+                }
               },
               child: Text("Cancle", style: TextStyle(color: Colors.black)))
         ], /* textAlign: TextAlign.center,
@@ -62,7 +68,7 @@ class first extends StatelessWidget {
         children: <Widget>[
           Pinned.fromPins(
             Pin(start: 14.0, end: -0.2),
-            Pin(size: 686.3, end: 7), // whole map
+            Pin(size: 666.3, end: 7), // whole map
             child: Scrollbar(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

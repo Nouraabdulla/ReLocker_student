@@ -1,7 +1,9 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/closed_lock.dart';
 import 'package:relocker_sa/locker_type.dart';
@@ -33,7 +35,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     dohavelocker();
-    // getUser();
     super.initState();
   }
 
@@ -99,16 +100,6 @@ class _HomeViewState extends State<HomeView> {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           }
-
-                          //    Notify();
-                          //  AwesomeNotifications().actionStream.listen((ReceivedNotification) {
-                          //         Navigator.of(context).push(
-                          //    MaterialPageRoute(
-                          //     builder: (context) => renew()));
-                          //       });
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(
-                          //         builder: (context) => locker_type()));
                         },
                       ),
                     ),
@@ -122,19 +113,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-// void Notify() async{
-//   String timezom= await AwesomeNotifications().getLocalTimeZoneIdentifier();
-// await AwesomeNotifications().createNotification(
-//   content:NotificationContent(
-//     id:1,
-//     channelKey: 'key1',
-//     title: 'This is Notification title',
-//     body:'This is body of notification'
-//   ),
-//   schedule: NotificationInterval(
-//     interval: 5,
-//     timeZone: timezom,
-//     repeats: false
-//     )
-//   );
-// }

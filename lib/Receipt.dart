@@ -33,7 +33,8 @@ class _ReceiptState extends State<Receipt> {
   getData() {
     FirebaseFirestore.instance
         .collection("Reservation")
-        .where("Owner", isEqualTo: user!.email)
+        .where("user_id",
+            isEqualTo: "${FirebaseAuth.instance.currentUser!.uid}")
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;

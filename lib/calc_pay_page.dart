@@ -27,43 +27,46 @@ class CalcPayPage extends StatefulWidget {
   @override
   _CalcPayPageState createState() => _CalcPayPageState();
 }
-String startdate1='';
-String endDate1='';
-String startdate2='';
-String endDate2='';
+
+String startdate1 = '';
+String endDate1 = '';
+String startdate2 = '';
+String endDate2 = '';
+
 class _CalcPayPageState extends State<CalcPayPage> {
   String floor = 'F';
 
   DateTime todayDate = DateFormat("yyyy-MM-dd")
-.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+      .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
-getdata() async{
-final DocumentSnapshot doc = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester1")
-                    .get();
-                 startdate1 = doc['start'];
-                 endDate1 = doc['end'];
-                final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-                    .collection('semester')
-                    .doc("semester2")
-                    .get();
-                 startdate2 = doc['start'];
-                 endDate2 = doc['end'];
-}
+  getdata() async {
+    final DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('semester')
+        .doc("semester1")
+        .get();
+    startdate1 = doc['start'];
+    endDate1 = doc['end'];
+    final DocumentSnapshot doc2 = await FirebaseFirestore.instance
+        .collection('semester')
+        .doc("semester2")
+        .get();
+    startdate2 = doc['start'];
+    endDate2 = doc['end'];
+  }
 
   TextEditingController weeksNumberCont = new TextEditingController();
   TextEditingController startDateCont = new TextEditingController();
   TextEditingController endDateCont = new TextEditingController();
 
   DateTime selectedDate = DateTime.now();
-
+  int a = 0;
   Future<void> _selectStartDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime.now(),
         lastDate: DateTime(2050));
+
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
@@ -84,8 +87,6 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
 
   @override
   Widget build(BuildContext context) {
-      
- 
     return Scaffold(
         backgroundColor: Color(0xff88d8bb),
         resizeToAvoidBottomInset: false,
@@ -224,15 +225,13 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
                 onPressed: () async {
                   if (widget.showLockers) {
                     //get which semester the reservation in
-                  
+
 //to know which semester dates to send
                     if (DateTime.parse(startDateCont.text)
                             .isAfter(DateTime.parse(startdate1)) &&
                         DateTime.parse(endDateCont.text)
-                            .isBefore(DateTime.parse(endDate1))) 
-                            
-                            {
-                              print(startDateCont.text);
+                            .isBefore(DateTime.parse(endDate1))) {
+                      print("hereeeee first semester");
 //                       await FirebaseFirestore.instance
 // .collection("ReservationDetails")
 // .add({
@@ -244,16 +243,32 @@ final DocumentSnapshot doc = await FirebaseFirestore.instance
 // "Price": ""
 // }).then((value) {
 // });
-
-Navigator.of(context).push(MaterialPageRoute(
-
-builder: (context) => first(
-numberOfWeek: int.parse(weeksNumberCont.text),
-resId: "",
-startDate: "${startDateCont.text}",
-endDate: "${endDateCont.text}",
-
-)));
+                      a = int.parse(weeksNumberCont.text);
+                      if (a < 1) {
+                        const snackBar = SnackBar(
+                          content:
+                              Text('minimum reservation duration is one week'),
+                        );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (a > 4) {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              'maximum reservation duration is four weeks'),
+                        );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => first(
+                                  numberOfWeek: int.parse(weeksNumberCont.text),
+                                  resId: "",
+                                  startDate: "${startDateCont.text}",
+                                  endDate: "${endDateCont.text}",
+                                )));
+                      }
                     } else if (DateTime.parse(startDateCont.text)
                             .isAfter(DateTime.parse(startdate2)) &&
                         DateTime.parse(endDateCont.text)
@@ -268,20 +283,34 @@ endDate: "${endDateCont.text}",
 // "locker_name": "",
 // "Price": ""
 // }).then((value) {
-Navigator.of(context).push(MaterialPageRoute(
+                      a = int.parse(weeksNumberCont.text);
 
-builder: (context) => first(
-
-numberOfWeek: int.parse(weeksNumberCont.text),
-
-resId: "",
-
-startDate: "${startDateCont.text}",
-
-endDate: "${endDateCont.text}",
-
-)));
-
+                      if (a < 1) {
+                        const snackBar = SnackBar(
+                          content:
+                              Text('minimum reservation duration is one week'),
+                        );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else if (a > 4) {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              'maximum reservation duration is four weeks'),
+                        );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      } else {
+                        print("hereeeee second check");
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => first(
+                                  numberOfWeek: int.parse(weeksNumberCont.text),
+                                  resId: "",
+                                  startDate: "${startDateCont.text}",
+                                  endDate: "${endDateCont.text}",
+                                )));
+                      }
                     } else {
                       // print("your selected days out of studing date");
                       const snackBar = SnackBar(
@@ -294,93 +323,124 @@ endDate: "${endDateCont.text}",
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                     //recommendation
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30)),
-                            child: AlertDialog(
-                              title: Text(
-                                //  "Do you want to get recommendation ?",
-                                " would you like to get recommendations to find the suitbale lockers?",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              actions: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 5,
-                                  height: MediaQuery.of(context).size.width / 9,
-                                  child: ElevatedButton(
-                                    child: const Text(
-                                      'Yes',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFF9AD6BD),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  recommendations(
-                                                    numberOfWeek: int.parse(
-                                                        weeksNumberCont.text),
-                                                    resId: "",
-                                                   startDate: "${startDateCont.text}",
-                                                   endDate: "${endDateCont.text}",
-                                                    floor: floor,
+                    a = int.parse(weeksNumberCont.text);
 
-                                                  )));
-                                    },
+                    if (a < 1) {
+                    } else if (a > 4) {
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: AlertDialog(
+                                title: Text(
+                                  //  "Do you want to get recommendation ?",
+                                  " would you like to get recommendations to find the suitbale lockers?",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
                                   ),
                                 ),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 5,
-                                  height: MediaQuery.of(context).size.width / 9,
-                                  child: ElevatedButton(
-                                    child: const Text(
-                                      'No',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
+                                actions: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 5,
+                                    height:
+                                        MediaQuery.of(context).size.width / 9,
+                                    child: ElevatedButton(
+                                      child: const Text(
+                                        'Yes',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
                                       ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFF9AD6BD),
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    recommendations(
+                                                      numberOfWeek: int.parse(
+                                                          weeksNumberCont.text),
+                                                      resId: "",
+                                                      startDate:
+                                                          "${startDateCont.text}",
+                                                      endDate:
+                                                          "${endDateCont.text}",
+                                                      floor: floor,
+                                                    )));
+                                      },
                                     ),
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xFF9AD6BD),
-                                      shape: const StadiumBorder(),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
                                   ),
-                                ),
-                              ],
-                            ),
-                          );
-                        });
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 5,
+                                    height:
+                                        MediaQuery.of(context).size.width / 9,
+                                    child: ElevatedButton(
+                                      child: const Text(
+                                        'No',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFF9AD6BD),
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    } //else
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReservationDetails(
-                              startDate: startDateCont.text,
-                              endDate: endDateCont.text,
-                              from: '2',
-                              priceOneWeek: widget.priceOneWeek,
-                              resId: '',
-                              typelocker: widget.typelocker,
-                              lockerName: widget.lockerName,
-                              totalPrice: (widget.priceOneWeek *
-                                  int.parse(weeksNumberCont.text))),
-                        ));
+                    a = int.parse(weeksNumberCont.text);
+
+                    if (a < 1) {
+                      const snackBar = SnackBar(
+                        content:
+                            Text('minimum reservation duration is one week'),
+                      );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (a > 4) {
+                      const snackBar = SnackBar(
+                        content:
+                            Text('maximum reservation duration is four weeks'),
+                      );
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ReservationDetails(
+                                startDate: startDateCont.text,
+                                endDate: endDateCont.text,
+                                from: '2',
+                                priceOneWeek: widget.priceOneWeek,
+                                resId: '',
+                                typelocker: widget.typelocker,
+                                lockerName: widget.lockerName,
+                                totalPrice: (widget.priceOneWeek *
+                                    int.parse(weeksNumberCont.text))),
+                          ));
+                    }
                   }
                 },
                 child: Text(

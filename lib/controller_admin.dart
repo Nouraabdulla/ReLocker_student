@@ -9,7 +9,6 @@ import 'package:relocker_sa/firstsemester.dart';
 import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/search_lockername.dart';
 import 'package:relocker_sa/start_screen.dart';
-import 'package:relocker_sa/support_view.dart';
 
 import 'bloc/cubit/auth_cubit.dart';
 import 'home_view.dart';

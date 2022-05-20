@@ -9,7 +9,6 @@ import 'package:relocker_sa/login_screen.dart';
 import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/recommendations.dart';
 import 'package:relocker_sa/start_screen.dart';
-import 'package:relocker_sa/support_view.dart';
 import 'package:relocker_sa/support_support.dart';
 
 import 'bloc/cubit/auth_cubit.dart';

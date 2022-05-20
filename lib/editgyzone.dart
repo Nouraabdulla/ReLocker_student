@@ -7,6 +7,7 @@ import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/payment_view/reservation_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -125,6 +126,11 @@ class _editgyzoneState extends State<editgyzone> {
                         ListTile(
                           title: Text("Not Available"),
                           leading: Icon(Icons.circle, color: Colors.grey),
+                        ),
+                        ListTile(
+                          title: Text("Under Maintenance"),
+                          leading: Icon(Icons.circle,
+                              color: Colors.redAccent.shade100),
                         )
                       ],
                     ),
@@ -268,8 +274,8 @@ class _editgyzoneState extends State<editgyzone> {
                                                                           .doc(
                                                                               "${el.id}")
                                                                           .update({
-                                                                        "status":
-                                                                            "maintanence"
+                                                                        "maintanence":
+                                                                            true
                                                                       });
                                                                     });
                                                                   });
@@ -348,8 +354,7 @@ class _editgyzoneState extends State<editgyzone> {
                                                     });
                                               }
                                             : () {
-                                                if (data['status'] ==
-                                                    "maintanence") {
+                                                if (data['maintanence']) {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
@@ -427,8 +432,8 @@ class _editgyzoneState extends State<editgyzone> {
                                                                             .doc(
                                                                                 "${el.id}")
                                                                             .update({
-                                                                          "status":
-                                                                              ""
+                                                                          "maintanence":
+                                                                              false
                                                                         });
                                                                       });
                                                                     });
@@ -509,6 +514,239 @@ class _editgyzoneState extends State<editgyzone> {
                                                           ),
                                                         );
                                                       });
+                                                } else {
+                                                  //make reserved locker under maintanance
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Container(
+                                                          clipBehavior:
+                                                              Clip.hardEdge,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          30)),
+                                                          child: AlertDialog(
+                                                            title: Text(
+                                                              "Do you want to make this locker under mentainance",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 18,
+                                                              ),
+                                                            ),
+                                                            actions: [
+                                                              SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    5,
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    9,
+                                                                child:
+                                                                    ElevatedButton(
+                                                                  child:
+                                                                      const Text(
+                                                                    'Yes',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                    ),
+                                                                  ),
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    primary: Color(
+                                                                        0xFF9AD6BD),
+                                                                    shape:
+                                                                        const StadiumBorder(),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    //delete lockers
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "lockers")
+                                                                        .where(
+                                                                            "name",
+                                                                            isEqualTo: data[
+                                                                                'name'])
+                                                                        .limit(
+                                                                            1)
+                                                                        .get()
+                                                                        .then(
+                                                                            (v) {
+                                                                      v.docs.forEach(
+                                                                          (el) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection("lockers")
+                                                                            .doc("${el.id}")
+                                                                            .update({
+                                                                          "maintanence":
+                                                                              true,
+                                                                        });
+                                                                      });
+                                                                    });
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "lockers")
+                                                                        .where(
+                                                                            "name",
+                                                                            isEqualTo: data[
+                                                                                'name'])
+                                                                        .limit(
+                                                                            1)
+                                                                        .get()
+                                                                        .then(
+                                                                            (v) {
+                                                                      v.docs.forEach(
+                                                                          (el) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection("lockers")
+                                                                            .doc("${el.id}")
+                                                                            .update({
+                                                                          "available":
+                                                                              false,
+                                                                        });
+                                                                      });
+                                                                    });
+
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "Reservation")
+                                                                        .where(
+                                                                            "locker_name",
+                                                                            isEqualTo: data[
+                                                                                'name'])
+                                                                        .limit(
+                                                                            1)
+                                                                        .get()
+                                                                        .then(
+                                                                            (v) {
+                                                                      v.docs.forEach(
+                                                                          (el) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection("Reservation")
+                                                                            .doc("${el.id}")
+                                                                            .delete();
+                                                                      });
+                                                                    });
+
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "Users")
+                                                                        .where(
+                                                                            "reservedlocker",
+                                                                            isEqualTo: data[
+                                                                                'name'])
+                                                                        .limit(
+                                                                            1)
+                                                                        .get()
+                                                                        .then(
+                                                                            (v) {
+                                                                      v.docs.forEach(
+                                                                          (el) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection("Users")
+                                                                            .doc("${el.id}")
+                                                                            .update({
+                                                                          "reservedlocker":
+                                                                              "",
+                                                                        });
+                                                                      });
+                                                                    });
+                                                                    await FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            "lockers")
+                                                                        .where(
+                                                                            "name",
+                                                                            isEqualTo:
+                                                                                "${data['name']}")
+                                                                        .limit(
+                                                                            1)
+                                                                        .get()
+                                                                        .then(
+                                                                            (v) {
+                                                                      v.docs.forEach(
+                                                                          (el) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection(
+                                                                                "lockers")
+                                                                            .doc(
+                                                                                "${el.id}")
+                                                                            .update({
+                                                                          "pin":
+                                                                              ""
+                                                                        });
+                                                                      });
+                                                                    });
+
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    5,
+                                                                height: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    9,
+                                                                child:
+                                                                    ElevatedButton(
+                                                                  child:
+                                                                      const Text(
+                                                                    'No',
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                    ),
+                                                                  ),
+                                                                  style: ElevatedButton
+                                                                      .styleFrom(
+                                                                    primary: Color(
+                                                                        0xFF9AD6BD),
+                                                                    shape:
+                                                                        const StadiumBorder(),
+                                                                  ),
+                                                                  onPressed:
+                                                                      () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      });
                                                 }
                                               },
                                         child: Container(
@@ -516,7 +754,10 @@ class _editgyzoneState extends State<editgyzone> {
                                           decoration: BoxDecoration(
                                               color: data['available']
                                                   ? Colors.green.shade200
-                                                  : Colors.grey,
+                                                  : data['maintanence']
+                                                      ? Colors
+                                                          .redAccent.shade100
+                                                      : Colors.grey,
                                               border: Border.all(
                                                   width: 1,
                                                   color: Colors.grey)),
@@ -619,7 +860,7 @@ class _editgyzoneState extends State<editgyzone> {
                                                                           v.docs
                                                                               .forEach((el) {
                                                                             FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                              "status": "maintanence"
+                                                                              "maintanence": true
                                                                             });
                                                                           });
                                                                         });
@@ -686,8 +927,8 @@ class _editgyzoneState extends State<editgyzone> {
                                                           });
                                                     }
                                                   : () {
-                                                      if (data1['status'] ==
-                                                          "maintanence") {
+                                                      if (data1[
+                                                          'maintanence']) {
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {
@@ -751,7 +992,7 @@ class _editgyzoneState extends State<editgyzone> {
                                                                               .then((v) {
                                                                             v.docs.forEach((el) {
                                                                               FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                                "status": ""
+                                                                                "maintanence": false
                                                                               });
                                                                             });
                                                                           });
@@ -812,15 +1053,185 @@ class _editgyzoneState extends State<editgyzone> {
                                                                 ),
                                                               );
                                                             });
+                                                      } else {
+                                                        //make reserved locker under maintanance
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return Container(
+                                                                clipBehavior:
+                                                                    Clip.hardEdge,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30)),
+                                                                child:
+                                                                    AlertDialog(
+                                                                  title: Text(
+                                                                    "Do you want to make this locker under mentainance",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                    ),
+                                                                  ),
+                                                                  actions: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          5,
+                                                                      height:
+                                                                          MediaQuery.of(context).size.width /
+                                                                              9,
+                                                                      child:
+                                                                          ElevatedButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          'Yes',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize:
+                                                                                18,
+                                                                          ),
+                                                                        ),
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                              Color(0xFF9AD6BD),
+                                                                          shape:
+                                                                              const StadiumBorder(),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          //delete lockers
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: data1['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "maintanence": true,
+                                                                              });
+                                                                            });
+                                                                          });
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: data1['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "available": false,
+                                                                              });
+                                                                            });
+                                                                          });
+
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("Reservation")
+                                                                              .where("locker_name", isEqualTo: data1['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("Reservation").doc("${el.id}").delete();
+                                                                            });
+                                                                          });
+
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("Users")
+                                                                              .where("reservedlocker", isEqualTo: data1['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("Users").doc("${el.id}").update({
+                                                                                "reservedlocker": "",
+                                                                              });
+                                                                            });
+                                                                          });
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: "${data1['name']}")
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "pin": ""
+                                                                              });
+                                                                            });
+                                                                          });
+
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          5,
+                                                                      height:
+                                                                          MediaQuery.of(context).size.width /
+                                                                              9,
+                                                                      child:
+                                                                          ElevatedButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          'No',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize:
+                                                                                18,
+                                                                          ),
+                                                                        ),
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                              Color(0xFF9AD6BD),
+                                                                          shape:
+                                                                              const StadiumBorder(),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            });
                                                       }
                                                     },
                                               child: Container(
                                                 child: Stack(
                                                   children: [
                                                     SvgPicture.string(
-                                                      mySvg1(data1["available"]
-                                                          ? "FFA5D6A7"
-                                                          : "FF9E9E9E"),
+                                                      mySvg1(
+                                                        data1["available"]
+                                                            ? "FFA5D6A7"
+                                                            : data1['maintanence']
+                                                                ? "FFFF8A80"
+                                                                : "FF9E9E9E",
+                                                      ),
                                                       allowDrawingOutsideViewBox:
                                                           true,
                                                       fit: BoxFit.fill,
@@ -909,7 +1320,7 @@ class _editgyzoneState extends State<editgyzone> {
                                                                           v.docs
                                                                               .forEach((el) {
                                                                             FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                              "status": "maintanence"
+                                                                              "maintanence": true
                                                                             });
                                                                           });
                                                                         });
@@ -976,8 +1387,8 @@ class _editgyzoneState extends State<editgyzone> {
                                                           });
                                                     }
                                                   : () {
-                                                      if (data2['status'] ==
-                                                          "maintanence") {
+                                                      if (data2[
+                                                          'maintanence']) {
                                                         showDialog(
                                                             context: context,
                                                             builder: (context) {
@@ -1102,6 +1513,172 @@ class _editgyzoneState extends State<editgyzone> {
                                                                 ),
                                                               );
                                                             });
+                                                      } else {
+                                                        //make reserved locker under maintanance
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return Container(
+                                                                clipBehavior:
+                                                                    Clip.hardEdge,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            30)),
+                                                                child:
+                                                                    AlertDialog(
+                                                                  title: Text(
+                                                                    "Do you want to make this locker under mentainance",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          18,
+                                                                    ),
+                                                                  ),
+                                                                  actions: [
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          5,
+                                                                      height:
+                                                                          MediaQuery.of(context).size.width /
+                                                                              9,
+                                                                      child:
+                                                                          ElevatedButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          'Yes',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize:
+                                                                                18,
+                                                                          ),
+                                                                        ),
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                              Color(0xFF9AD6BD),
+                                                                          shape:
+                                                                              const StadiumBorder(),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          //delete lockers
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: data2['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "maintanence": true,
+                                                                              });
+                                                                            });
+                                                                          });
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: data2['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "available": false,
+                                                                              });
+                                                                            });
+                                                                          });
+
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("Reservation")
+                                                                              .where("locker_name", isEqualTo: data2['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("Reservation").doc("${el.id}").delete();
+                                                                            });
+                                                                          });
+
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("Users")
+                                                                              .where("reservedlocker", isEqualTo: data2['name'])
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("Users").doc("${el.id}").update({
+                                                                                "reservedlocker": "",
+                                                                              });
+                                                                            });
+                                                                          });
+                                                                          await FirebaseFirestore
+                                                                              .instance
+                                                                              .collection("lockers")
+                                                                              .where("name", isEqualTo: "${data2['name']}")
+                                                                              .limit(1)
+                                                                              .get()
+                                                                              .then((v) {
+                                                                            v.docs.forEach((el) {
+                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
+                                                                                "pin": ""
+                                                                              });
+                                                                            });
+                                                                          });
+
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .width /
+                                                                          5,
+                                                                      height:
+                                                                          MediaQuery.of(context).size.width /
+                                                                              9,
+                                                                      child:
+                                                                          ElevatedButton(
+                                                                        child:
+                                                                            const Text(
+                                                                          'No',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize:
+                                                                                18,
+                                                                          ),
+                                                                        ),
+                                                                        style: ElevatedButton
+                                                                            .styleFrom(
+                                                                          primary:
+                                                                              Color(0xFF9AD6BD),
+                                                                          shape:
+                                                                              const StadiumBorder(),
+                                                                        ),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.of(context)
+                                                                              .pop();
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            });
                                                       }
                                                     },
                                               child: Container(
@@ -1110,7 +1687,9 @@ class _editgyzoneState extends State<editgyzone> {
                                                   SvgPicture.string(
                                                     mySvg2(data2["available"]
                                                         ? "FFA5D6A7"
-                                                        : "FF9E9E9E"),
+                                                        : data2['maintanence']
+                                                            ? "FFFF8A80"
+                                                            : "FF9E9E9E"),
                                                     allowDrawingOutsideViewBox:
                                                         true,
                                                     fit: BoxFit.fill,
@@ -1198,10 +1777,10 @@ class _editgyzoneState extends State<editgyzone> {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ControllerViewScreen()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => controlleradmin()));
               },
-              child: Text("Cancle", style: TextStyle(color: Colors.black)))
+              child: Text("Cancel", style: TextStyle(color: Colors.black)))
         ], /* textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Helvetica Neue',
