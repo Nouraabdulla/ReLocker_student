@@ -126,23 +126,6 @@ class _CalcPayPageState extends State<CalcPayPage> {
                 ),
               ),
             ),
-            /* Pinned.fromPins(
-              Pin(start: 39.0, end: 25.0),
-              Pin(size: 50.0, middle: 0.8517),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(43.0),
-                  color: const Color(0xff88d8bb),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0x29000000),
-                      offset: Offset(0, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
             Pinned.fromPins(
               Pin(size: 71.0, end: 155.0),
               Pin(size: 40.0, middle: 0.3105),
@@ -231,18 +214,6 @@ class _CalcPayPageState extends State<CalcPayPage> {
                             .isAfter(DateTime.parse(startdate1)) &&
                         DateTime.parse(endDateCont.text)
                             .isBefore(DateTime.parse(endDate1))) {
-                      print("hereeeee first semester");
-//                       await FirebaseFirestore.instance
-// .collection("ReservationDetails")
-// .add({
-// "End Date": "${endDateCont.text}",
-// "Start Date": "${startDateCont.text}",
-// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-// "locker_name": "",
-// "Price": ""
-// }).then((value) {
-// });
                       a = int.parse(weeksNumberCont.text);
                       if (a < 1) {
                         const snackBar = SnackBar(
@@ -273,16 +244,6 @@ class _CalcPayPageState extends State<CalcPayPage> {
                             .isAfter(DateTime.parse(startdate2)) &&
                         DateTime.parse(endDateCont.text)
                             .isBefore(DateTime.parse(endDate2))) {
-//                      await FirebaseFirestore.instance
-// .collection("ReservationDetails")
-// .add({
-// "End Date": "${endDateCont.text}",
-// "Start Date": "${startDateCont.text}",
-// "Owner": "${FirebaseAuth.instance.currentUser!.email}",
-// "user_id": "${FirebaseAuth.instance.currentUser!.uid}",
-// "locker_name": "",
-// "Price": ""
-// }).then((value) {
                       a = int.parse(weeksNumberCont.text);
 
                       if (a < 1) {

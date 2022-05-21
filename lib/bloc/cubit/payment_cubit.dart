@@ -29,17 +29,6 @@ class PaymentCubit extends Cubit<PaymentStates> {
         list.add(element.data());
       });
       resserv = list[0];
-      /* await lockers
-          .where('name', isEqualTo: resserv['locker_name'])
-          .get()
-          .then((value) {
-        value.docs.forEach((element) async {
-          lockerReserved = element.data();
-          lockers
-              .doc(element.reference.path.split('/')[1])
-              .update({'available': false});
-        });
-      });*/
     });
     emit(GetReservationDataState());
   }

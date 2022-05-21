@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:relocker_sa/lockerset1_fp.dart';
 import 'package:relocker_sa/lockerset1_gg.dart';
@@ -29,7 +31,7 @@ class recommendations extends StatefulWidget {
   State<recommendations> createState() => _recommendations();
 }
 
-int i = 1;
+// int i = 1;
 num g1 = 0;
 num g2 = 0;
 num g3 = 0;
@@ -42,6 +44,28 @@ List<num> number = [];
 
 class _recommendations extends State<recommendations> {
   GlobalKey<FormState> _resetFormKey = GlobalKey<FormState>();
+
+  User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> datares = {};
+  getData() async {
+    FirebaseFirestore.instance
+        .collection("recommendations")
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) async {
+        setState(() {
+          datares = element.data()!;
+        });
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // getData();
+    super.initState();
+  }
 
   String? zone = "";
   String dropdownValue = 'First';
@@ -94,43 +118,6 @@ class _recommendations extends State<recommendations> {
                                 ),
                               ),
                             ),
-                            //  Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            // children: <Widget>[
-
-                            // width: MediaQuery.of(context).size.width * 0.7,
-                            //   //  width: 280,
-                            //   padding: const EdgeInsets.symmetric(
-                            // horizontal: 12.0, vertical: 4),
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(5),
-                            //   border: Border.all(color: Colors.grey.shade500, width: 1)
-                            // ),
-                            //          child:DropdownButtonHideUnderline(
-                            //            child: DropdownButton<String>(
-                            //   value: dropdownValue,
-                            //   isExpanded: true,
-                            //   // elevation: 16,
-                            //   style: const TextStyle(color: Colors.black),
-                            //   // underline: Container(
-                            //   //   height: 2,
-                            //   //   color: Colors.deepPurpleAccent,
-                            //   // ),
-                            //   onChanged: (String? newValue) {
-                            //     setState(() {
-                            //       dropdownValue = newValue!;
-                            //     });
-                            //   },
-                            //   items: <String>['First', 'Ground']
-                            //       .map<DropdownMenuItem<String>>((String value) {
-                            //     return DropdownMenuItem<String>(
-
-                            //       value: value,
-                            //       child: Text(value),
-                            //     );
-                            //   }).toList(),
-                            // ),
-                            //                           )   ),
                             SizedBox(
                                 child: RadioListTile<int>(
                                     value: 0,
@@ -138,15 +125,6 @@ class _recommendations extends State<recommendations> {
                                     title: Text('Near to exit'),
                                     onChanged: (value) =>
                                         setState(() => selection = 0))),
-                            // secondary: const Icon(Icons.door_sliding_outlined),
-
-                            // ]
-                            // ),
-
-                            //   SizedBox(
-                            //   height: 20,
-                            // ),
-
                             SizedBox(
                                 child: RadioListTile<int>(
                                     value: 1,
@@ -155,41 +133,14 @@ class _recommendations extends State<recommendations> {
                                     onChanged: (value) => setState(
                                           () => selection = 1,
                                         ))),
-
-                            // SizedBox(
-                            //   child: TextField(
-                            //     key: _resetFormKey,
-                            //     decoration: InputDecoration(
-                            //         filled: true,
-                            //         enabledBorder: OutlineInputBorder(
-                            //           borderRadius: BorderRadius.circular(5),
-                            //           borderSide: BorderSide(
-                            //               width: 1, color: Colors.grey),
-                            //         ),
-                            //         hintText: 'Floor'),
-                            //     onChanged: (value) => floor = value,
-                            //   ),
-                            //   width: MediaQuery.of(context).size.width * 0.7,
-                            // ),
-                            // ],
-
                             if (selection == 1) ...[
                               SizedBox(
                                 child: Text(
-                                    'choose one of the set that contain your classnumber'),
+                                    'Set the number of your classes in each range'),
                               ),
-                              //     SizedBox(
-                              // child: RadioListTile<int>(
-                              //   value: 0, groupValue: selectedValue,
-                              //   title:Text('6-F-1-6-F-11'),
-                              //   onChanged: (value) => setState(()=>
-                              //   selectedValue=0)
-                              //   )
-                              //     ),
                               SizedBox(
                                 height: 20,
                               ),
-
                               SizedBox(
                                 child: ElegantNumberButton(
                                   initialValue: f1,
@@ -203,21 +154,22 @@ class _recommendations extends State<recommendations> {
                                     setState(() {
                                       f1 = value;
                                     });
+                                    FirebaseFirestore.instance
+                                        .collection('recommendations')
+                                        .doc('zone1')
+                                        .update({
+                                      "counter": f1,
+                                    }).then((result) {
+                                      print("new USer true");
+                                    }).catchError((onError) {
+                                      print("onError");
+                                    });
                                   },
                                 ),
                               ),
                               SizedBox(
-                                child: Text("6-F-1 to 6-F-11"),
+                                child: Text(" 6-F-1    to    6-F-11"),
                               ),
-
-                              //    SizedBox(
-                              // child: RadioListTile<int>(
-                              //   value: 1, groupValue: selectedValue,
-                              //   title:Text('6-F-12-6-F-21'),
-                              //   onChanged: (value) => setState(()=>
-                              //   selectedValue=1)
-                              //   )
-                              //     ),
                               SizedBox(
                                 child: ElegantNumberButton(
                                   initialValue: f2,
@@ -230,22 +182,23 @@ class _recommendations extends State<recommendations> {
                                     // get the latest value from here
                                     setState(() {
                                       f2 = value;
+                                      FirebaseFirestore.instance
+                                          .collection('recommendations')
+                                          .doc('zone2')
+                                          .update({
+                                        "counter": f2,
+                                      }).then((result) {
+                                        print("new USer true");
+                                      }).catchError((onError) {
+                                        print("onError");
+                                      });
                                     });
                                   },
                                 ),
                               ),
                               SizedBox(
-                                child: Text("6-F-12 to 6-F-21"),
+                                child: Text("6-F-12    to    6-F-21"),
                               ),
-
-                              //     SizedBox(
-                              // child: RadioListTile<int>(
-                              //   value: 2, groupValue: selectedValue,
-                              //   title:Text('6-F-25-6-F-49'),
-                              //   onChanged: (value) => setState(()=>
-                              //   selectedValue=2)
-                              //   )
-                              //     ),
                               SizedBox(
                                 child: ElegantNumberButton(
                                   initialValue: f3,
@@ -258,23 +211,23 @@ class _recommendations extends State<recommendations> {
                                     // get the latest value from here
                                     setState(() {
                                       f3 = value;
+                                      FirebaseFirestore.instance
+                                          .collection('recommendations')
+                                          .doc('zone3')
+                                          .update({
+                                        "counter": value,
+                                      }).then((result) {
+                                        print("new USer true");
+                                      }).catchError((onError) {
+                                        print("onError");
+                                      });
                                     });
                                   },
                                 ),
                               ),
                               SizedBox(
-                                child: Text("6-F-25 to 6-F-49"),
+                                child: Text("6-F-25    to    6-F-49"),
                               ),
-
-                              //     SizedBox(
-                              // child: RadioListTile<int>(
-                              //   value: 3, groupValue: selectedValue,
-                              //   title:Text('6-F-50-6-F-56'),
-                              //   onChanged: (value) => setState(()=>
-                              //   selectedValue=3)
-                              //   )
-                              //     ),
-
                               SizedBox(
                                 child: ElegantNumberButton(
                                   initialValue: f4,
@@ -288,11 +241,21 @@ class _recommendations extends State<recommendations> {
                                     setState(() {
                                       f4 = value;
                                     });
+                                    FirebaseFirestore.instance
+                                        .collection('recommendations')
+                                        .doc('zone4')
+                                        .update({
+                                      "counter": f4,
+                                    }).then((result) {
+                                      print("new USer true");
+                                    }).catchError((onError) {
+                                      print("onError");
+                                    });
                                   },
                                 ),
                               ),
                               SizedBox(
-                                child: Text("6-F-50 to 6-F-56"),
+                                child: Text("6-F-50    to    6-F-56"),
                               ),
                             ],
                             SizedBox(
@@ -314,56 +277,27 @@ class _recommendations extends State<recommendations> {
                                   shape: const StadiumBorder(),
                                 ),
                                 onPressed: () {
-                                  // green zone
-                                  // if(selectedValue==2 && selection==1){
-                                  //    Navigator.of(context)
-                                  // .pushReplacement(MaterialPageRoute(
-                                  //     builder: (context) => lockerset1_fg(
-                                  //           numberOfWeek: widget.numberOfWeek!,
-                                  //           resId: widget.resId,
-                                  //           startDate:  widget.startDate,
-                                  //           endDate:widget.endDate,
-                                  //         )));
-                                  // }
-                                  // purpole zone
-                                  // if (selectedValue==3 && selection==1){
-                                  //    Navigator.of(context)
-                                  // .pushReplacement(MaterialPageRoute(
-                                  //     builder: (context) => lockerset1_fp(
-                                  //           numberOfWeek: widget.numberOfWeek!,
-                                  //           resId: widget.resId,
-                                  //           startDate:  widget.startDate,
-                                  //           endDate:widget.endDate,
-                                  //         )));
-                                  // }
-                                  //  if (selection==0){
-                                  //    Navigator.of(context)
-                                  // .pushReplacement(MaterialPageRoute(
-                                  //     builder: (context) => lockerset1_fp(
-                                  //           numberOfWeek: widget.numberOfWeek!,
-                                  //           resId: widget.resId,
-                                  //           startDate:  widget.startDate,
-                                  //           endDate:widget.endDate,
-                                  //         )));
-                                  // }
                                   //  number.sort();
                                   number = [f1, f2, f3, f4];
-
-                                  print(number);
-
-//send to data zones with numbers fg>f1
+                                  // print(number);
 
                                   if (selection == 1) {
-                                    setState(() {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  zones_list(number: number)));
-                                    });
+                                    // setState(() {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => zones_list(
+                                                  numberOfWeek:
+                                                      widget.numberOfWeek!,
+                                                  resId: widget.resId,
+                                                  startDate: widget.startDate,
+                                                  endDate: widget.endDate,
+                                                  floor: widget.floor,
+                                                )));
+                                    // });
                                   } else {
                                     Navigator.of(context)
                                         .pushReplacement(MaterialPageRoute(
-                                            builder: (context) => lockerset1_fg(
+                                            builder: (context) => lockerset1_fp(
                                                   numberOfWeek:
                                                       widget.numberOfWeek!,
                                                   resId: widget.resId,
@@ -405,39 +339,130 @@ class _recommendations extends State<recommendations> {
                             if (selection == 1) ...[
                               SizedBox(
                                 child: Text(
-                                    'choose one of the set that contain your classnumber'),
+                                    'Set the number of your classes in each range'),
                               ),
                               SizedBox(
-                                  child: RadioListTile<int>(
-                                      value: 0,
-                                      groupValue: selectedValue,
-                                      title: Text('1-11'),
-                                      onChanged: (value) =>
-                                          setState(() => selectedValue = 0))),
+                                height: 20,
+                              ),
                               SizedBox(
-                                  child: RadioListTile<int>(
-                                      value: 1,
-                                      groupValue: selectedValue,
-                                      title: Text('12-21'),
-                                      onChanged: (value) =>
-                                          setState(() => selectedValue = 1))),
+                                child: ElegantNumberButton(
+                                  initialValue: g1,
+                                  minValue: 0,
+                                  maxValue: 10,
+                                  step: 1,
+                                  decimalPlaces: 0,
+                                  color: Colors.grey,
+                                  onChanged: (value) {
+                                    // get the latest value from here
+                                    setState(() {
+                                      g1 = value;
+                                    });
+                                    FirebaseFirestore.instance
+                                        .collection('recommendations')
+                                        .doc('zone1')
+                                        .update({
+                                      "counter": g1,
+                                    }).then((result) {
+                                      print("new USer true");
+                                    }).catchError((onError) {
+                                      print("onError");
+                                    });
+                                  },
+                                ),
+                              ),
                               SizedBox(
-                                  child: RadioListTile<int>(
-                                      value: 2,
-                                      groupValue: selectedValue,
-                                      title: Text('30-42'),
-                                      onChanged: (value) =>
-                                          setState(() => selectedValue = 2))),
+                                child: Text(" 6-G-1    to    6-G-11"),
+                              ),
                               SizedBox(
-                                  child: RadioListTile<int>(
-                                      value: 3,
-                                      groupValue: selectedValue,
-                                      title: Text('44-53'),
-                                      onChanged: (value) =>
-                                          setState(() => selectedValue = 3))),
+                                child: ElegantNumberButton(
+                                  initialValue: g2,
+                                  minValue: 0,
+                                  maxValue: 10,
+                                  step: 1,
+                                  decimalPlaces: 0,
+                                  color: Colors.grey,
+                                  onChanged: (value) {
+                                    // get the latest value from here
+                                    setState(() {
+                                      g2 = value;
+                                      FirebaseFirestore.instance
+                                          .collection('recommendations')
+                                          .doc('zone2')
+                                          .update({
+                                        "counter": g2,
+                                      }).then((result) {
+                                        print("new USer true");
+                                      }).catchError((onError) {
+                                        print("onError");
+                                      });
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                child: Text("6-G-12    to    6-G-21"),
+                              ),
+                              SizedBox(
+                                child: ElegantNumberButton(
+                                  initialValue: g3,
+                                  minValue: 0,
+                                  maxValue: 10,
+                                  step: 1,
+                                  decimalPlaces: 0,
+                                  color: Colors.grey,
+                                  onChanged: (value) {
+                                    // get the latest value from here
+                                    setState(() {
+                                      g3 = value;
+                                      FirebaseFirestore.instance
+                                          .collection('recommendations')
+                                          .doc('zone3')
+                                          .update({
+                                        "counter": value,
+                                      }).then((result) {
+                                        print("new USer true");
+                                      }).catchError((onError) {
+                                        print("onError");
+                                      });
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                child: Text("6-G-30    to    6-G-42"),
+                              ),
+                              SizedBox(
+                                child: ElegantNumberButton(
+                                  initialValue: g4,
+                                  minValue: 0,
+                                  maxValue: 10,
+                                  step: 1,
+                                  decimalPlaces: 0,
+                                  color: Colors.grey,
+                                  onChanged: (value) {
+                                    // get the latest value from here
+                                    setState(() {
+                                      g4 = value;
+                                    });
+                                    FirebaseFirestore.instance
+                                        .collection('recommendations')
+                                        .doc('zone4')
+                                        .update({
+                                      "counter": g4,
+                                    }).then((result) {
+                                      print("new USer true");
+                                    }).catchError((onError) {
+                                      print("onError");
+                                    });
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                child: Text("6-G-44    to    6-G-53"),
+                              ),
                             ],
                             SizedBox(
-                              height: 40,
+                              height: 70,
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 2.0,
@@ -455,57 +480,21 @@ class _recommendations extends State<recommendations> {
                                   shape: const StadiumBorder(),
                                 ),
                                 onPressed: () {
-                                  // green zone
-                                  if (selectedValue == 2 && selection == 1) {
+                                  if (selection == 1) {
                                     Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                            builder: (context) => lockerset1_gg(
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => zones_list(
                                                   numberOfWeek:
                                                       widget.numberOfWeek!,
                                                   resId: widget.resId,
                                                   startDate: widget.startDate,
                                                   endDate: widget.endDate,
+                                                  floor: widget.floor,
                                                 )));
-                                  }
-                                  // purpele zone
-                                  if (selectedValue == 3 && selection == 1) {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                lockerset1_gpl(
-                                                  numberOfWeek:
-                                                      widget.numberOfWeek!,
-                                                  resId: widget.resId,
-                                                  startDate: widget.startDate,
-                                                  endDate: widget.endDate,
-                                                )));
-                                  }
-                                  // orange zone
-                                  if (selectedValue == 1 && selection == 1) {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                            builder: (context) => lockerset1_go(
-                                                  numberOfWeek:
-                                                      widget.numberOfWeek!,
-                                                  resId: widget.resId,
-                                                  startDate: widget.startDate,
-                                                  endDate: widget.endDate,
-                                                )));
-                                  }
-                                  // yellow zone
-                                  if (selectedValue == 0 && selection == 1) {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                            builder: (context) => lockerset1_gy(
-                                                  numberOfWeek:
-                                                      widget.numberOfWeek!,
-                                                  resId: widget.resId,
-                                                  startDate: widget.startDate,
-                                                  endDate: widget.endDate,
-                                                )));
-                                  }
-                                  // near to exit which zone yellow or pureple
-                                  if (selection == 0) {
+                                    // });
+                                  } else {
+                                    //  // near to exit which zone yellow or pureple
+
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>

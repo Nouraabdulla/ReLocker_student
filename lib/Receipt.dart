@@ -26,7 +26,6 @@ class Receipt extends StatefulWidget {
 }
 
 class _ReceiptState extends State<Receipt> {
-  // String relockerName = '6-G-53';
   Map<String, dynamic> reseipt = {};
   User? user = FirebaseAuth.instance.currentUser;
 

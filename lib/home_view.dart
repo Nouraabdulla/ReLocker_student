@@ -28,8 +28,6 @@ class _HomeViewState extends State<HomeView> {
     setState(() {
       haslocker = doc['reservedlocker'];
     });
-
-    // print("hiiii" + haslocker);
   }
 
   @override
@@ -47,7 +45,7 @@ class _HomeViewState extends State<HomeView> {
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/homebackground.png'),
+              image: AssetImage('assets/images/homebackground1.png'),
               fit: BoxFit.cover,
             ),
           ),

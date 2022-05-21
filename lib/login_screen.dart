@@ -21,27 +21,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   User? user;
-  //  Query? _ref;
-  /*List list = [];
-  var c;
-  CollectionReference users = FirebaseFirestore.instance.collection('Users');
-  getData() async {
-    await users
-        .where('user_id', isEqualTo: 'yZYn8R8F80fTm2uVdI8vCGFkwzC3')
-        .get()
-        .then((value) async {
-      value.docs.forEach((element) {
-        list.add(element.data());
-      });
-    });
-    c = list[0];
-  }
-  @override
-  void initState() {
-    _ref = FirebaseFirestore.instance.collection('Users').orderBy('user_id');
-    super.initState();
-  }
-*/
+
   @override
   Widget build(BuildContext context) {
     AuthCubit _cubit = AuthCubit.get(context);

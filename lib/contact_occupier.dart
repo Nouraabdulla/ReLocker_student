@@ -21,14 +21,14 @@ class _contact_occupierState extends State<contact_occupier> {
   String? message = "";
 
   String? title = "";
-String? state='inprogress';
+  String? state = 'inprogress';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xffffffff),
         appBar: AppBar(
           backgroundColor: const Color(0xff88d8bb),
-          title: Text("contact_occupier"),
+          title: Text("Contact occupier"),
           centerTitle: true,
           foregroundColor: Colors.black,
           leading: IconButton(
@@ -135,7 +135,7 @@ String? state='inprogress';
                                     'message': message,
                                     'lockername': widget.lockername,
                                     'counter': i,
-                                    'state':state
+                                    'state': state
                                   });
                                   i++;
                                 }

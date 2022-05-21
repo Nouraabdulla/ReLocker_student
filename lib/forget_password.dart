@@ -136,7 +136,7 @@ class ForgetPassword extends StatelessWidget {
                     const Text(
                       'Forgot\nPassword',
                       style: TextStyle(
-                        color: Color(0xFF213569),
+                        color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 44,
                         fontWeight: FontWeight.w500,
                       ),

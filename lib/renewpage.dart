@@ -19,8 +19,6 @@ class renew extends StatefulWidget {
   _renewState createState() => _renewState();
 }
 
-// DateTime? today = DateFormat("yyyy-MM-dd").parse("2022-02-19");
-
 ////////////////////////////////////////
 
 class _renewState extends State<renew> {
@@ -39,8 +37,6 @@ class _renewState extends State<renew> {
   String userid = "";
   int semester = 0;
   int totalprice = 0;
-  String endD = "";
-  String startD = "";
   String lockerSize = "";
 
   haslocker() async {
@@ -75,58 +71,6 @@ class _renewState extends State<renew> {
     DateTime todayDate = DateFormat("yyyy-MM-dd")
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     rendifference2 = enddate.difference(todayDate).inMinutes;
-    print(typeLocker);
-    print('Start ${startLockerdate}');
-    print('End ${enddate}');
-    print('start ReNew ${startrenew}');
-    print('Time ReNew in Minutes ${rendifference}');
-    print('Time ReNew in Minutes ${rendifference2}');
-    print('Date Today ${todayDate}');
-
-    //////
-    // print(FirebaseAuth.instance.currentUser!.uid);
-    // final DocumentSnapshot doc = await FirebaseFirestore.instance
-    //     .collection('Reservation')
-    //     .doc("${FirebaseAuth.instance.currentUser!.uid}")
-    //     .get();
-    // // DateTime date = doc2['End Date'].toDate();
-    // typeLocker = doc['typeLocker'];
-    // lockerName = doc['locker_name'];
-    // priceOneWeek = doc['priceOneWeek'].toString();
-    // startLockerdate = DateFormat("yyyy-MM-dd").parse(doc['Start Date']);
-    // enddate = DateFormat("yyyy-MM-dd").parse(doc['End Date']);
-    // endD = doc['End Date'];
-    // startD = doc['Start Date'];
-    // priceOneWeek = doc["priceOneWeek"];
-    // userid = doc["user_id"];
-    // semester = doc["semester"];
-    // totalprice = doc["Price"];
-    // startrenew = enddate.subtract(Duration(days: 3));
-    // //duration that accepts renew
-    // rendifference = enddate.difference(startrenew).inMinutes;
-    // DateTime todayDate = DateFormat("yyyy-MM-dd")
-    //     .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
-    // rendifference2 = enddate.difference(todayDate).inMinutes;
-
-    // // print(typeLocker);
-    // print('Start ${startLockerdate}');
-    // print('End ${enddate}');
-    // print('start ReNew ${startrenew}');
-    // // print('Time ReNew in Minutes ${rendifference}');
-    // // print('Time ReNew in Minutes ${rendifference2}');
-    // // print('Date Today ${todayDate}');
-
-    // // final DocumentSnapshot doc2 = await FirebaseFirestore.instance
-    // //     .collection('Reservation')
-    // //     .doc("${FirebaseAuth.instance.currentUser!.uid}")
-    // //     .get();
-
-    // // print(startdate.toString());
-
-    // // if (today!.isAfter(startrenew!) && today!.isBefore(enddate!)) {
-    // //   return true;
-    // // }
-    // // return false;
   }
 
   @override
@@ -149,8 +93,20 @@ class _renewState extends State<renew> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("you can renew your reservation"),
-            Text("before three days of expiration"),
+            Text(
+              "You can renew your reservation",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              "before three days of expiration",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+              ),
+            ),
             SizedBox(
               height: 20,
             ),

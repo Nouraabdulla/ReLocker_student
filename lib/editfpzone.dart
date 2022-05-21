@@ -60,16 +60,6 @@ class _editfpzoneState extends State<editfpzone> {
     return '<svg viewBox="249.1 690.3 78.9 125.7" ><path transform="translate(-2194.24, 816.18)" d="M 2443.54541015625 -125.6716384887695 C 2443.5869140625 -123.7803497314453 2443.677490234375 -126.4785385131836 2443.54541015625 -125.6716384887695 C 2443.53173828125 -123.8471298217773 2443.54541015625 -124.5504608154297 2443.54541015625 -124.5504608154297 L 2443.980224609375 -0.175445556640625 C 2443.980224609375 -0.1754300594329834 2522.24072265625 -0.175445556640625 2522.24072265625 -0.175445556640625 L 2522.24072265625 -75.53519439697266 L 2483.88623046875 -75.53519439697266 L 2483.88623046875 -124.5504608154297 L 2443.29638671875 -124.5504608154297 L 2443.54541015625 -124.5504608154297 L 2443.54541015625 -125.6716384887695 Z" fill="#$color" stroke="#707070" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>';
   }
 
-  // setLockerAvailable() {
-  //   FirebaseFirestore.instance.collection("lockers").get().then((value) {
-  //     value.docs.forEach((element) {
-  //       FirebaseFirestore.instance
-  //           .collection("lockers")
-  //           .doc(element.id)
-  //           .update({"available": true});
-  //     });
-  //   });
-  // }
   checkAvailableLockers() {
     // setLockerAvailable();
     var today = DateTime.now();
@@ -147,34 +137,6 @@ class _editfpzoneState extends State<editfpzone> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 80.0,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       Positioned(
-                  //         top: 0,
-                  //         child: Container(
-                  //           child: SvgPicture.string(
-                  //             _svg_f2vz4y,
-                  //             allowDrawingOutsideViewBox: true,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 0,
-                  //         child: Container(
-                  //             child: SvgPicture.string(
-                  //           _svg_ct53v6,
-                  //           allowDrawingOutsideViewBox: true,
-                  //           fit: BoxFit.fill,
-                  //         )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
                     //display lockers
                     child: StreamBuilder<QuerySnapshot>(
@@ -1792,16 +1754,11 @@ class _editfpzoneState extends State<editfpzone> {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => controlleradmin()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => controlleradmin()));
               },
               child: Text("Cancel", style: TextStyle(color: Colors.black)))
-        ], /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
+        ],
       ),
       body: Stack(
         children: <Widget>[

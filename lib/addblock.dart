@@ -226,7 +226,7 @@ class _addblockState extends State<addblock> {
                   }
                 },
                 child: Text(
-                  "Next",
+                  "Add",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 19,
@@ -242,15 +242,3 @@ class _addblockState extends State<addblock> {
         ));
   }
 }
-
-
-
-
-
-//////////////
-/////           final DocumentSnapshot doc = await FirebaseFirestore.instance
-                    //     .collection('lockers')
-                    //     .doc("${FirebaseAuth.instance.currentUser!.uid}")
-                    //     .get();
-                    // String locker = doc['reservedlocker'];
-                    // print(locker);

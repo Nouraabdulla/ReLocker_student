@@ -58,12 +58,7 @@ class ground extends StatelessWidget {
                 }
               },
               child: Text("Cancel", style: TextStyle(color: Colors.black)))
-        ], /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
+        ],
       ),
       body: Stack(
         children: <Widget>[
@@ -1880,13 +1875,6 @@ class ground extends StatelessWidget {
                       Positioned(
                         child: Container(
                             child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (context) => lockerset1_gg(
-                          //             numberOfWeek: numberOfWeek!,
-                          //             resId: resId!,
-                          //           )));
-                          // },
                           onPressed: () {
                             if (from == "2") {
                               Navigator.of(context)
@@ -1894,16 +1882,6 @@ class ground extends StatelessWidget {
                                       builder: (context) => editeggzone(
                                             option: option,
                                           )));
-                              // Navigator.of(context)
-                              //     .pushReplacement(MaterialPageRoute(
-                              //         builder: (context) => lockerset1_gg(
-                              //               numberOfWeek: 0,
-                              //               resId: "",
-                              //               endDate: "",
-                              //               startDate: "",
-                              //               from: from,
-                              //               // color:"black"
-                              //             )));
                             } else {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
@@ -1924,14 +1902,6 @@ class ground extends StatelessWidget {
                         right: 50,
                         child: Container(
                             child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_go(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
-                          // },
                           onPressed: () {
                             if (from == "2") {
                               Navigator.of(context)
@@ -1939,16 +1909,6 @@ class ground extends StatelessWidget {
                                       builder: (context) => editgozone(
                                             option: option,
                                           )));
-                              // Navigator.of(context)
-                              //     .pushReplacement(MaterialPageRoute(
-                              //         builder: (context) => lockerset1_gg(
-                              //               numberOfWeek: 0,
-                              //               resId: "",
-                              //               endDate: "",
-                              //               startDate: "",
-                              //               from: from,
-                              //               // color:"black"
-                              //             )));
                             } else {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
@@ -1971,13 +1931,6 @@ class ground extends StatelessWidget {
                         bottom: 0,
                         child: Container(
                             child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_gy(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
                           // },
                           onPressed: () {
                             if (from == "2") {
@@ -1986,16 +1939,6 @@ class ground extends StatelessWidget {
                                       builder: (context) => editgyzone(
                                             option: option,
                                           )));
-                              // Navigator.of(context)
-                              //     .pushReplacement(MaterialPageRoute(
-                              //         builder: (context) => lockerset1_gg(
-                              //               numberOfWeek: 0,
-                              //               resId: "",
-                              //               endDate: "",
-                              //               startDate: "",
-                              //               from: from,
-                              //               // color:"black"
-                              //             )));
                             } else {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
@@ -2017,14 +1960,6 @@ class ground extends StatelessWidget {
                         bottom: 0,
                         child: Container(
                             child: OutlinedButton(
-                          // onPressed: () {
-                          //   Navigator.of(context)
-                          //       .pushReplacement(MaterialPageRoute(
-                          //           builder: (context) => lockerset1_gpl(
-                          //                 numberOfWeek: numberOfWeek!,
-                          //                 resId: resId!,
-                          //               )));
-                          // },
                           onPressed: () {
                             if (from == "2") {
                               Navigator.of(context)

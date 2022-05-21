@@ -27,46 +27,6 @@ class adddates extends StatefulWidget {
 }
 
 class _adddatesState extends State<adddates> {
-  // TextEditingController weeksNumberCont = new TextEditingController();
-  TextEditingController startDateCont1 = new TextEditingController();
-  TextEditingController endDateCont1 = new TextEditingController();
-
-  DateTime selectedDate = DateTime.now();
-  DateTime currentyear = DateTime(DateTime.now().year);
-
-  Future<void> _selectStartDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2050));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        startDateCont1.text = picked.toString().split(" ").first;
-      });
-  }
-
-  Future<void> _selectendDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2050));
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        endDateCont1.text = picked.toString().split(" ").first;
-      });
-  }
-
-  @override
-  void initState() {
-    startDateCont1.text = "$selectedDate".split(" ").first;
-    endDateCont1.text = "$selectedDate".split(" ").first;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +35,7 @@ class _adddatesState extends State<adddates> {
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: const Color(0xff88d8bb),
-          title: Text("update dates"),
+          title: Text("Update dates"),
           centerTitle: true,
           foregroundColor: Colors.black,
           leading: IconButton(
@@ -100,27 +60,18 @@ class _adddatesState extends State<adddates> {
                 ),
               ),
             ),
-            /* Pinned.fromPins(
-              Pin(start: 39.0, end: 25.0),
-              Pin(size: 50.0, middle: 0.8517),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(43.0),
-                  color: const Color(0xff88d8bb),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0x29000000),
-                      offset: Offset(0, 3),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-              ),
-            ),*/
+
             Pinned.fromPins(
               Pin(size: 110.0, end: 133.0),
               Pin(size: 40.0, middle: 0.3),
-              child: Text("first semester"),
+              child: Text(
+                "First Semester",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             Pinned.fromPins(
               Pin(size: 71.0, start: 100.0),
@@ -134,9 +85,16 @@ class _adddatesState extends State<adddates> {
             ),
             // sencond semester
             Pinned.fromPins(
-              Pin(size: 110.0, end: 133.0),
+              Pin(size: 128.0, end: 133.0),
               Pin(size: 40.0, middle: 0.59),
-              child: Text("second semester"),
+              child: Text(
+                "Second Semester",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             Pinned.fromPins(
               Pin(size: 71.0, start: 100.0),
@@ -169,8 +127,8 @@ class _adddatesState extends State<adddates> {
                     "end": "${widget.end1}",
                     "start": "${widget.start1}",
                   }).then((value) {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => controlleradmin()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => controlleradmin()));
                   });
                 },
                 child: Text(

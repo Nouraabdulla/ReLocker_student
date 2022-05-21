@@ -11,7 +11,6 @@ import 'package:relocker_sa/utils/bloc_observer.dart';
 import 'package:relocker_sa/utils/utils-cache_helper.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dcdg/dcdg.dart';
-
 import 'bloc/cubit/payment_cubit.dart';
 import 'login_screen.dart';
 

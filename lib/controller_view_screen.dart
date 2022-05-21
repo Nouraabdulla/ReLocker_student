@@ -125,8 +125,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
                     setState(() {
                       showModalBottomSheet(
                         context: context,
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor: Color.fromARGB(255, 255, 255, 255),
                         builder: (context) {
                           return Container(
                             child: Column(

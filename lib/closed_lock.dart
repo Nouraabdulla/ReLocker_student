@@ -112,12 +112,6 @@ class _closed_lockState extends State<closed_lock> {
     DateTime todayDate = DateFormat("yyyy-MM-dd")
         .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
     rendifference2 = enddate.difference(todayDate).inMinutes;
-    print('Start ${startLockerdate}');
-    print('End ${enddate}');
-    print('start ReNew ${startrenew}');
-    print('Time ReNew in Minutes ${rendifference}');
-    print('Time ReNew in Minutes ${rendifference2}');
-    print('Date Today ${todayDate}');
 
     if (rendifference2 > 0 && rendifference2 < rendifference) {
       Notify();
@@ -314,7 +308,6 @@ class _closed_lockState extends State<closed_lock> {
         userOtp: otpCont.text);
   }
 
-
   String lock_state = '';
   @override
   Widget build(BuildContext context) {
@@ -339,25 +332,49 @@ class _closed_lockState extends State<closed_lock> {
                         (click == true) ? Color(0xffff7272) : Color(0xff88d8bb),
                   ),
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(9.0),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => Receipt()));
-                      },
-                      icon: Icon(
-                        Icons.receipt_long_outlined,
-                        size: 40,
-                        color: Colors.black54,
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(9.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => Receipt()));
+                            },
+                            icon: Icon(
+                              Icons.receipt_long_outlined,
+                              size: 40,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 1.0,
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(9.0),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => renew()));
+                            },
+                            icon: Icon(
+                              Icons.autorenew,
+                              size: 40,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
                 Positioned(
                   child: Column(
                     children: [

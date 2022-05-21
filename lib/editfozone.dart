@@ -129,34 +129,6 @@ class _editfozoneState extends State<editfozone> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 80.0,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       Positioned(
-                  //         top: 0,
-                  //         child: Container(
-                  //           child: SvgPicture.string(
-                  //             _svg_f2vz4y,
-                  //             allowDrawingOutsideViewBox: true,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 0,
-                  //         child: Container(
-                  //             child: SvgPicture.string(
-                  //           _svg_ct53v6,
-                  //           allowDrawingOutsideViewBox: true,
-                  //           fit: BoxFit.fill,
-                  //         )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
                     //display lockers
                     child: StreamBuilder<QuerySnapshot>(
@@ -1765,8 +1737,8 @@ class _editfozoneState extends State<editfozone> {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => controlleradmin()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => controlleradmin()));
               },
               child: Text("Cancel", style: TextStyle(color: Colors.black)))
         ], /* textAlign: TextAlign.center,

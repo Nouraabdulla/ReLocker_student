@@ -13,7 +13,6 @@ class Announcements extends StatefulWidget {
 }
 
 class _Announcements extends State<Announcements> {
-  // List<dynamic> responseList = [];
   User? user = FirebaseAuth.instance.currentUser;
   Map<String, dynamic> userData = {};
   getUserData() {
@@ -120,11 +119,6 @@ class _Announcements extends State<Announcements> {
                       ]);
                     }).toList(),
                   );
-                })
-
-        //  ],
-        //  )
-        // ),
-        );
+                }));
   }
 }

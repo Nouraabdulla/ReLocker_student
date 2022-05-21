@@ -29,7 +29,7 @@ class _HomeAdmin extends State<Homeadmin> {
           height: double.infinity,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/homebackground.png'),
+              image: AssetImage('assets/images/homebackground1.png'),
               fit: BoxFit.cover,
             ),
           ),

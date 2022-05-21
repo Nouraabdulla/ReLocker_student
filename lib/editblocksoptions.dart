@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:relocker_sa/calc_pay_page.dart';
 import 'package:relocker_sa/first.dart';
 import 'package:relocker_sa/ground.dart';
-import 'package:relocker_sa/locker_Gfloor.dart';
-import 'package:relocker_sa/locker_floor.dart';
 import 'package:relocker_sa/locker_type.dart';
 import 'package:relocker_sa/profile.dart';
 import 'package:relocker_sa/recommendations.dart';
@@ -50,12 +48,6 @@ class _editblocksoptionsState extends State<editblocksoptions> {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        /* textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Helvetica Neue',
-                  fontSize: 20,
-                  color: Colors.black,
-                ))*/
       ),
       body: Stack(
         children: <Widget>[

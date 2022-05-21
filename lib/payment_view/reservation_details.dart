@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -40,14 +41,24 @@ class ReservationDetails extends StatelessWidget {
       this.endDate = "",
       this.lockerSize,
       this.from = '1'})
-      : super(key: key) {
-    // print("nda - totalPrice: " + totalPrice.toString()
-    //     + " /resId: " + resId.toString() + " /lockerName: " + lockerName.toString() );
-  }
-
-  // String relockerName = '6-G-53';
+      : super(key: key) {}
 
   late BuildContext context;
+
+  User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> datares = {};
+  getData() {
+    FirebaseFirestore.instance
+        .collection("Reservation")
+        .where("Owner", isEqualTo: user!.email)
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) async {
+        datares = element.data()!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,6 +292,7 @@ class ReservationDetails extends StatelessWidget {
                 .update({"reservedlocker": "${lockerName}"});
           });
         });
+
         await FirebaseFirestore.instance
             .collection("lockers")
             .where("name", isEqualTo: "${lockerName}")
@@ -294,6 +306,29 @@ class ReservationDetails extends StatelessWidget {
                 .update({"available": false});
           });
         });
+        FirebaseDatabase.instance
+            .ref('/${datares['locker_name']}/pin')
+            .set(code.toString())
+            .then((_) {
+          // Data saved successfully!
+        }).catchError((error) {
+          // The write failed...
+        });
+        DateTime enddate = DateFormat("yyyy-MM-dd").parse(datares['End Date']);
+        DateTime todayDate1 = DateFormat("yyyy-MM-dd")
+            .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+        if (todayDate1.isAfter(enddate)) {
+          FirebaseDatabase.instance
+              .ref('/${datares['locker_name']}/pin')
+              .set('')
+              .then((_) {
+            // Data saved successfully!
+          }).catchError((error) {
+            // The write failed...
+          });
+        }
+
         await FirebaseFirestore.instance
             .collection("lockers")
             .where("name", isEqualTo: "${lockerName}")
