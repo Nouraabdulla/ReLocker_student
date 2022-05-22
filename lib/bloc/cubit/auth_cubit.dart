@@ -18,6 +18,7 @@ class AuthCubit extends Cubit<AuthStates> {
   String? userName;
   String? phone;
   String? error;
+  String? reservedlocker = "";
 
   signUp() async {
     emit(AuthSignUpLoadingState());
@@ -31,6 +32,7 @@ class AuthCubit extends Cubit<AuthStates> {
           userId: value.user!.uid,
           email: value.user!.email,
           userName: userName,
+          reservedlocker: reservedlocker,
           phone: phone!.length == 0 ? 'unknown' : phone,
         );
         await collectionRef

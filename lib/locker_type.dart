@@ -87,7 +87,9 @@ class _locker_typeState extends State<locker_type> {
             Pin(start: 26.0, end: 20.0),
             Pin(size: 259.9, middle: 0.1013),
             child: IconButton(
-              icon: Image.asset('assets/images/regular.jpg'),
+              icon: widget.from == "2"
+                  ? Image.asset('assets/images/regularadmin.png')
+                  : Image.asset('assets/images/regularstudent.png'),
               iconSize: 50,
               onPressed: () async {
                 print('before');
@@ -285,7 +287,9 @@ class _locker_typeState extends State<locker_type> {
             Pin(start: 26.0, end: 20.0),
             Pin(size: 259.0, middle: 0.8194),
             child: IconButton(
-              icon: Image.asset('assets/images/flexible.jpg'),
+              icon: widget.from == "2"
+                  ? Image.asset('assets/images/flexibleadmin.png')
+                  : Image.asset('assets/images/flexiblestudent.png'),
               iconSize: 50,
               onPressed: () {
                 if (widget.from == "2") {

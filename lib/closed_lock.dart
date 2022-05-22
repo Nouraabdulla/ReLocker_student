@@ -491,7 +491,7 @@ class _closed_lockState extends State<closed_lock> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "code will showen withing 8 seconds",
+                    "code will showen withing 10 seconds",
                     style: TextStyle(color: Colors.red),
                   ),
                 ),

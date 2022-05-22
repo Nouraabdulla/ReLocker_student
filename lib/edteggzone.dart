@@ -1786,9 +1786,15 @@ class _editeggzoneState extends State<editeggzone> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xff88d8bb),
-                    border:
-                        Border.all(width: 0.3, color: const Color(0xff000000)),
+                    color: widget.option == "DA"
+                        ? Color.fromARGB(255, 255, 255, 255)
+                        : w,
+                    border: Border.all(
+                      width: 0.3,
+                      color: widget.option == "DA"
+                          ? Color.fromARGB(255, 255, 255, 255)
+                          : b,
+                    ), //colore changes based on add/delete not user type
                   ),
                 ),
               ),
@@ -1797,10 +1803,12 @@ class _editeggzoneState extends State<editeggzone> {
           Pinned.fromPins(
             Pin(size: 200.1, middle: 0.6295),
             Pin(size: 20.0, start: 50),
-            child: Text('Represents a set of lockers',
-                style: TextStyle(
-                  fontSize: 15,
-                )),
+            child: widget.option == "ch"
+                ? Text('Represents a set of lockers',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ))
+                : Text(""),
           ),
           Pinned.fromPins(
             Pin(size: 18, middle: 0.21),

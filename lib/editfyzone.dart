@@ -134,34 +134,6 @@ class _editfyzoneState extends State<editfyzone> {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   width: 80.0,
-                  //   height: 200,
-                  //   child: Stack(
-                  //     children: [
-                  //       Positioned(
-                  //         top: 0,
-                  //         child: Container(
-                  //           child: SvgPicture.string(
-                  //             _svg_f2vz4y,
-                  //             allowDrawingOutsideViewBox: true,
-                  //             fit: BoxFit.fill,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Positioned(
-                  //         bottom: 0,
-                  //         child: Container(
-                  //             child: SvgPicture.string(
-                  //           _svg_ct53v6,
-                  //           allowDrawingOutsideViewBox: true,
-                  //           fit: BoxFit.fill,
-                  //         )),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-
                   Expanded(
                     //display lockers
                     child: StreamBuilder<QuerySnapshot>(

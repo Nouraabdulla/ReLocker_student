@@ -425,18 +425,13 @@ class ReservationDetails extends StatelessWidget {
                 });
               });
             });
-            await FirebaseFirestore.instance
-                .collection("lockers")
-                .where("name", isEqualTo: "${lockerName}")
-                .limit(1)
-                .get()
-                .then((v) {
-              v.docs.forEach((el) {
-                FirebaseFirestore.instance
-                    .collection("lockers")
-                    .doc("${el.id}")
-                    .update({"pin": "${code}"});
-              });
+            FirebaseDatabase.instance
+                .ref('/${datares['locker_name']}/pin')
+                .set('')
+                .then((_) {
+              // Data saved successfully!
+            }).catchError((error) {
+              // The write failed...
             });
           }
 //Now use If/Else statement to know, if the current time is same as/or after the

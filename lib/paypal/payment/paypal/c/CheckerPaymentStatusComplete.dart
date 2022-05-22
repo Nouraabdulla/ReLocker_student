@@ -77,9 +77,10 @@ extension CheckerPaymentStatusComplete on PaypalGenericState {
         "finishClassAndMakeCallback() - orderKey: " + responseCreateOrder!.id!);
 
     //dismiss page
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Receipt()));
-
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => Receipt()));
+    });
     //callback
     payPalCallBack!(isTransactionSuccess, "Success", responseCreateOrder!.id!);
   }

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 import 'package:relocker_sa/contact_occupier.dart';
 import 'package:relocker_sa/controller_admin.dart';
 import 'package:relocker_sa/controller_view_screen.dart';
@@ -15,7 +17,6 @@ class search_lockername extends StatefulWidget {
 class _search_lockername extends State<search_lockername> {
   String name = "";
   final String? lockername = '';
-  Map<String, dynamic> userData = {};
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class _search_lockername extends State<search_lockername> {
               backgroundColor: const Color(0xff88d8bb),
               title: TextFormField(
                 decoration: InputDecoration(
-                  hintText: "Search for locker name",
+                  hintText: "Search for locker number",
                 ),
                 onChanged: (val) => initiateSearch(val),
               ),
@@ -94,7 +95,7 @@ class _search_lockername extends State<search_lockername> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  'LockerName: ' +
+                                                  'Locker Number: ' +
                                                       document['locker_name'],
                                                   style: const TextStyle(
                                                       fontSize: 20,
