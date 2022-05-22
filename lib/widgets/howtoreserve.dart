@@ -27,6 +27,7 @@ class _howtoreserveState extends State<howtoreserve> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0xffffffff),
         appBar: AppBar(

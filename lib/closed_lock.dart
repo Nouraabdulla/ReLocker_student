@@ -148,13 +148,13 @@ class _closed_lockState extends State<closed_lock> {
     genCodeList.clear();
     for (int i = 0; i < 4; i++) {
       if (i == 0) {
-        genCodeList.add('${code.substring(0, 1)}*');
+        genCodeList.add('${code.substring(0, 1)}***');
       } else if (i == 1) {
-        genCodeList.add('${code.substring(1, 2)}*');
+        genCodeList.add('*${code.substring(1, 2)}**');
       } else if (i == 2) {
-        genCodeList.add('*${code.substring(2, 3)}');
+        genCodeList.add('**${code.substring(2, 3)}*');
       } else if (i == 3) {
-        genCodeList.add('*${code.substring(3)}');
+        genCodeList.add('***${code.substring(3)}');
       }
     }
     genCodeList.shuffle();
@@ -166,8 +166,8 @@ class _closed_lockState extends State<closed_lock> {
 
   bool showCode = false;
   String code = "1234";
-  List<String> genCodeList = ['*', '*', '*', '*'];
-  String codeShowString = '**';
+  List<String> genCodeList = ['****', '****', '****', '****'];
+  String codeShowString = '****';
 
   late Timer timer;
   late Timer timer2;
@@ -181,12 +181,12 @@ class _closed_lockState extends State<closed_lock> {
       (Timer timer) async {
         if (start == 0) {
           setState(() {
-            codeShowString = '**';
+            codeShowString = '****';
             timer.cancel();
             start = 10;
           });
         } else if (start == 10) {
-          codeShowString = '**';
+          codeShowString = '****';
           setState(() {
             start--;
           });

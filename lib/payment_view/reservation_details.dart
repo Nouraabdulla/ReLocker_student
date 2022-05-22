@@ -303,11 +303,11 @@ class ReservationDetails extends StatelessWidget {
             FirebaseFirestore.instance
                 .collection("lockers")
                 .doc("${el.id}")
-                .update({"available": false});
+                .update({"maintanence": false});
           });
         });
         FirebaseDatabase.instance
-            .ref('/${datares['locker_name']}/pin')
+            .ref('/${lockerName}/pin')
             .set(code.toString())
             .then((_) {
           // Data saved successfully!
@@ -322,20 +322,6 @@ class ReservationDetails extends StatelessWidget {
         }).catchError((error) {
           // The write failed...
         });
-        DateTime enddate = DateFormat("yyyy-MM-dd").parse(datares['End Date']);
-        DateTime todayDate1 = DateFormat("yyyy-MM-dd")
-            .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
-
-        if (todayDate1.isAfter(enddate)) {
-          FirebaseDatabase.instance
-              .ref('/${datares['locker_name']}/pin')
-              .set('')
-              .then((_) {
-            // Data saved successfully!
-          }).catchError((error) {
-            // The write failed...
-          });
-        }
 
         await FirebaseFirestore.instance
             .collection("lockers")
@@ -347,10 +333,11 @@ class ReservationDetails extends StatelessWidget {
             FirebaseFirestore.instance
                 .collection("lockers")
                 .doc("${el.id}")
-                .update({"maintanence": false});
+                .update({"available": false});
           });
         });
       }
+
       // change availablity
       Resdifference = DateTime.parse(endDate)
           .difference(DateTime.parse(startDate))
