@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:adobe_xd/blend_mask.dart';
@@ -119,7 +120,7 @@ class _editgyzoneState extends State<editgyzone> {
                     child: Column(
                       children: [
                         Text(
-                          "select a locker to mark it as under maintenenace",
+                          "Select a locker to change its state",
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
@@ -670,32 +671,17 @@ class _editgyzoneState extends State<editgyzone> {
                                                                         });
                                                                       });
                                                                     });
-                                                                    await FirebaseFirestore
+                                                                    FirebaseDatabase
                                                                         .instance
-                                                                        .collection(
-                                                                            "lockers")
-                                                                        .where(
-                                                                            "name",
-                                                                            isEqualTo:
-                                                                                "${data['name']}")
-                                                                        .limit(
-                                                                            1)
-                                                                        .get()
+                                                                        .ref(
+                                                                            '/${data['name']}/pin')
+                                                                        .set('')
                                                                         .then(
-                                                                            (v) {
-                                                                      v.docs.forEach(
-                                                                          (el) {
-                                                                        FirebaseFirestore
-                                                                            .instance
-                                                                            .collection(
-                                                                                "lockers")
-                                                                            .doc(
-                                                                                "${el.id}")
-                                                                            .update({
-                                                                          "pin":
-                                                                              ""
-                                                                        });
-                                                                      });
+                                                                            (_) {
+                                                                      // Data saved successfully!
+                                                                    }).catchError(
+                                                                            (error) {
+                                                                      // The write failed...
                                                                     });
 
                                                                     Navigator.of(
@@ -1161,18 +1147,14 @@ class _editgyzoneState extends State<editgyzone> {
                                                                               });
                                                                             });
                                                                           });
-                                                                          await FirebaseFirestore
+                                                                          FirebaseDatabase
                                                                               .instance
-                                                                              .collection("lockers")
-                                                                              .where("name", isEqualTo: "${data1['name']}")
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then((v) {
-                                                                            v.docs.forEach((el) {
-                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                                "pin": ""
-                                                                              });
-                                                                            });
+                                                                              .ref('/${data1['name']}/pin')
+                                                                              .set('')
+                                                                              .then((_) {
+                                                                            // Data saved successfully!
+                                                                          }).catchError((error) {
+                                                                            // The write failed...
                                                                           });
 
                                                                           Navigator.of(context)
@@ -1621,18 +1603,14 @@ class _editgyzoneState extends State<editgyzone> {
                                                                               });
                                                                             });
                                                                           });
-                                                                          await FirebaseFirestore
+                                                                          FirebaseDatabase
                                                                               .instance
-                                                                              .collection("lockers")
-                                                                              .where("name", isEqualTo: "${data2['name']}")
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then((v) {
-                                                                            v.docs.forEach((el) {
-                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                                "pin": ""
-                                                                              });
-                                                                            });
+                                                                              .ref('/${data2['name']}/pin')
+                                                                              .set('')
+                                                                              .then((_) {
+                                                                            // Data saved successfully!
+                                                                          }).catchError((error) {
+                                                                            // The write failed...
                                                                           });
 
                                                                           Navigator.of(context)
@@ -1722,6 +1700,23 @@ class _editgyzoneState extends State<editgyzone> {
         });
   }
 
+  User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> datares = {};
+  getData() {
+    FirebaseFirestore.instance
+        .collection("Reservation")
+        .where("Owner", isEqualTo: user!.email)
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) async {
+        setState(() {
+          datares = element.data()!;
+        });
+      });
+    });
+  }
+
 //get new block data
   checkAvailableblockes() async {
     final DocumentSnapshot doc = await FirebaseFirestore.instance
@@ -1756,7 +1751,7 @@ class _editgyzoneState extends State<editgyzone> {
   @override
   void initState() {
     checkAvailableblockes();
-    // getUser();
+    getData();
     super.initState();
   }
 
@@ -1801,14 +1796,14 @@ class _editgyzoneState extends State<editgyzone> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: widget.option == "DA"
-                        ? Color.fromARGB(255, 255, 255, 255)
-                        : w,
+                    color: widget.option == "ch"
+                        ? w
+                        : Color.fromARGB(255, 255, 255, 255),
                     border: Border.all(
                       width: 0.3,
-                      color: widget.option == "DA"
-                          ? Color.fromARGB(255, 255, 255, 255)
-                          : b,
+                      color: widget.option == "ch"
+                          ? b
+                          : Color.fromARGB(255, 255, 255, 255),
                     ), //colore changes based on add/delete not user type
                   ),
                 ),

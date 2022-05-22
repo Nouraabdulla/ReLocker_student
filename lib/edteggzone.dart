@@ -4,6 +4,7 @@ import 'package:adobe_xd/adobe_xd.dart';
 import 'package:adobe_xd/pinned.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -125,7 +126,7 @@ class _editeggzoneState extends State<editeggzone> {
                     child: Column(
                       children: [
                         Text(
-                          "select a locker to mark it as under maintenenace",
+                          "Select a locker to change its state",
                           style: TextStyle(
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
@@ -650,32 +651,17 @@ class _editeggzoneState extends State<editeggzone> {
                                                                         });
                                                                       });
                                                                     });
-                                                                    await FirebaseFirestore
+                                                                    FirebaseDatabase
                                                                         .instance
-                                                                        .collection(
-                                                                            "lockers")
-                                                                        .where(
-                                                                            "name",
-                                                                            isEqualTo:
-                                                                                "${data['name']}")
-                                                                        .limit(
-                                                                            1)
-                                                                        .get()
+                                                                        .ref(
+                                                                            '/${data['name']}/pin')
+                                                                        .set('')
                                                                         .then(
-                                                                            (v) {
-                                                                      v.docs.forEach(
-                                                                          (el) {
-                                                                        FirebaseFirestore
-                                                                            .instance
-                                                                            .collection(
-                                                                                "lockers")
-                                                                            .doc(
-                                                                                "${el.id}")
-                                                                            .update({
-                                                                          "pin":
-                                                                              ""
-                                                                        });
-                                                                      });
+                                                                            (_) {
+                                                                      // Data saved successfully!
+                                                                    }).catchError(
+                                                                            (error) {
+                                                                      // The write failed...
                                                                     });
 
                                                                     Navigator.of(
@@ -1141,18 +1127,14 @@ class _editeggzoneState extends State<editeggzone> {
                                                                               });
                                                                             });
                                                                           });
-                                                                          await FirebaseFirestore
+                                                                          FirebaseDatabase
                                                                               .instance
-                                                                              .collection("lockers")
-                                                                              .where("name", isEqualTo: "${data1['name']}")
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then((v) {
-                                                                            v.docs.forEach((el) {
-                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                                "pin": ""
-                                                                              });
-                                                                            });
+                                                                              .ref('/${data1['name']}/pin')
+                                                                              .set('')
+                                                                              .then((_) {
+                                                                            // Data saved successfully!
+                                                                          }).catchError((error) {
+                                                                            // The write failed...
                                                                           });
 
                                                                           Navigator.of(context)
@@ -1601,18 +1583,14 @@ class _editeggzoneState extends State<editeggzone> {
                                                                               });
                                                                             });
                                                                           });
-                                                                          await FirebaseFirestore
+                                                                          FirebaseDatabase
                                                                               .instance
-                                                                              .collection("lockers")
-                                                                              .where("name", isEqualTo: "${data2['name']}")
-                                                                              .limit(1)
-                                                                              .get()
-                                                                              .then((v) {
-                                                                            v.docs.forEach((el) {
-                                                                              FirebaseFirestore.instance.collection("lockers").doc("${el.id}").update({
-                                                                                "pin": ""
-                                                                              });
-                                                                            });
+                                                                              .ref('/${data2['name']}/pin')
+                                                                              .set('')
+                                                                              .then((_) {
+                                                                            // Data saved successfully!
+                                                                          }).catchError((error) {
+                                                                            // The write failed...
                                                                           });
 
                                                                           Navigator.of(context)
@@ -1702,6 +1680,23 @@ class _editeggzoneState extends State<editeggzone> {
         });
   }
 
+  User? user = FirebaseAuth.instance.currentUser;
+  Map<String, dynamic> datares = {};
+  getData() {
+    FirebaseFirestore.instance
+        .collection("Reservation")
+        .where("Owner", isEqualTo: user!.email)
+        .get()
+        .then((value) {
+      List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
+      list.forEach((element) async {
+        setState(() {
+          datares = element.data()!;
+        });
+      });
+    });
+  }
+
 //get new block data
   checkAvailableblockes() async {
     final DocumentSnapshot doc = await FirebaseFirestore.instance
@@ -1742,6 +1737,7 @@ class _editeggzoneState extends State<editeggzone> {
   void initState() {
     checkAvailableblockes();
     // getUser();
+    getData();
     super.initState();
   }
 

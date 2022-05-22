@@ -32,6 +32,13 @@ String startdate1 = '';
 String endDate1 = '';
 String startdate2 = '';
 String endDate2 = '';
+Duration renewenddate = Duration(days: 0);
+String s1 = "";
+DateTime s2 = DateFormat("yyyy-MM-dd")
+    .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
+DateTime d = DateFormat("yyyy-MM-dd")
+    .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
 
 class _CalcPayPageState extends State<CalcPayPage> {
   String floor = 'F';
@@ -52,6 +59,14 @@ class _CalcPayPageState extends State<CalcPayPage> {
         .get();
     startdate2 = doc['start'];
     endDate2 = doc['end'];
+    final DocumentSnapshot doc3 = await FirebaseFirestore.instance
+        .collection('Reservation')
+        .doc("${FirebaseAuth.instance.currentUser!.uid}")
+        .get();
+    s1 = todayDate.toString();
+    s2 = DateFormat("yyyy-MM-dd")
+        .parse(DateFormat('yyyy-MM-dd').format(doc['End Date']));
+    renewenddate = todayDate.difference(s2);
   }
 
   TextEditingController weeksNumberCont = new TextEditingController();
@@ -142,10 +157,19 @@ class _CalcPayPageState extends State<CalcPayPage> {
                 child: TextField(
                   keyboardType: TextInputType.phone,
                   onChanged: (v) {
-                    endDateCont.text =
-                        "${selectedDate.add(Duration(days: v == "" ? 0 : 7 * int.parse(v)))}"
-                            .split(" ")
-                            .first;
+                    if (widget.showLockers) {
+                      print("from reserve");
+                      endDateCont.text =
+                          "${selectedDate.add(Duration(days: v == "" ? 0 : 7 * int.parse(v)))}"
+                              .split(" ")
+                              .first;
+                    } else {
+                      print("frome renew + $renewenddate");
+                      endDateCont.text =
+                          "${selectedDate.add(Duration(days: v == "" ? 0 : (7 * int.parse(v) + (int.parse(renewenddate.inDays.toString())))))}"
+                              .split(" ")
+                              .first;
+                    }
                   },
                   controller: weeksNumberCont,
                   decoration: InputDecoration(

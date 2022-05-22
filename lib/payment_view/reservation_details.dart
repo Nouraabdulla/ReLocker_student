@@ -315,7 +315,7 @@ class ReservationDetails extends StatelessWidget {
           // The write failed...
         });
         FirebaseDatabase.instance
-            .ref('/${datares['locker_name']}/lock_state')
+            .ref('/${lockerName}/lock_state')
             .set("0")
             .then((_) {
           // Data saved successfully!

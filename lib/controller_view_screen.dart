@@ -78,7 +78,6 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
         setState(() {
           userData = element.data()!;
           // lockername1=userData['lockername'];
-          print(userData);
         });
       });
     });
@@ -611,7 +610,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
           selectedItemColor: Colors.blue,
           currentIndex: currentIndex,
           onTap: (int index) {
-            print("object");
+            // print("object");
             setState(() {
               currentIndex = index;
             });
