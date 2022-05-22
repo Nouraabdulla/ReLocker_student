@@ -122,7 +122,7 @@ class _recommendations extends State<recommendations> {
                                 child: RadioListTile<int>(
                                     value: 0,
                                     groupValue: selection,
-                                    title: Text('Near to exit'),
+                                    title: Text('Near to college exit'),
                                     onChanged: (value) =>
                                         setState(() => selection = 0))),
                             SizedBox(
@@ -325,7 +325,7 @@ class _recommendations extends State<recommendations> {
                                 child: RadioListTile<int>(
                                     value: 0,
                                     groupValue: selection,
-                                    title: Text('Near to exit'),
+                                    title: Text('Near to college exit'),
                                     onChanged: (value) =>
                                         setState(() => selection = 0))),
                             SizedBox(

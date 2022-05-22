@@ -314,6 +314,14 @@ class ReservationDetails extends StatelessWidget {
         }).catchError((error) {
           // The write failed...
         });
+        FirebaseDatabase.instance
+            .ref('/${datares['locker_name']}/lock_state')
+            .set("0")
+            .then((_) {
+          // Data saved successfully!
+        }).catchError((error) {
+          // The write failed...
+        });
         DateTime enddate = DateFormat("yyyy-MM-dd").parse(datares['End Date']);
         DateTime todayDate1 = DateFormat("yyyy-MM-dd")
             .parse(DateFormat('yyyy-MM-dd').format(DateTime.now()));
