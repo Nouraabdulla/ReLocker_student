@@ -171,7 +171,9 @@ class _CalcPayPageState extends State<CalcPayPage> {
                   controller: startDateCont,
                   readOnly: true,
                   onTap: () {
-                    _selectStartDate(context);
+                    if (widget.showLockers) {
+                      _selectStartDate(context);
+                    }
                   },
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -288,7 +290,91 @@ class _CalcPayPageState extends State<CalcPayPage> {
 
                     if (a < 1) {
                     } else if (a > 4) {
-                    } else {
+                    } else if (DateTime.parse(startDateCont.text)
+                            .isAfter(DateTime.parse(startdate1)) &&
+                        DateTime.parse(endDateCont.text)
+                            .isBefore(DateTime.parse(endDate1))) {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              clipBehavior: Clip.hardEdge,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: AlertDialog(
+                                title: Text(
+                                  //  "Do you want to get recommendation ?",
+                                  " would you like to get recommendations to find the suitbale lockers?",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                actions: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 5,
+                                    height:
+                                        MediaQuery.of(context).size.width / 9,
+                                    child: ElevatedButton(
+                                      child: const Text(
+                                        'Yes',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFF9AD6BD),
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    recommendations(
+                                                      numberOfWeek: int.parse(
+                                                          weeksNumberCont.text),
+                                                      resId: "",
+                                                      startDate:
+                                                          "${startDateCont.text}",
+                                                      endDate:
+                                                          "${endDateCont.text}",
+                                                      floor: floor,
+                                                    )));
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width / 5,
+                                    height:
+                                        MediaQuery.of(context).size.width / 9,
+                                    child: ElevatedButton(
+                                      child: const Text(
+                                        'No',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color(0xFF9AD6BD),
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    } else if (DateTime.parse(startDateCont.text)
+                            .isAfter(DateTime.parse(startdate2)) &&
+                        DateTime.parse(endDateCont.text)
+                            .isBefore(DateTime.parse(endDate2))) {
                       showDialog(
                           context: context,
                           builder: (context) {

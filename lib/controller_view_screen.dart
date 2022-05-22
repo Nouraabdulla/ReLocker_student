@@ -51,7 +51,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
   getUserData2() {
     FirebaseFirestore.instance
         .collection("Reservation")
-        // .where("Owner", isEqualTo: user.email)
+        .where("Owner", isEqualTo: user.email)
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
@@ -70,7 +70,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
   getUserData() {
     FirebaseFirestore.instance
         .collection("Announcements")
-        .where("lockername", isEqualTo: userData2['locker_name'])
+        .where("lockername", isEqualTo: lockerreserv)
         .get()
         .then((value) {
       List<DocumentSnapshot<Map<String, dynamic>>> list = value.docs;
@@ -96,6 +96,8 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
   @override
   Widget build(BuildContext context) {
     dohavelocker();
+    getUserData();
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: currentIndex > 0 &&
@@ -112,7 +114,7 @@ class _ControllerViewScreenState extends State<ControllerViewScreen> {
         child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: [
-            if (lockername1 == lockerreserv) ...[
+            if (userData['lockername'] == userData2['locker_name']) ...[
               BottomNavigationBarItem(
                 icon: IconButton(
                   icon: Image.asset(

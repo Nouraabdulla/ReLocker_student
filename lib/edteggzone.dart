@@ -1786,14 +1786,14 @@ class _editeggzoneState extends State<editeggzone> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: widget.option == "DA"
-                        ? Color.fromARGB(255, 255, 255, 255)
-                        : w,
+                    color: widget.option == "ch"
+                        ? w
+                        : Color.fromARGB(255, 255, 255, 255),
                     border: Border.all(
                       width: 0.3,
-                      color: widget.option == "DA"
-                          ? Color.fromARGB(255, 255, 255, 255)
-                          : b,
+                      color: widget.option == "ch"
+                          ? b
+                          : Color.fromARGB(255, 255, 255, 255),
                     ), //colore changes based on add/delete not user type
                   ),
                 ),
